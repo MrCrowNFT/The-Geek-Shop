@@ -40,7 +40,7 @@ app.get("/admin", (req, res) => {
 app.post("/admin/products/new", (req, res) => {
   //add new product to products cluster
 });
-add.put("/admin/products/:id/edit", (req, res) => {
+app.put("/admin/products/:id/edit", (req, res) => {
   const { id } = req.params;
   //check if product is valid
 
