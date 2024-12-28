@@ -12,6 +12,7 @@ const productSchema = new mongoose.Schema(
         priceTag: {
             type: Number,
             required: true,
+            min: 0,
         },
         //price and shipping gotten from aliexpress
         cost:{
@@ -31,8 +32,8 @@ const productSchema = new mongoose.Schema(
             required: true,
         },
         discount:{
-            amount: {type: Number, required: false },
-            status: {type: Boolean, required: false},
+            amount: {type: Number, default:0 },
+            status: {type: Boolean, default: false},
         },
 
         availability:{
@@ -43,6 +44,7 @@ const productSchema = new mongoose.Schema(
         sku:{
             type: Number,
             required: true,
+            unique: true,
         },
         //the url might change in the future, since the primary function is for
         //the to facilitate access to the product info in aliexpress
@@ -52,7 +54,6 @@ const productSchema = new mongoose.Schema(
         urls:[{
             url: { type: String, required: true },
             priority: { type: Number, required: true }, 
-            required: true,
         }],
         images:[{
             type: String,
@@ -61,9 +62,13 @@ const productSchema = new mongoose.Schema(
         description:{
             type: String,
             required: true,
+            maxlength: 500,
         },
+        //the validator still in progress since there will be many, many categories
         category:[{
             type: String,
+            enum: ["Figure", "Plushie"],
+            required: false
         }]
 
     },
