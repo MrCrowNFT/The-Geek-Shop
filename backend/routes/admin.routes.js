@@ -6,6 +6,8 @@ const adminRouter = express.Router();
 
 //* ADMIN ROUTES
 //this will require auth
+
+//PRODUCTS ADMIN ROUTES
 adminRouter.get("/admin", (req, res) =>{
     return res.status(200).send("Admin Page")
 })
@@ -70,10 +72,26 @@ adminRouter.put("/admin/products/:id", async (req, res)=>{
     }
 })
 
+//ORDERS ADMIN ROUTES
+
 adminRouter.get("/admin/orders", async (req, res)=>{
     try{
         const orders = await Order.find({});
         return res.status(200).json({success: true, data: orders});
+    }catch(error){
+        console.error(`Error fetching orders: ${error.message}`);
+        return res.status(500).json({success: false, message: "Server error"});
+    }
+})
+
+adminRouter.get("/admin/orders/:id", async (req, res)=>{
+    const {id}= req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({success: false, message: "Order not found"});
+    }
+    try{
+        const order = await Order.findById(id)
+        return res.status(200).json({success: true, data: order});
     }catch(error){
         console.error(`Error fetching orders: ${error.message}`);
         return res.status(500).json({success: false, message: "Server error"});
