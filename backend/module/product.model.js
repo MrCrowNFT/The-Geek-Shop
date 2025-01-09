@@ -6,30 +6,23 @@ const productSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        //I want this to be calculated using the cost + shipping+ tax + profit - discount
-        //should never be greater than the cost 
+        //I want this to be calculated using the ((totalcost + tax + profit) - discount)
+        //should never be greater than the cost //*tax is const 19%
+        //need to change it though, since it should not be less than the total cost
         priceTag:{
             type:Number,
             required: true,
             min: 0,
         },
-        cost:{
-            type:Number,
-            required: true,
-        },
-        shipping:{
-            type:Number,
-            required: true,
+        total_cost:{
+            cost:{type:Number, required: true,},
+            shipping:{type:Number, required: true,},
         },
         profit:{
             type:Number,
             required: true,
         },
-        //Hard coded thing, it wont change, so maybe delete this
-        tax:{
-            type:Number,
-            required: true,
-        },
+
         discount:{
             amount: {type: Number, default:0},
             status: {type: Boolean, default: false}

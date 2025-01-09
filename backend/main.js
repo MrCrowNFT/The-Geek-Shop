@@ -40,6 +40,17 @@ app.get("/checkout", (req, res) => {});
 //post the order into the database
 app.post("/confirmation", (req, res) => {});
 
+
+
+//* ADMIN ROUTES
+//this will require auth
+app.get("/admin", (req, res) =>{
+    const product = req.body;
+})
+app.post("/admin/newproduct", (req, res)=>{
+
+})
+
 app.listen(() => {
   connectDb();
   console.log("Server started at http://localhost:" + PORT);
