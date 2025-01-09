@@ -1,4 +1,6 @@
 import express from "express";
+import Product from "../module/product.model";
+import Order from "../module/order.model";
 
 const adminRouter = express.Router();
 

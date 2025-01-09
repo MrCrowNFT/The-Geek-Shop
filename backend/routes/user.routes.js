@@ -1,14 +1,16 @@
 import express from "express"
+import Product from "../module/product.model";
+import Order from "../module/order.model";
 
 const userRouter = express.Router();
 
 //*USERS ROUTES
 //get the homepage
-app.get("/", (req, res) => {
+userRouter.get("/home", (req, res) => {
     return res.status(200).send("Home page");
   });
   
-  app.get("/products", async (req, res) => {
+  userRouter.get("/home/products", async (req, res) => {
       try{
           const products = await Product.find({});
           return res.status(200).json({success: true, data: products});
@@ -18,7 +20,7 @@ app.get("/", (req, res) => {
       }
   });
   
-  app.get("/products/:id", async (req, res) => {
+  userRouter.get("/home/products/:id", async (req, res) => {
       const {id} = req.params;
   
       //to catch 404 case 
@@ -40,14 +42,14 @@ app.get("/", (req, res) => {
   //*elavorate on the categories to make a search 
   
   //get search result page
-  app.get("/products/search", (req, res) => {
+  userRouter.get("/home/products/search", (req, res) => {
     return res.status(200).send("Product");
   });
   
   //get checkout page
-  app.get("/checkout", (req, res) => {});
+  userRouter.get("/home/checkout", (req, res) => {});
   
   //post the order into the database
-  app.post("/confirmation", (req, res) => {});
+  userRouter.post("/home/confirmation", (req, res) => {});
 
   export default userRouter;
