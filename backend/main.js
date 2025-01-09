@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDb from "./config/db.js";
+import Product from "./module/product.model.js";
 
 //get .env to have access to the database URI
 dotenv.config();
@@ -45,10 +46,20 @@ app.post("/confirmation", (req, res) => {});
 //* ADMIN ROUTES
 //this will require auth
 app.get("/admin", (req, res) =>{
-    const product = req.body;
+    return res.status(200).send("Admin Page")
 })
-app.post("/admin/newproduct", (req, res)=>{
+app.post("/admin/newproduct", async (req, res)=>{
+    const product = req.body;
+    const newProduct = new Product(product);
 
+    try{
+        await newProduct.save();
+        //201 means smth created 
+        return res.status(201).json({success: true, data: newProduct});
+    } catch(error){
+        console.error(`Error creating product: ${error.message}`);
+        return res.status(500).json({success: false, message: "Server error"});
+    }
 })
 
 app.listen(() => {
