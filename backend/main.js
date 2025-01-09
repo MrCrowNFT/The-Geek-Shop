@@ -62,6 +62,23 @@ app.post("/admin/newproduct", async (req, res)=>{
     }
 })
 
+app.put("/admin/:id", async (req, res)=>{
+    const {id} = req.params;
+
+})
+
+app.delete("/admin/:id", async (req, res)=>{
+    const {id} = req.params;
+    try{
+        await Product.findByIdAndDelete(id);
+        return res.status(201).json({success: true, message: "Product deleted"});
+    }catch(error){
+        console.error(`Error deleting product: ${error.message}`);
+        return res.status(404).json({success: false, message: "Product not found"});
+    }
+})
+
+
 app.listen(() => {
   connectDb();
   console.log("Server started at http://localhost:" + PORT);
