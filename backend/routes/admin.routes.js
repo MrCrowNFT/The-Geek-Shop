@@ -20,7 +20,7 @@ adminRouter.get("/admin/products", async (req, res)=>{
     }
 })
 
-adminRouter.post("/admin/newproduct", async (req, res)=>{
+adminRouter.post("/admin/products/newproduct", async (req, res)=>{
     const product = req.body;
     const newProduct = new Product(product);
 
@@ -34,7 +34,7 @@ adminRouter.post("/admin/newproduct", async (req, res)=>{
     }
 })
 
-adminRouter.delete("/admin/:id", async (req, res)=>{
+adminRouter.delete("/admin/products/:id", async (req, res)=>{
     const {id} = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)){
@@ -50,7 +50,7 @@ adminRouter.delete("/admin/:id", async (req, res)=>{
     }
 })
 
-adminRouter.put("/admin/:id", async (req, res)=>{
+adminRouter.put("/admin/products/:id", async (req, res)=>{
     const {id} = req.params;
     //to get whatever admin wants to update
     const product = req.body;
@@ -68,7 +68,33 @@ adminRouter.put("/admin/:id", async (req, res)=>{
         console.error(`Error updating product: ${error.message}`);
         return res.status(500).json({success: false, message: "Server error"});
     }
+})
 
+adminRouter.get("/admin/orders", async (req, res)=>{
+    try{
+        const orders = await Order.find({});
+        return res.status(200).json({success: true, data: orders});
+    }catch(error){
+        console.error(`Error fetching orders: ${error.message}`);
+        return res.status(500).json({success: false, message: "Server error"});
+    }
+})
+
+//For updating the order status manually untill aliScrapper is ready
+adminRouter.put("/admin/orders/:id", async (req, res)=>{
+    const {id} = req.params;
+    const order = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)){
+        return res.status(404).json({success: false, message: "Order not found"});
+    }
+    try{
+        const updatedOrder = await Order.findByIdAndUpdate(id, order, {new: true});
+        return res.status(200).json({success: true, data: updatedOrder});
+    }catch(error){
+        console.error(`Error updating orders: ${error.message}`);
+        return res.status(500).json({success: false, message: "Server error"});
+    }
 })
 
 export default adminRouter;
