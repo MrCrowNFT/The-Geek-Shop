@@ -15,8 +15,8 @@ const productSchema = new mongoose.Schema(
             min: 0,
         },
         total_cost:{
-            cost:{type:Number, required: true,},
-            shipping:{type:Number, required: true,},
+            cost:{type:Number,},
+            shipping:{type:Number,},
         },
         profit:{
             type:Number,
@@ -33,12 +33,12 @@ const productSchema = new mongoose.Schema(
             unique: true,
         },
         //this might change since it is for fetching the info of the products
-        url:[{
+        urls:[{
             url: {type: String, required: true},
             priority: {type: Number, required: true},
         }],
         isAvailable:{
-            Type: Boolean,
+            type: Boolean,
             required: true,
         },
         images:[{
@@ -55,7 +55,6 @@ const productSchema = new mongoose.Schema(
         category:[{
             type: String,
             enum: ["Figure","Plushie"],
-            required: false,
         }]
     },
     {
