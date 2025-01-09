@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema(
             required: true,
         },
         //I want this to be calculated using the cost + shipping+ tax + profit - discount
+        //should never be greater than the cost 
         priceTag:{
             type:Number,
             required: true,
@@ -24,6 +25,7 @@ const productSchema = new mongoose.Schema(
             type:Number,
             required: true,
         },
+        //Hard coded thing, it wont change, so maybe delete this
         tax:{
             type:Number,
             required: true,
@@ -42,6 +44,10 @@ const productSchema = new mongoose.Schema(
             url: {type: String, required: true},
             priority: {type: Number, required: true},
         }],
+        isAvailable:{
+            Type: Boolean,
+            required: true,
+        },
         images:[{
             //have url of the image
             type: String,
