@@ -6,11 +6,11 @@ const userRouter = express.Router();
 
 //*USERS ROUTES
 //get the homepage
-userRouter.get("/home", (req, res) => {
+userRouter.get("/", (req, res) => {
     return res.status(200).send("Home page");
   });
   
-  userRouter.get("/home/products", async (req, res) => {
+  userRouter.get("/products", async (req, res) => {
       try{
           const products = await Product.find({});
           return res.status(200).json({success: true, data: products});
@@ -20,7 +20,7 @@ userRouter.get("/home", (req, res) => {
       }
   });
   
-  userRouter.get("/home/products/:id", async (req, res) => {
+  userRouter.get("/products/:id", async (req, res) => {
       const {id} = req.params;
   
       //to catch 404 case 
@@ -42,14 +42,14 @@ userRouter.get("/home", (req, res) => {
   //*elavorate on the categories to make a search 
   
   //get search result page
-  userRouter.get("/home/products/search", (req, res) => {
+  userRouter.get("/products/search", (req, res) => {
     return res.status(200).send("Product");
   });
   
   //get checkout page
-  userRouter.get("/home/checkout", (req, res) => {});
+  userRouter.get("/checkout", (req, res) => {});
   
   //post the order into the database
-  userRouter.post("/home/confirmation", (req, res) => {});
+  userRouter.post("/confirmation", (req, res) => {});
 
   export default userRouter;

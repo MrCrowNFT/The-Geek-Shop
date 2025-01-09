@@ -8,11 +8,11 @@ const adminRouter = express.Router();
 //this will require auth
 
 //PRODUCTS ADMIN ROUTES
-adminRouter.get("/admin", (req, res) =>{
+adminRouter.get("/", (req, res) =>{
     return res.status(200).send("Admin Page")
 })
 
-adminRouter.get("/admin/products", async (req, res)=>{
+adminRouter.get("/products", async (req, res)=>{
     try{
         const products = await Product.find({});
         return res.status(200).json({success: true, data: products});
@@ -22,7 +22,7 @@ adminRouter.get("/admin/products", async (req, res)=>{
     }
 })
 
-adminRouter.post("/admin/products/newproduct", async (req, res)=>{
+adminRouter.post("/products/newproduct", async (req, res)=>{
     const product = req.body;
     const newProduct = new Product(product);
 
@@ -36,7 +36,7 @@ adminRouter.post("/admin/products/newproduct", async (req, res)=>{
     }
 })
 
-adminRouter.delete("/admin/products/:id", async (req, res)=>{
+adminRouter.delete("/products/:id", async (req, res)=>{
     const {id} = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)){
@@ -52,7 +52,7 @@ adminRouter.delete("/admin/products/:id", async (req, res)=>{
     }
 })
 
-adminRouter.put("/admin/products/:id", async (req, res)=>{
+adminRouter.put("/products/:id", async (req, res)=>{
     const {id} = req.params;
     //to get whatever admin wants to update
     const product = req.body;
@@ -74,7 +74,7 @@ adminRouter.put("/admin/products/:id", async (req, res)=>{
 
 //ORDERS ADMIN ROUTES
 
-adminRouter.get("/admin/orders", async (req, res)=>{
+adminRouter.get("/orders", async (req, res)=>{
     try{
         const orders = await Order.find({});
         return res.status(200).json({success: true, data: orders});
@@ -84,7 +84,7 @@ adminRouter.get("/admin/orders", async (req, res)=>{
     }
 })
 
-adminRouter.get("/admin/orders/:id", async (req, res)=>{
+adminRouter.get("/orders/:id", async (req, res)=>{
     const {id}= req.params;
     if (!mongoose.Types.ObjectId.isValid(id)){
         return res.status(404).json({success: false, message: "Order not found"});
@@ -99,7 +99,7 @@ adminRouter.get("/admin/orders/:id", async (req, res)=>{
 })
 
 //For updating the order status manually untill aliScrapper is ready
-adminRouter.put("/admin/orders/:id", async (req, res)=>{
+adminRouter.put("/orders/:id", async (req, res)=>{
     const {id} = req.params;
     const order = req.body;
 
