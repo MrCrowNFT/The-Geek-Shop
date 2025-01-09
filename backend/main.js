@@ -16,18 +16,23 @@ app.use(express.json()); //accept JSON files
 app.get("/", (req, res) => {
   return res.status(200).send("Home page");
 });
-//get product by id
+
+app.get("/products", async(req, res) => {
+    try{
+        const products = await Product.find({});
+        return res.status(200).json({success: true, data: products});
+    }catch(error){
+        console.error(`Error fetching products: ${error.message}`);
+        return res.status(500).json({success: false, message: "Server error"});
+    }
+});
+
 app.get("/product/:id", (req, res) => {
   const { id } = req.params;
   //check if the product id is valid
   //find the product
   //return product
 
-  return res.status(200).send("Product");
-});
-
-//get the products list
-app.get("/products", (req, res) => {
   return res.status(200).send("Product");
 });
 
