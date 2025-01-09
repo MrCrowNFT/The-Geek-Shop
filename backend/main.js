@@ -120,7 +120,7 @@ app.put("/admin/:id", async (req, res)=>{
 
     try{
         //new: true so that it returns the updated product 
-        const updatedProduct = await Product.findOneAndUpdate(id, product, {new: true});
+        const updatedProduct = await Product.findByIdAndUpdate(id, product, {new: true});
         return res.status(200).json({success: true, data: updatedProduct});
     }catch(error){
         console.error(`Error updating product: ${error.message}`);
