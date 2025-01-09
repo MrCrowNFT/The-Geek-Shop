@@ -48,6 +48,17 @@ app.post("/confirmation", (req, res) => {});
 app.get("/admin", (req, res) =>{
     return res.status(200).send("Admin Page")
 })
+
+app.get("/admin/products", async (req, res)=>{
+    try{
+        const products = await Product.find({});
+        return res.status(200).json({success: true, data: products});
+    }catch(error){
+        console.error(`Error fetching products: ${error.message}`);
+        return res.status(500).json({success: false, message: "Server error"});
+    }
+})
+
 app.post("/admin/newproduct", async (req, res)=>{
     const product = req.body;
     const newProduct = new Product(product);
@@ -62,22 +73,21 @@ app.post("/admin/newproduct", async (req, res)=>{
     }
 })
 
-app.put("/admin/:id", async (req, res)=>{
-    const {id} = req.params;
-
-})
-
 app.delete("/admin/:id", async (req, res)=>{
     const {id} = req.params;
     try{
         await Product.findByIdAndDelete(id);
-        return res.status(201).json({success: true, message: "Product deleted"});
+        return res.status(200).json({success: true, message: "Product deleted"});
     }catch(error){
         console.error(`Error deleting product: ${error.message}`);
         return res.status(404).json({success: false, message: "Product not found"});
     }
 })
 
+app.put("/admin/:id", async (req, res)=>{
+    const {id} = req.params;
+
+})
 
 app.listen(() => {
   connectDb();
