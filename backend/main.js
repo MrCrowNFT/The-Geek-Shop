@@ -13,8 +13,8 @@ const PORT = process.env.PORT || 5500;
 
 app.use(express.json()); //accept JSON files
 
-app.use("/admin", adminRouter);
 app.use("/home", userRouter);
+app.use("/admin", adminRouter);
 
 app.listen(() => {
   connectDb();

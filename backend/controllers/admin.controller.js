@@ -3,6 +3,12 @@ import Order from "../module/order.model";
 import mongoose from "mongoose";
 
 //PRODUCTS ADMIN FUNCTIONS
+export const adminLogin = async (req,res) =>{
+    const {user, password} = req.body;
+
+} 
+
+
 export const getAdminPage = (req, res) => {
   return res.status(200).send("Admin Page");
 };

@@ -1,118 +1,41 @@
 import express from "express";
-import Product from "../module/product.model";
-import Order from "../module/order.model";
+import {
+  adminLogin,
+  deleteAdminProduct,
+  getAdminOrderById,
+  getAdminOrders,
+  getAdminPage,
+  getAdminProducts,
+  postAdminNewProduct,
+  updateAdminOrder,
+  updateAdminProduct,
+} from "../controllers/admin.controller";
 
 const adminRouter = express.Router();
 
 //* ADMIN ROUTES
-//this will require auth
+//this will require auth middleware
 
 //PRODUCTS ADMIN ROUTES
-adminRouter.get("/", (req, res) =>{
-    return res.status(200).send("Admin Page")
-})
+adminRouter.post("/login", adminLogin);
 
-adminRouter.get("/products", async (req, res)=>{
-    try{
-        const products = await Product.find({});
-        return res.status(200).json({success: true, data: products});
-    }catch(error){
-        console.error(`Error fetching products: ${error.message}`);
-        return res.status(500).json({success: false, message: "Server error"});
-    }
-})
+adminRouter.get("/dashboard", getAdminPage);
 
-adminRouter.post("/products/newproduct", async (req, res)=>{
-    const product = req.body;
-    const newProduct = new Product(product);
+adminRouter.get("/products", getAdminProducts);
 
-    try{
-        await newProduct.save();
-        //201 means smth created 
-        return res.status(201).json({success: true, data: newProduct});
-    } catch(error){
-        console.error(`Error creating product: ${error.message}`);
-        return res.status(500).json({success: false, message: "Server error"});
-    }
-})
+adminRouter.post("/products/newproduct", postAdminNewProduct);
 
-adminRouter.delete("/products/:id", async (req, res)=>{
-    const {id} = req.params;
+adminRouter.delete("/products/:id", deleteAdminProduct);
 
-    if (!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({success: false, message: "Product not found"});
-    }
-
-    try{
-        await Product.findByIdAndDelete(id);
-        return res.status(200).json({success: true, message: "Product deleted"});
-    }catch(error){
-        console.error(`Error deleting product: ${error.message}`);
-        return res.status(500).json({success: false, message: "Server error"});
-    }
-})
-
-adminRouter.put("/products/:id", async (req, res)=>{
-    const {id} = req.params;
-    //to get whatever admin wants to update
-    const product = req.body;
-
-    //to catch 404 case 
-    if (!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({success: false, message: "Product not found"});
-    }
-
-    try{
-        //new: true so that it returns the updated product 
-        const updatedProduct = await Product.findByIdAndUpdate(id, product, {new: true});
-        return res.status(200).json({success: true, data: updatedProduct});
-    }catch(error){
-        console.error(`Error updating product: ${error.message}`);
-        return res.status(500).json({success: false, message: "Server error"});
-    }
-})
+adminRouter.put("/products/:id", updateAdminProduct);
 
 //ORDERS ADMIN ROUTES
 
-adminRouter.get("/orders", async (req, res)=>{
-    try{
-        const orders = await Order.find({});
-        return res.status(200).json({success: true, data: orders});
-    }catch(error){
-        console.error(`Error fetching orders: ${error.message}`);
-        return res.status(500).json({success: false, message: "Server error"});
-    }
-})
+adminRouter.get("/orders", getAdminOrders);
 
-adminRouter.get("/orders/:id", async (req, res)=>{
-    const {id}= req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({success: false, message: "Order not found"});
-    }
-    try{
-        const order = await Order.findById(id)
-        return res.status(200).json({success: true, data: order});
-    }catch(error){
-        console.error(`Error fetching orders: ${error.message}`);
-        return res.status(500).json({success: false, message: "Server error"});
-    }
-})
+adminRouter.get("/orders/:id", getAdminOrderById);
 
 //For updating the order status manually untill aliScrapper is ready
-adminRouter.put("/orders/:id", async (req, res)=>{
-    const {id} = req.params;
-    const order = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({success: false, message: "Order not found"});
-    }
-    try{
-        const updatedOrder = await Order.findByIdAndUpdate(id, order, {new: true});
-        return res.status(200).json({success: true, data: updatedOrder});
-    }catch(error){
-        console.error(`Error updating orders: ${error.message}`);
-        return res.status(500).json({success: false, message: "Server error"});
-    }
-})
+adminRouter.put("/orders/:id", updateAdminOrder);
 
 export default adminRouter;

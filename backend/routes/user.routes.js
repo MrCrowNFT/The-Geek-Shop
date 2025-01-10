@@ -46,10 +46,12 @@ userRouter.get("/", (req, res) => {
     return res.status(200).send("Product");
   });
   
-  //get checkout page
+  //get checkout page for payment
   userRouter.get("/checkout", (req, res) => {});
   
-  //post the order into the database
-  userRouter.post("/confirmation", (req, res) => {});
+  //post the order into the database, this should be effective after the payment is confirmed
+  userRouter.post("/confirmation", (req, res) => {
+    const newOrder = 
+  });
 
   export default userRouter;
