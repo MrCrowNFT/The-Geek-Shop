@@ -1,6 +1,8 @@
-import Product from "../module/product.model";
-import Order from "../module/order.model";
+import Product from "../module/product.model.js";
+import Order from "../module/order.model.js";
+import Role from "../module/role.model.js";
 import mongoose from "mongoose";
+
 
 //PRODUCTS ADMIN FUNCTIONS
 export const adminLogin = async (req,res) =>{

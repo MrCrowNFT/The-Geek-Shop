@@ -36,6 +36,6 @@ const orderScehma = new mongoose.Schema(
     timestamps: true, //createdAt, updatedAt
   }
 );
-const Order = mongoose.Model("Order", orderScehma);
+const Order = mongoose.model("Order", orderScehma);
 
 export default Order;

@@ -1,6 +1,6 @@
 import express from "express"
-import Product from "../module/product.model";
-import Order from "../module/order.model";
+import Product from "../module/product.model.js";
+import Order from "../module/order.model.js";
 
 const userRouter = express.Router();
 
@@ -51,7 +51,6 @@ userRouter.get("/", (req, res) => {
   
   //post the order into the database, this should be effective after the payment is confirmed
   userRouter.post("/confirmation", (req, res) => {
-    const newOrder = 
-  });
+   });
 
   export default userRouter;

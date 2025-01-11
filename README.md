@@ -4,7 +4,7 @@
 
 ## TO-DO
 
+- Modulize further.
 - Authentication for admin routes
-- Consider Schema validation with JOI or YUP
 - Should i put the connectDB outside(before) the app.listen()
 - Checkout and serch endpoints

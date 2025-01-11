@@ -9,7 +9,7 @@ import {
   postAdminNewProduct,
   updateAdminOrder,
   updateAdminProduct,
-} from "../controllers/admin.controller";
+} from "../controllers/admin.controller.js";
 
 const adminRouter = express.Router();
 
