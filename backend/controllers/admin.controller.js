@@ -2,14 +2,45 @@ import Product from "../module/product.model.js";
 import Order from "../module/order.model.js";
 import Role from "../module/role.model.js";
 import mongoose from "mongoose";
-
+import jwt from "jsonwebtoken";
 
 //PRODUCTS ADMIN FUNCTIONS
-export const adminLogin = async (req,res) =>{
-    const {user, password} = req.body;
+export const adminLogin = async (req, res) => {
+  const { username, password } = req.body;
 
-} 
+  try {
+    //find the username in the database
+    const admin = await Role.findOne({ username });
+    if (!admin || admin.role !== "admin") {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
 
+    //validate the password
+    const isMatch = await admin.comparePassword(password);
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid Username or password" });
+    }
+
+    //if is admin and password is okay we generate a jwt
+    const token = jwt.sign(
+      { id: admin._id, username: admin.username, role: admin.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // Respond with the token
+    return res.status(200).json({
+      success: true,
+      message: "Login successful",
+      token,
+    });
+  } catch (error) {
+    console.error(`Error during admin login: ${error.message}`);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
 
 export const getAdminPage = (req, res) => {
   return res.status(200).send("Admin Page");
