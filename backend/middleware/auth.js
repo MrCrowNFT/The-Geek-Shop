@@ -27,5 +27,10 @@ export const verifyAdmin = (req, res, next) => {
     req.user = decoded;
     //go the the next middleware
     next();
-  } catch (error) {}
+  } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({ success: false, message: "Token expired" });
+    }
+    return res.status(401).json({ success: false, message: "Invalid token" });
+  }
 };
