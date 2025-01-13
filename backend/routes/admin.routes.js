@@ -20,9 +20,6 @@ import {
 
 const adminRouter = express.Router();
 
-//* ADMIN ROUTES
-//this will require auth middleware
-
 //PRODUCTS ADMIN ROUTES
 adminRouter.post("/login", adminLogin);
 
