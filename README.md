@@ -10,3 +10,4 @@
 - Checkout and serch endpoints
 - Testing backend
 - Prevent admin to change password from other admins
+- New superAdmin role with authority to add new admins*

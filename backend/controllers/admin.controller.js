@@ -78,7 +78,52 @@ export const newAdmin = async (req, res) => {
   }
 };
 
-export const changeAdminConfig = async (req, res) => {};
+export const changeAdminConfig = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    //extracting the id from the jwt by verifyAdmin middleware
+    const adminId = req.user.id;
+
+    //validate body
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({
+        success: false,
+        message: "Current password and new password are required.",
+      });
+    }
+
+    const admin = await Role.findById(adminId);
+    if (!admin) {
+      return res.status(404).json({
+        success: false,
+        message: "Admin not found.",
+      });
+    }
+
+    const isMatch = await admin.comparePassword(currentPassword);
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        message: "Current password is incorrect.",
+      });
+    }
+
+    //update password
+    admin.password = newPassword;
+    await admin.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Password updated successfully.",
+    });
+  } catch (error) {
+    console.error(`Error changing password: ${error.message}`);
+    return res.status(500).json({
+      success: false,
+      message: "Server error.",
+    });
+  }
+};
 
 //PRODUCTS ADMIN FUNCTIONS
 
