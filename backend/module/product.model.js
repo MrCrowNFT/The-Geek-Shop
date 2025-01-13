@@ -6,17 +6,15 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    //I want this to be calculated using the ((totalcost + tax + profit) - discount)
-    //should never be greater than the cost //*tax is const 19%
-    //need to change it though, since it should not be less than the total cost
+
     priceTag: {
       type: Number,
       required: true,
       min: 0,
     },
     total_cost: {
-      cost: { type: Number },
-      shipping: { type: Number },
+      cost: { type: Number, required: true },
+      shipping: { type: Number, required: true },
     },
     discount: {
       amount: { type: Number, default: 0 },
@@ -26,12 +24,13 @@ const productSchema = new mongoose.Schema(
     sku: {
       type: Number,
       unique: true,
+      required: true,
     },
     //this might change since it is for fetching the info of the products
     urls: [
       {
         url: { type: String, required: true },
-        priority: { type: Number, required: true },
+        priority: { type: Number, required: true, min: 1 },
       },
     ],
     isAvailable: {
@@ -72,6 +71,7 @@ productSchema.pre("save", function (next) {
 
   //ensure priceTag is not less than total cost or greater than base price
   this.priceTag = Math.max(totalCost, basePrice - discount);
+  next();
 });
 
 const Product = mongoose.model("Product", productSchema);
