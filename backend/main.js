@@ -4,6 +4,7 @@ import connectDb from "./config/db.js";
 
 import adminRouter from "./routes/admin.routes.js";
 import userRouter from "./routes/user.routes.js";
+import categoryRouter from "./routes/category.routes.js";
 
 //get .env to have access to the database URI
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json()); //accept JSON files
 
 app.use("/home", userRouter);
 app.use("/admin", adminRouter);
+app.use("/categories", categoryRouter);
 
 app.listen(() => {
   connectDb();
