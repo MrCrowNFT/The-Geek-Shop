@@ -1,5 +1,4 @@
 import Role from "../module/role.model.js";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
 //ADMIN LOGIN METHODS

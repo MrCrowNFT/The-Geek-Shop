@@ -1,17 +1,22 @@
 import express from "express";
+
+import { verifyAdmin } from "../middleware/auth.js";
 import {
   adminLogin,
+  changeAdminPassword,
+  newAdmin,
+} from "../controllers/admin.login.controller.js";
+import {
   deleteAdminProduct,
+  getAdminPage,
+  postAdminNewProduct,
+  updateAdminProduct,
+} from "../controllers/admin.products.controller.js";
+import {
   getAdminOrderById,
   getAdminOrders,
-  getAdminPage,
-  getAdminProducts,
-  newAdmin,
-  postAdminNewProduct,
   updateAdminOrder,
-  updateAdminProduct,
-} from "../controllers/admin.controller.js";
-import { verifyAdmin } from "../middleware/auth.js";
+} from "../controllers/admin.orders.controller.js";
 
 const adminRouter = express.Router();
 
@@ -19,29 +24,29 @@ const adminRouter = express.Router();
 //this will require auth middleware
 
 //PRODUCTS ADMIN ROUTES
-adminRouter.post("/login" ,adminLogin);
+adminRouter.post("/login", adminLogin);
 
-adminRouter.post("/newAdmin",verifyAdmin, newAdmin);
+adminRouter.post("/newAdmin", verifyAdmin, newAdmin);
 
-adminRouter.put("/adminConfig", )
+adminRouter.put("/newPassword", verifyAdmin, changeAdminPassword);
 
-adminRouter.get("/dashboard", getAdminPage);
+adminRouter.get("/dashboard", verifyAdmin, getAdminPage);
 
-adminRouter.get("/products", getAdminProducts);
+adminRouter.get("/products", verifyAdmin, getAdminPage);
 
-adminRouter.post("/products/newproduct", postAdminNewProduct);
+adminRouter.post("/products/newproduct", verifyAdmin, postAdminNewProduct);
 
-adminRouter.delete("/products/:id", deleteAdminProduct);
+adminRouter.delete("/products/:id", verifyAdmin, deleteAdminProduct);
 
-adminRouter.put("/products/:id", updateAdminProduct);
+adminRouter.put("/products/:id", verifyAdmin, updateAdminProduct);
 
 //ORDERS ADMIN ROUTES
 
-adminRouter.get("/orders", getAdminOrders);
+adminRouter.get("/orders", verifyAdmin, getAdminOrders);
 
-adminRouter.get("/orders/:id", getAdminOrderById);
+adminRouter.get("/orders/:id", verifyAdmin, getAdminOrderById);
 
 //For updating the order status manually untill aliScrapper is ready
-adminRouter.put("/orders/:id", updateAdminOrder);
+adminRouter.put("/orders/:id", verifyAdmin, updateAdminOrder);
 
 export default adminRouter;
