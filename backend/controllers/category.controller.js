@@ -58,11 +58,28 @@ export const updateCategory = async (req, res) => {
     });
   } catch (error) {
     console.error(`Error updating category: ${error.message}`);
-    return res.status(500).json({ 
-        success: false, 
-        message: "Server error" 
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
     });
   }
 };
 
-export const deleteCategory  
+export const deleteCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedCategory = await Category.findByIdAndDelete(id);
+    if (!deletedCategory) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Category not found" });
+    }
+    return res
+      .status(200)
+      .json({ success: true, message: "Category deleted successfully" });
+  } catch (error) {
+    console.error(`Error deleting category: ${error.message}`);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
