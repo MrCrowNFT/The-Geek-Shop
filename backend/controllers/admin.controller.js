@@ -42,6 +42,19 @@ export const adminLogin = async (req, res) => {
   }
 };
 
+export const newAdmin = async (req, res) => {
+  const admin = req.body;
+  const newAdmin = new Role(admin);
+
+  try {
+    await newAdmin(save);
+    return res.status(201).json({ success: true, data: newProduct });
+  } catch (error) {
+    console.error(`Error creating Admin: ${error.message}`);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 export const getAdminPage = (req, res) => {
   return res.status(200).send("Admin Page");
 };

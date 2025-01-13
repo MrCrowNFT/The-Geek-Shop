@@ -6,6 +6,7 @@ import {
   getAdminOrders,
   getAdminPage,
   getAdminProducts,
+  newAdmin,
   postAdminNewProduct,
   updateAdminOrder,
   updateAdminProduct,
@@ -18,6 +19,10 @@ const adminRouter = express.Router();
 
 //PRODUCTS ADMIN ROUTES
 adminRouter.post("/login", adminLogin);
+
+adminRouter.post("/newAdmin", newAdmin);
+
+adminRouter.put("/adminConfig", )
 
 adminRouter.get("/dashboard", getAdminPage);
 
