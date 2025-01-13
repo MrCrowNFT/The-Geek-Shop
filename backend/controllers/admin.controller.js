@@ -4,7 +4,8 @@ import Role from "../module/role.model.js";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
-//PRODUCTS ADMIN FUNCTIONS
+//ADMIN CONFIG METHODS
+
 export const adminLogin = async (req, res) => {
   const { username, password } = req.body;
 
@@ -43,17 +44,43 @@ export const adminLogin = async (req, res) => {
 };
 
 export const newAdmin = async (req, res) => {
-  const admin = req.body;
-  const newAdmin = new Role(admin);
-
   try {
-    await newAdmin(save);
-    return res.status(201).json({ success: true, data: newProduct });
+    const { username, password, role } = req.body;
+
+    //Validate fields
+    if (!username || !password || !role) {
+      return res.status(400).json({
+        success: false,
+        message: "Username, password, and role are required.",
+      });
+    }
+
+    //check if username is already in use
+    const existingAdmin = await Role.findOne({ username });
+    if (existingAdmin) {
+      return res.status(400).json({
+        success: false,
+        message: "Admin with this username already exists.",
+      });
+    }
+
+    //Create a new Admin
+    const newAdmin = new Role({ username, password, role });
+    await newAdmin.save();
+    return res.status(201).json({
+      success: true,
+      message: "New admin created successfully",
+      data: newAdmin,
+    });
   } catch (error) {
     console.error(`Error creating Admin: ${error.message}`);
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+export const changeAdminConfig = async (req, res) => {};
+
+//PRODUCTS ADMIN FUNCTIONS
 
 export const getAdminPage = (req, res) => {
   return res.status(200).send("Admin Page");

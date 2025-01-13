@@ -11,6 +11,7 @@ import {
   updateAdminOrder,
   updateAdminProduct,
 } from "../controllers/admin.controller.js";
+import { verifyAdmin } from "../middleware/auth.js";
 
 const adminRouter = express.Router();
 
@@ -18,9 +19,9 @@ const adminRouter = express.Router();
 //this will require auth middleware
 
 //PRODUCTS ADMIN ROUTES
-adminRouter.post("/login", adminLogin);
+adminRouter.post("/login" ,adminLogin);
 
-adminRouter.post("/newAdmin", newAdmin);
+adminRouter.post("/newAdmin",verifyAdmin, newAdmin);
 
 adminRouter.put("/adminConfig", )
 
