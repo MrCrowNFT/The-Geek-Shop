@@ -52,8 +52,8 @@ const productSchema = new mongoose.Schema(
     //the validator still in progress
     category: [
       {
-        type: String,
-        enum: ["Figure"],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category", // Reference the `Category` collection
       },
     ],
   },
