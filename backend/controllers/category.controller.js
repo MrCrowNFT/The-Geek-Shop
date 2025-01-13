@@ -1,6 +1,6 @@
 import Category from "../module/category.model";
 
-const addCategory = async (req, res) => {
+export const addCategory = async (req, res) => {
   try {
     const { name, description } = req.body;
 
@@ -33,3 +33,36 @@ const addCategory = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+export const updateCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description } = req.body;
+
+    const updatedCategory = await Category.findByIdAndUpdate(
+      id,
+      { name, description },
+      { new: true }
+    );
+
+    if (!updatedCategory) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: updatedCategory,
+    });
+  } catch (error) {
+    console.error(`Error updating category: ${error.message}`);
+    return res.status(500).json({ 
+        success: false, 
+        message: "Server error" 
+    });
+  }
+};
+
+export const deleteCategory  
