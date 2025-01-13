@@ -3,33 +3,74 @@ import mongoose from "mongoose";
 const orderScehma = new mongoose.Schema(
   {
     costumer: {
-      name: {},
-      email: {},
-      phone: {},
-      run: {},
+      name: {
+        type: String,
+        required: true,
+        trim:true,
+      },
+      email: {
+        type: String,
+        required: true,
+        match: /.+\@.+\..+/,
+        lowercase: true,
+      },
+      phone: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      run: {
+        type: String,
+        required: true,
+      },
     },
     shipping_info: {
-      addres: {},
-      region: {},
-      indications: {},
+      addres: {
+        type: String,
+        required: true,
+      },
+      region: {
+        type: String,
+        required: true,
+      },
+      indications: {
+        type: String,
+        default: "",
+      },
     },
-    //the idea is for this to update where in the shipping process the order is
-    //and the timestamp is to indicate when was updated
-    //this is up for change in the future
-    //maybe shipping status and order status
-    //order status: paid -> onRute -> Delivered/complete // Cancelled
+    //*This needs reviewing as i need each state to have it's own timestamp
     status: {
-      state: {},
-      timestamp: {},
+      state: {
+        type: String,
+        required: true,
+        enum: ["Pending", "Paid", "OnRoute", "Delivered", "Cancelled"],
+        default: "Pending",
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now,
+      },
     },
     details: {
       products: [
         {
-          ids: {},
-          amount: {},
+          id: {
+            type: mongoose.Schema.Types.ObjectId, // Reference to Product
+            ref: "Product",
+            required: true,
+          },
+          quantity: {
+            type: Number,
+            required: true,
+            min: 1,
+          },
         },
       ],
-      paid_amount: {},
+      paid_amount: {
+        type: Number,
+        required: true,
+        min: 0,
+      },
     },
   },
   {

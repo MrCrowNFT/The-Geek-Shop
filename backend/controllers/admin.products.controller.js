@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 //PRODUCTS ADMIN FUNCTIONS
 
 export const getAdminPage = (req, res) => {
-  return res.status(200).send("Admin Page");
+  return res.status(200).send("Admin Dashboard");
 };
 
 export const getAdminProducts = async (req, res) => {
