@@ -6,9 +6,7 @@
 
 - User controller
 - Checkout and serch endpoints
-- Testing backend
-- New superAdmin role with authority to add new admins\*
-- Should i put the connectDB outside(before) the app.listen()
+- Testing backend -> Further testing all controllers -> fix supertest config?
 
 ##
 
