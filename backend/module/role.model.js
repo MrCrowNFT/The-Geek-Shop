@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bycrypt from "bcrypt";
-import { Admin } from "mongodb";
+
 
 const roleSchema = new mongoose.Schema(
   {
