@@ -7,6 +7,13 @@
 - User controller
 - Checkout and serch endpoints
 - Testing backend
-- New superAdmin role with authority to add new admins*
+- New superAdmin role with authority to add new admins\*
 - Should i put the connectDB outside(before) the app.listen()
 
+##
+
+Use the following command to add the initial super admin role:
+
+```json
+npm run seed
+```
