@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bycrypt from "bcrypt";
+import { Admin } from "mongodb";
 
 const roleSchema = new mongoose.Schema(
   {
@@ -15,6 +16,8 @@ const roleSchema = new mongoose.Schema(
     role: {
       type: String,
       required: true,
+      enum: ["admin", "super_admin"],
+      default: "admin",
     },
   },
   {

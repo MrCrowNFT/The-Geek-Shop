@@ -1,6 +1,6 @@
 import express from "express";
 
-import { verifyAdmin } from "../middleware/auth.js";
+import { verifyAdmin, verifySuperAdmin } from "../middleware/auth.js";
 import {
   adminLogin,
   changeAdminPassword,
@@ -23,7 +23,7 @@ const adminRouter = express.Router();
 //PRODUCTS ADMIN ROUTES
 adminRouter.post("/login", adminLogin);
 
-adminRouter.post("/newAdmin", verifyAdmin, newAdmin);
+adminRouter.post("/newAdmin", verifyAdmin, verifySuperAdmin, newAdmin);
 
 adminRouter.put("/newPassword", verifyAdmin, changeAdminPassword);
 
