@@ -1,11 +1,11 @@
 import express from "express";
-import { verifyAdmin } from "../middleware/auth";
+import { verifyAdmin } from "../middleware/auth.js";
 import {
   addCategory,
   deleteCategory,
   getAllCategories,
   updateCategory,
-} from "../controllers/category.controller";
+} from "../controllers/category.controller.js";
 
 const categoryRouter = express.Router();
 
