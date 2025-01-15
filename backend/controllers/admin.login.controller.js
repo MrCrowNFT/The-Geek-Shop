@@ -9,7 +9,7 @@ export const adminLogin = async (req, res) => {
   try {
     //find the username in the database
     const admin = await Role.findOne({ username });
-    if (!admin || admin.role !== "admin") {
+    if (!admin || (admin.role !== "admin" && admin.role !== "super_admin")) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
 
@@ -40,7 +40,7 @@ export const adminLogin = async (req, res) => {
   }
 };
 
-//eventually this will only be accesable for the superAdmin
+//This is only accesable to super admin thanks auth middleware
 export const newAdmin = async (req, res) => {
   try {
     const { username, password, role } = req.body;

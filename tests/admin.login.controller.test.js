@@ -58,4 +58,22 @@ describe("Admin Login Endpoint Accessibility", () => {
     expect(res.body).toHaveProperty("success", false);
     expect(res.body).toHaveProperty("message", "Invalid Username or password");
   });
+  it("should return 401 when role is not admin or super_admin", async () => {
+    Role.findOne.mockResolvedValue({
+      //even though user as a role in not yet added, it might in the future}
+      username: "user",
+      role: "user",
+      comparePassword: jest.fn().mockResolvedValue(true), //password will match
+      _id: "12345",
+    });
+
+    const nonAdminCredentials = { username: "user", password: "123456" };
+
+    const res = await request(app).post("/admin/login").send(nonAdminCredentials);
+
+    //assertions
+    expect(res.statusCode).toBe(401);
+    expect(res.body).toHaveProperty("success", false);
+    expect(res.body).toHaveProperty("message", "Unauthorized");
+  });
 });
