@@ -69,11 +69,25 @@ describe("Admin Login Endpoint Accessibility", () => {
 
     const nonAdminCredentials = { username: "user", password: "123456" };
 
-    const res = await request(app).post("/admin/login").send(nonAdminCredentials);
+    const res = await request(app)
+      .post("/admin/login")
+      .send(nonAdminCredentials);
 
     //assertions
     expect(res.statusCode).toBe(401);
     expect(res.body).toHaveProperty("success", false);
     expect(res.body).toHaveProperty("message", "Unauthorized");
+  });
+  it("should return 500 for server errors", async () => {
+    // mock a new database error
+    Role.findOne.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app)
+      .post("/admin/login")
+      .send({ username: "admin", password: "password123" });
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toHaveProperty("success", false)
+    expect(res.body).toHaveProperty("message", "Server error");
   });
 });
