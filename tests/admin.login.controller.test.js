@@ -26,19 +26,36 @@ describe("Admin Login Endpoint Accessibility", () => {
       comparePassword: jest.fn().mockResolvedValue(true), // Simulates correct password
       _id: "12345",
     });
-    //mock request body credentials (same username so login should 
+    //mock request body credentials (same username so login should
     // work as mock comparePassword true)
-    const validCredentials = {username: "admin", password: "password123"};
+    const validCredentials = { username: "admin", password: "password123" };
 
-    const res = await request(app)
-      .post("/admin/login")
-      .send(validCredentials);
-    
+    const res = await request(app).post("/admin/login").send(validCredentials);
+
     // Assertions
     expect(res.statusCode).toBe(200);
     expect(res.body).toHaveProperty("success", true);
     expect(res.body).toHaveProperty("token");
     expect(res.body.token).toBeDefined(); // Ensure the token is returned
+  });
 
+  it("should return 401 when incorrect password", async () => {
+    Role.findOne.mockResolvedValue({
+      username: "admin",
+      role: "admin",
+      comparePassword: jest.fn().mockResolvedValue(false), //will return false
+      _id: "12345",
+    });
+
+    const invalidCredentials = { username: "admin", password: "wrongPassword" };
+
+    const res = await request(app)
+      .post("/admin//login")
+      .send(invalidCredentials);
+
+    //assertions
+    expect(res.statusCode).toBe(401);
+    expect(res.body).toHaveProperty("success", false);
+    expect(res.body).toHaveProperty("message", "Invalid Username or password");
   });
 });
