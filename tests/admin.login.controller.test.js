@@ -2,17 +2,43 @@ import request from "supertest";
 import app from "../backend/app.js";
 import Role from "../backend/module/role.model.js";
 
-// Mock the Role model
+// Mock the Role model: Replaces the actual Role module with a mock object
 jest.mock("../backend/module/role.model.js", () => ({
+  //mock function to be configured to return specific values
   findOne: jest.fn(),
 }));
 
-describe("Admin Login Endpoint - Basic Accessibility", () => {
+//*ADMIN LOGIN TESTS
+describe("Admin Login Endpoint Accessibility", () => {
   it("should respond to a POST request at /admin/login", async () => {
-    // Mock database response
+    // Mock database response: Simulates the Role.findOne() database call and resolves it to null
+    //mockResolvedValue: Is used because Role.findOne is an async operation that returns a promise.
     Role.findOne.mockResolvedValue(null);
 
     const res = await request(app).post("/admin/login").send({});
     expect(res.statusCode).toBeGreaterThanOrEqual(400); // Expect 4xx response for empty body
+  });
+  it("should return 200 and a token for valid admin credentials", async () => {
+    //mock valid user in db
+    Role.findOne.mockResolvedValue({
+      username: "admin",
+      role: "admin",
+      comparePassword: jest.fn().mockResolvedValue(true), // Simulates correct password
+      _id: "12345",
+    });
+    //mock request body credentials (same username so login should 
+    // work as mock comparePassword true)
+    const validCredentials = {username: "admin", password: "password123"};
+
+    const res = await request(app)
+      .post("/admin/login")
+      .send(validCredentials);
+    
+    // Assertions
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toHaveProperty("success", true);
+    expect(res.body).toHaveProperty("token");
+    expect(res.body.token).toBeDefined(); // Ensure the token is returned
+
   });
 });
