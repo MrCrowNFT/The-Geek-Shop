@@ -10,6 +10,11 @@ jest.mock("../backend/module/role.model.js", () => ({
 
 //*ADMIN LOGIN TESTS
 describe("Admin Login Endpoint Accessibility", () => {
+  beforeEach(() => {
+    // Clear mocks before each test to ensure isolation
+    jest.clearAllMocks();
+  });
+
   it("should respond to a POST request at /admin/login", async () => {
     // Mock database response: Simulates the Role.findOne() database call and resolves it to null
     //mockResolvedValue: Is used because Role.findOne is an async operation that returns a promise.
@@ -94,5 +99,48 @@ describe("Admin Login Endpoint Accessibility", () => {
 
 //*NEW ADMIN TESTS
 describe("New Admin Creation Endpoint", () => {
-  
+  beforeEach(() => {
+    jest.clearAllMocks(); // Clear mocks before each test to ensure isolation
+  });
+
+  it("should create new admin and return 201 with created data", async () => {
+    // Mock `findOne` to simulate no existing admin with the username
+    Role.findOne.mockResolvedValue(null);
+
+    // Simulate successful admin creation
+    const mockSave = jest.fn().mockResolvedValue({
+      username: "newAdmin",
+      role: "admin",
+      _id: "12345",
+    });
+
+    // Override the Role model's behavior for this test
+    jest.mock("../backend/module/role.model.js", () => {
+      return jest.fn().mockImplementation(() => ({
+        save: mockSave,
+      }));
+    });
+
+    const newAdminData = {
+      username: "newAdmin",
+      password: "password123",
+      role: "admin",
+    };
+
+    // Simulate an authenticated super_admin request
+    const res = await request(app)
+      .post("/admin/new")
+      .set("Authorization", "Bearer valid_super_admin_token") // Add mock token
+      .send(newAdminData);
+
+    // Assertions
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toHaveProperty("success", true);
+    expect(res.body).toHaveProperty(
+      "message",
+      "New admin created successfully"
+    );
+    expect(res.body.data).toHaveProperty("username", "newAdmin");
+    expect(mockSave).toHaveBeenCalled();
+  });
 });

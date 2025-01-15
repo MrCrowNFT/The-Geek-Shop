@@ -7,7 +7,7 @@ export const verifyAdmin = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   //check if auth header exists and is expected format
-  if (!authHeader && !authHeader.startsWith("Bearer ")) {
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
     //401 = access denied
     return res.status(401).json({ success: false, message: "Access denied" });
   }
@@ -17,11 +17,12 @@ export const verifyAdmin = (req, res, next) => {
   try {
     //verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if (decoded.role !== "admin" || decoded.role !== "super_admin") {
+    if (decoded.role !== "admin" && decoded.role !== "super_admin") {
       //403 Forbiden if not admin
-      return res
-        .status(403)
-        .json({ success: false, message: "Access forbidden" });
+      return res.status(403).json({
+        success: false,
+        message: "Access forbidden",
+      });
     }
     //atach the token payload
     req.user = decoded;
@@ -36,6 +37,12 @@ export const verifyAdmin = (req, res, next) => {
 };
 
 export const verifySuperAdmin = (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized. Token missing or invalid.",
+    });
+  }
   if (req.user.role !== "super_admin") {
     return res.status(403).json({
       success: false,

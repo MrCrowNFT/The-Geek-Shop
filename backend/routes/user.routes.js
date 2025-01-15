@@ -1,6 +1,4 @@
 import express from "express";
-import Product from "../module/product.model.js";
-import Order from "../module/order.model.js";
 import {
   getHomePage,
   userGetProductById,
