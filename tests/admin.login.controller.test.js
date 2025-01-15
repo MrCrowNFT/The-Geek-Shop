@@ -114,7 +114,7 @@ describe("New Admin Creation Endpoint", () => {
       _id: "12345",
     });
 
-    // Override the Role model's behavior for this test
+    // Override the Role model's behavior
     jest.mock("../backend/module/role.model.js", () => {
       return jest.fn().mockImplementation(() => ({
         save: mockSave,
@@ -130,7 +130,7 @@ describe("New Admin Creation Endpoint", () => {
     // Simulate an authenticated super_admin request
     const res = await request(app)
       .post("/admin/new")
-      .set("Authorization", "Bearer valid_super_admin_token") // Add mock token
+      .set("Authorization", "Bearer valid_super_admin_token")
       .send(newAdminData);
 
     // Assertions
