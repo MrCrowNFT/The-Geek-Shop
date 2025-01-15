@@ -6,7 +6,8 @@
 
 - User controller
 - Checkout and serch endpoints
-- Testing backend -> Further testing all controllers -> fix supertest config?
+- Testing backend -> admin controllers 1/3; user controller 0/1, category controller 0/1
+- Frontend -> Homepage
 
 ##
 

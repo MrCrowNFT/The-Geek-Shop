@@ -87,7 +87,12 @@ describe("Admin Login Endpoint Accessibility", () => {
       .send({ username: "admin", password: "password123" });
 
     expect(res.statusCode).toBe(500);
-    expect(res.body).toHaveProperty("success", false)
+    expect(res.body).toHaveProperty("success", false);
     expect(res.body).toHaveProperty("message", "Server error");
   });
+});
+
+//*NEW ADMIN TESTS
+describe("New Admin Creation Endpoint", () => {
+  
 });
