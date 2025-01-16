@@ -12,7 +12,7 @@ jest.mock("../backend/module/role.model.js", () => ({
 // Mock JWT verification
 jest.mock("jsonwebtoken", () => ({
   verify: jest.fn((token, secret) => {
-    if (token === "mocked-token") return { role: "super_admin" }; // Simulated valid token
+    if (token === "mocked-token") return { role: "super_admin" }; // Simulated valid token 
     throw new Error("Invalid token");
   }),
   sign: jest.fn(() => "mocked-token"), // Mock signing tokens
@@ -130,5 +130,19 @@ describe("New Admin Creation Endpoint", () => {
     expect(res.body.message).toBe("Username, password, and role are required.");
   });
 
-  
+  it ("should return 403 if user is not a super admin", async () => {
+    jwt.verify.mockReturnValue({ role: "admin" }); // Mock token as admin
+
+    const res = await request(app)
+      .post("/admin/newAdmin")
+      .set("Authorization", `Bearer invalid_token`)
+      .send({
+        username: "newAdmin",
+        password: "password123",
+        role: "admin",
+      });
+
+    expect(res.status).toBe(403);
+    expect(res.body.message).toBe("Access denied. Super admin role required.");
+  });
 });
