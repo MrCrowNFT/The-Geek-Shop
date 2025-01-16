@@ -1,11 +1,21 @@
 import request from "supertest";
 import app from "../backend/app.js";
 import Role from "../backend/module/role.model.js";
+import jwt from "jsonwebtoken";
 
 // Mock the Role model: Replaces the actual Role module with a mock object
 jest.mock("../backend/module/role.model.js", () => ({
   //mock function to be configured to return specific values
   findOne: jest.fn(),
+}));
+
+// Mock JWT verification
+jest.mock("jsonwebtoken", () => ({
+  verify: jest.fn((token, secret) => {
+    if (token === "mocked-token") return { role: "super_admin" }; // Simulated valid token
+    throw new Error("Invalid token");
+  }),
+  sign: jest.fn(() => "mocked-token"), // Mock signing tokens
 }));
 
 //*ADMIN LOGIN TESTS
@@ -98,4 +108,27 @@ describe("Admin Login Endpoint Accessibility", () => {
 });
 
 //*NEW ADMIN TESTS
-describe("New Admin Creation Endpoint", () => {});
+describe("New Admin Creation Endpoint", () => {
+  const adminToken = jwt.sign({ role: "super_admin" }, "testsecret"); // Mock token
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should return 400 if username, password, or role is missing when creating new admin", async () => {
+    const res = await request(app)
+      .post("/admin/newAdmin")
+      .set("Authorization", `Bearer ${adminToken}`)
+      //send new admin without username
+      .send({
+        username: "",
+        password: "password123",
+        role: "admin",
+      });
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Username, password, and role are required.");
+  });
+
+  
+});
