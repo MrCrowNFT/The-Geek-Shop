@@ -12,7 +12,7 @@ jest.mock("../backend/module/role.model.js", () => ({
 // Mock JWT verification
 jest.mock("jsonwebtoken", () => ({
   verify: jest.fn((token, secret) => {
-    if (token === "mocked-token") return { role: "super_admin" }; // Simulated valid token 
+    if (token === "mocked-token") return { role: "super_admin" }; // Simulated valid token
     throw new Error("Invalid token");
   }),
   sign: jest.fn(() => "mocked-token"), // Mock signing tokens
@@ -109,13 +109,13 @@ describe("Admin Login Endpoint Accessibility", () => {
 
 //*NEW ADMIN TESTS
 describe("New Admin Creation Endpoint", () => {
-  const adminToken = jwt.sign({ role: "super_admin" }, "testsecret"); // Mock token
-
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it("should return 400 if username, password, or role is missing when creating new admin", async () => {
+    const adminToken = jwt.sign({ role: "super_admin" }, "testsecret"); // Mock token
+
     const res = await request(app)
       .post("/admin/newAdmin")
       .set("Authorization", `Bearer ${adminToken}`)
@@ -130,7 +130,7 @@ describe("New Admin Creation Endpoint", () => {
     expect(res.body.message).toBe("Username, password, and role are required.");
   });
 
-  it ("should return 403 if user is not a super admin", async () => {
+  it("should return 403 if user is not a super admin", async () => {
     jwt.verify.mockReturnValue({ role: "admin" }); // Mock token as admin
 
     const res = await request(app)
@@ -144,5 +144,37 @@ describe("New Admin Creation Endpoint", () => {
 
     expect(res.status).toBe(403);
     expect(res.body.message).toBe("Access denied. Super admin role required.");
+  });
+  //there is an issue with the mock token, it can not be used twice?
+  it("should return 400 if username, password, or role is missing when creating new admin DUP", async () => {
+    const adminToken = jwt.sign({ role: "super_admin" }, "testsecret"); // Mock token
+
+    const res = await request(app)
+      .post("/admin/newAdmin")
+      .set("Authorization", `Bearer ${adminToken}`)
+      //send new admin without username
+      .send({
+        username: "",
+        password: "password123",
+        role: "admin",
+      });
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Username, password, and role are required.");
+  });
+
+  it("should return 400 if username already exists", async () => {
+    //Role.findOne.mockReturnValue({ username: "newAdmin" });
+
+    const res = await request(app)
+      .post("/admin/newAdmin")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        username: "newAdmin",
+        password: "password123",
+        role: "admin",
+      });
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe("Admin with this username already exists.");
   });
 });
