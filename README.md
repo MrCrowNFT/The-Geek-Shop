@@ -4,8 +4,8 @@
 
 ## TO-DO
 
-- Checkout and serch endpoints
-- Testing backend -> admin controllers 1/3; user controller 0/1, category controller 0/1
+- Checkout endpoints
+- Testing backend -> admin controllers 1/3; user controller 0/3, category controller 0/4
 - Frontend -> Homepage
 
 ##

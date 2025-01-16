@@ -3,6 +3,7 @@ import {
   getHomePage,
   userGetProductById,
   userGetProducts,
+  userSearch,
 } from "../controllers/user.controller.js";
 
 const userRouter = express.Router();
@@ -19,9 +20,7 @@ userRouter.get("/products/:id", userGetProductById);
 //*Probably make it it's own controller
 
 //get search result page
-userRouter.get("/products/search", (req, res) => {
-  return res.status(200).send("Product");
-});
+userRouter.get("/products/search", userSearch);
 
 //get checkout page for payment
 userRouter.get("/checkout", (req, res) => {});
