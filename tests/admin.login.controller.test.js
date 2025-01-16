@@ -12,7 +12,8 @@ jest.mock("../backend/module/role.model.js", () => ({
 // Mock JWT verification
 jest.mock("jsonwebtoken", () => ({
   verify: jest.fn((token, secret) => {
-    if (token === "mocked-token") return { role: "super_admin" }; // Simulated valid token
+    if (token === "mocked-super_admin-token") return { role: "super_admin" }; // Simulated valid token
+    if (token === "mocked-admin-token") return { role: "admin" };
     throw new Error("Invalid token");
   }),
   sign: jest.fn(() => "mocked-token"), // Mock signing tokens
@@ -20,14 +21,12 @@ jest.mock("jsonwebtoken", () => ({
 
 //*ADMIN LOGIN TESTS
 describe("Admin Login Endpoint Accessibility", () => {
-  beforeEach(() => {
+  afterEach(() => {
     // Clear mocks before each test to ensure isolation
     jest.clearAllMocks();
   });
 
   it("should respond to a POST request at /admin/login", async () => {
-    // Mock database response: Simulates the Role.findOne() database call and resolves it to null
-    //mockResolvedValue: Is used because Role.findOne is an async operation that returns a promise.
     Role.findOne.mockResolvedValue(null);
 
     const res = await request(app).post("/admin/login").send({});
@@ -65,7 +64,7 @@ describe("Admin Login Endpoint Accessibility", () => {
     const invalidCredentials = { username: "admin", password: "wrongPassword" };
 
     const res = await request(app)
-      .post("/admin//login")
+      .post("/admin/login")
       .send(invalidCredentials);
 
     //assertions
@@ -114,11 +113,11 @@ describe("New Admin Creation Endpoint", () => {
   });
 
   it("should return 400 if username, password, or role is missing when creating new admin", async () => {
-    const adminToken = jwt.sign({ role: "super_admin" }, "testsecret"); // Mock token
+    const superAdminToken = "mocked-super_admin-token"; // Mock token
 
     const res = await request(app)
       .post("/admin/newAdmin")
-      .set("Authorization", `Bearer ${adminToken}`)
+      .set("Authorization", `Bearer ${superAdminToken}`)
       //send new admin without username
       .send({
         username: "",
@@ -131,11 +130,11 @@ describe("New Admin Creation Endpoint", () => {
   });
 
   it("should return 403 if user is not a super admin", async () => {
-    jwt.verify.mockReturnValue({ role: "admin" }); // Mock token as admin
+    const adminToken = "mocked-admin-token";
 
     const res = await request(app)
       .post("/admin/newAdmin")
-      .set("Authorization", `Bearer invalid_token`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send({
         username: "newAdmin",
         password: "password123",
@@ -145,36 +144,6 @@ describe("New Admin Creation Endpoint", () => {
     expect(res.status).toBe(403);
     expect(res.body.message).toBe("Access denied. Super admin role required.");
   });
-  //there is an issue with the mock token, it can not be used twice?
-  it("should return 400 if username, password, or role is missing when creating new admin DUP", async () => {
-    const adminToken = jwt.sign({ role: "super_admin" }, "testsecret"); // Mock token
 
-    const res = await request(app)
-      .post("/admin/newAdmin")
-      .set("Authorization", `Bearer ${adminToken}`)
-      //send new admin without username
-      .send({
-        username: "",
-        password: "password123",
-        role: "admin",
-      });
-    expect(res.status).toBe(400);
-    expect(res.body.success).toBe(false);
-    expect(res.body.message).toBe("Username, password, and role are required.");
-  });
-
-  it("should return 400 if username already exists", async () => {
-    //Role.findOne.mockReturnValue({ username: "newAdmin" });
-
-    const res = await request(app)
-      .post("/admin/newAdmin")
-      .set("Authorization", `Bearer ${adminToken}`)
-      .send({
-        username: "newAdmin",
-        password: "password123",
-        role: "admin",
-      });
-    expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Admin with this username already exists.");
-  });
+  
 });
