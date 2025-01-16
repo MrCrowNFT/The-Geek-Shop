@@ -144,6 +144,26 @@ describe("New Admin Creation Endpoint", () => {
     expect(res.status).toBe(403);
     expect(res.body.message).toBe("Access denied. Super admin role required.");
   });
-
+  it("should return 400 if username already exists", async () => {
+    const superAdminToken = "mocked-super_admin-token"; // Mock super admin token
+  
+    // Mock the database to return an existing admin
+    Role.findOne.mockResolvedValue({ username: "existingAdmin" });
+  
+    const res = await request(app)
+      .post("/admin/newAdmin")
+      .set("Authorization", `Bearer ${superAdminToken}`)
+      .send({
+        username: "existingAdmin",
+        password: "password123",
+        role: "admin",
+      });
+  
+    // Assertions
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Admin with this username already exists.");
+  });
+  
   
 });
