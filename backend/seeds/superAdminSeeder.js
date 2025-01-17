@@ -1,4 +1,4 @@
-import Role from "../module/role.model";
+import Role from "../module/role.model.js";
 import connectDb from "../config/db";
 import dotenv from "dotenv";
 

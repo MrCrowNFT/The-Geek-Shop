@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 jest.mock("../backend/module/role.model.js", () => ({
   //mock function to be configured to return specific values
   findOne: jest.fn(),
+  findById: jest.fn(),
 }));
 
 // Mock JWT verification
@@ -146,10 +147,10 @@ describe("New Admin Creation Endpoint", () => {
   });
   it("should return 400 if username already exists", async () => {
     const superAdminToken = "mocked-super_admin-token"; // Mock super admin token
-  
+
     // Mock the database to return an existing admin
     Role.findOne.mockResolvedValue({ username: "existingAdmin" });
-  
+
     const res = await request(app)
       .post("/admin/newAdmin")
       .set("Authorization", `Bearer ${superAdminToken}`)
@@ -158,12 +159,32 @@ describe("New Admin Creation Endpoint", () => {
         password: "password123",
         role: "admin",
       });
-  
+
     // Assertions
     expect(res.status).toBe(400);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Admin with this username already exists.");
   });
-  
-  
+});
+
+//*CHANGE PASSWORD TEST
+describe("Change Password Endpoint", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should return 400 if currentPassword or newPassword is missing", async () => {
+    const adminToken = "mocked-admin-token";
+
+    const res = await request(app)
+      .put("/admin/newPassword")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({ currentPassword: "", newPassword: "" });
+
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe(
+      "Current password and new password are required."
+    );
+  });
 });
