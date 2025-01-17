@@ -240,4 +240,20 @@ describe("Change Password Endpoint", () => {
     expect(res.body.success).toBe(true);
     expect(res.body.message).toBe("Password updated successfully.");
   });
+
+  it("should return 500 for server errors", async () => {
+    const adminToken = "mocked-admin-token";
+
+    // Mock Role.findById to throw an error
+    Role.findById.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app)
+      .put("/admin/newPassword")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({ currentPassword: "oldPassword", newPassword: "newPassword" });
+
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Server error.");
+  });
 });
