@@ -203,4 +203,22 @@ describe("Change Password Endpoint", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Admin not found.");
   });
+
+  it("should return 401 if current password is incorrect", async () => {
+    const adminToken = "mocked-admin-token";
+
+    // Mock Role.findById to return a valid admin object
+    Role.findById.mockResolvedValue({
+      comparePassword: jest.fn().mockResolvedValue(false), // Simulate incorrect password
+    });
+
+    const res = await request(app)
+      .put("/admin/newPassword")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({ currentPassword: "wrongPassword", newPassword: "newPassword" });
+
+    expect(res.status).toBe(401);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Current password is incorrect.");
+  });
 });
