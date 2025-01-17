@@ -187,4 +187,20 @@ describe("Change Password Endpoint", () => {
       "Current password and new password are required."
     );
   });
+
+  it("should return 404 if admin is not found", async () => {
+    const adminToken = "mocked-admin-token";
+
+    // Mock Role.findById to return null
+    Role.findById.mockResolvedValue(null);
+
+    const res = await request(app)
+      .put("/admin/newPassword")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({ currentPassword: "oldPassword", newPassword: "newPassword" });
+
+    expect(res.status).toBe(404);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Admin not found.");
+  });
 });
