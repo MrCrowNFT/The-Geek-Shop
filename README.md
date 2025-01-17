@@ -5,7 +5,7 @@
 ## TO-DO
 
 - Checkout endpoints
-- Testing backend -> admin controllers 1/3; user controller 0/3, category controller 0/4
+- Testing backend -> admin controllers 3/3; user controller 0/3, category controller 0/4
 - Solve issue with mock token 
 - Frontend -> Homepage
 
