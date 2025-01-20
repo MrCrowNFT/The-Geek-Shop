@@ -1,4 +1,3 @@
-import logo from "../assets/Logo(B).png"
 import Ig from "../assets/instagram.png"
 import facebook from "../assets/facebook.png"
 import tiktok from "../assets/tik-tok.png"
@@ -31,7 +30,6 @@ const Header = () => {
         <img loading="lazy" height={20} width={20} src={gmail} alt="gmail link" />
         marketplace@gmail.com</a>
       </div>
-      <img id="logo" src={logo} alt="Marketplace Logo"></img>
       <div className="user-interactions">
       <a href="">
           <img loading="lazy" height={20} width={20} src={user} alt="user login" />
