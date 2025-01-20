@@ -56,15 +56,25 @@ header{
 }
 
 /* Navbar*/
-#logo{
-  max-height: 60px;
-  justify-content: center;
+.nav{
+  display: flex;
+  background-color: midnightblue;
+  justify-content: space-between;
+  height: 12vh;
+  justify-content: space-between; 
+  align-items: center;
+  color:white;
 }
 
-.nav{
-  background-color: midnightblue;
-  height: 12vh;
+#logo{
+  height: 70%;
+  justify-content: center;
+  margin-left: 8%;
 }
+
 .navbar_separator{
-  
+  display: inline-block;
+  height: 70%;
+  width: 1px;
+  background-color: gray;
 }
