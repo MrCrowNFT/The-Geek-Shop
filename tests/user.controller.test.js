@@ -28,4 +28,14 @@ describe("User product request", () => {
     expect(Product.find).toHaveBeenCalledTimes(1); // Ensure `find` was called
     expect(Product.find).toHaveBeenCalledWith({}); // Check `find` was called correctly
   });
+
+  it("should return 500 for server error", async()=>{
+    Product.find.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app).get("/home/products");
+
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Server error");
+  })
 });
