@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../backend/app.js";
 import Role from "../backend/module/role.model.js";
-import jwt from "jsonwebtoken";
+
 
 // Mock the Role model: Replaces the actual Role module with a mock object
 jest.mock("../backend/module/role.model.js", () => ({
