@@ -9,7 +9,7 @@ const Header = () => {
         <FaFacebook></FaFacebook><FaTwitter></FaTwitter><FaInstagram></FaInstagram>
         <p> | </p><FaEnvelope></FaEnvelope><a href="">marketplace@gmail.com</a>
       </div>
-      <img src={logo} alt=""></img>
+      <img id="logo" src={logo} alt=""></img>
       <div className="user-interactions">
         <FaUser></FaUser>
         <p>Login</p>
