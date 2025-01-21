@@ -20,7 +20,7 @@ userRouter.get("/products/:id", userGetProductById);
 //*Probably make it it's own controller
 
 //get search result page
-userRouter.get("/products/search", userSearch);
+userRouter.get("/search", userSearch);
 
 //get checkout page for payment
 userRouter.get("/checkout", (req, res) => {});

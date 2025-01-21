@@ -1,8 +1,28 @@
 import logo from "../assets/Logo(W).png"
 import search from "../assets/search.png"
 import cart from "../assets/shopping-cart.png"
+import { useEffect } from "react"
 
 const Navbar = ()=>{
+
+    useEffect(()=>{
+        const handleScroll = ()=>{
+            //after 50 pixels, might need to adjust**
+            if (window.scrollY > 50){
+                document.body.classList.add("scrolled")
+            } else{
+                document.body.classList.remove("scrolled")
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        //cleanup
+        return () => {
+        window.removeEventListener("scroll", handleScroll);
+            };
+            }, []);
+
     return(
         <div className="navbar">
             <div className="navbar-content">
