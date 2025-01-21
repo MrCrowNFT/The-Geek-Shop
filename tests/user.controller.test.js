@@ -57,7 +57,7 @@ describe("User product request by id", () => {
     expect(res.body.message).toBe("Product not found");
     expect(Product.findById).toHaveBeenCalledWith("invalidId");
   });
-  it("should return 200 and product upon valid id", async ()=>{
+  it("should return 200 and product upon valid id", async () => {
     const mockedProduct = { id: 123, name: "Product A", price: 200 };
     Product.findById.mockResolvedValue(mockedProduct);
 
@@ -67,5 +67,14 @@ describe("User product request by id", () => {
     expect(res.body.success).toBe(true);
     expect(res.body.data).toEqual(mockedProduct);
     expect(Product.findById).toHaveBeenCalledWith("123");
-  })
+  });
+  it("should return 500 for server error", async () => {
+    Product.findById.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app).get("/home/products/123");
+
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Server error");
+  });
 });
