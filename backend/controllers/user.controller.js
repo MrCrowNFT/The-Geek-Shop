@@ -17,18 +17,14 @@ export const userGetProducts = async (req, res) => {
 };
 
 export const userGetProductById = async (req, res) => {
-  const { id } = req.params;
-
-  //to catch 404 case
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res
-      .status(404)
-      .json({ success: false, message: "Product not found" });
-  }
+  const { id } = req.params;  
 
   try {
     //new: true so that it returns the updated product
     const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
     return res.status(200).json({ success: true, data: product });
   } catch (error) {
     console.error(`Error updating product: ${error.message}`);

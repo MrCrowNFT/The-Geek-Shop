@@ -1,11 +1,25 @@
 import request from "supertest";
 import app from "../backend/app.js";
 import Product from "../backend/module/product.model.js";
+import mongoose from "mongoose";
 
-//Mocks
+// Mocks
 jest.mock("../backend/module/product.model.js", () => ({
   find: jest.fn(),
+  findById: jest.fn(),
 }));
+
+jest.mock("mongoose", () => {
+  const actualMongoose = jest.requireActual("mongoose");
+  return {
+    ...actualMongoose,
+    Types: {
+      ObjectId: {
+        isValid: jest.fn(),
+      },
+    },
+  };
+});
 
 describe("User product request", () => {
   afterEach(() => {
@@ -29,7 +43,7 @@ describe("User product request", () => {
     expect(Product.find).toHaveBeenCalledWith({}); // Check `find` was called correctly
   });
 
-  it("should return 500 for server error", async()=>{
+  it("should return 500 for server error", async () => {
     Product.find.mockRejectedValue(new Error("Database error"));
 
     const res = await request(app).get("/home/products");
@@ -37,5 +51,22 @@ describe("User product request", () => {
     expect(res.status).toBe(500);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Server error");
-  })
+  });
+});
+
+describe("User product request by id", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should return 404 for invalid product id", async () => {
+    mongoose.Types.ObjectId.isValid.mockReturnValue(false);
+
+    const res = await request(app).get("/home/products/invalidId");
+
+    expect(res.status).toBe(404);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Product not found");
+    expect(mongoose.Types.ObjectId.isValid).toHaveBeenCalledWith("invalidId");
+  });
 });
