@@ -9,18 +9,6 @@ jest.mock("../backend/module/product.model.js", () => ({
   findById: jest.fn(),
 }));
 
-jest.mock("mongoose", () => {
-  const actualMongoose = jest.requireActual("mongoose");
-  return {
-    ...actualMongoose,
-    Types: {
-      ObjectId: {
-        isValid: jest.fn(),
-      },
-    },
-  };
-});
-
 describe("User product request", () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -60,13 +48,13 @@ describe("User product request by id", () => {
   });
 
   it("should return 404 for invalid product id", async () => {
-    mongoose.Types.ObjectId.isValid.mockReturnValue(false);
+    Product.findById.mockResolvedValue(null);
 
     const res = await request(app).get("/home/products/invalidId");
 
     expect(res.status).toBe(404);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Product not found");
-    expect(mongoose.Types.ObjectId.isValid).toHaveBeenCalledWith("invalidId");
+    expect(Product.findById).toHaveBeenCalledWith("invalidId");
   });
 });
