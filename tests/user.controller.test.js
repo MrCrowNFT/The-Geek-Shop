@@ -57,4 +57,15 @@ describe("User product request by id", () => {
     expect(res.body.message).toBe("Product not found");
     expect(Product.findById).toHaveBeenCalledWith("invalidId");
   });
+  it("should return 200 and product upon valid id", async ()=>{
+    const mockedProduct = { id: 123, name: "Product A", price: 200 };
+    Product.findById.mockResolvedValue(mockedProduct);
+
+    const res = await request(app).get("/home/products/123");
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data).toEqual(mockedProduct);
+    expect(Product.findById).toHaveBeenCalledWith("123");
+  })
 });
