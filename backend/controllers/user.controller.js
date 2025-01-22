@@ -52,7 +52,7 @@ export const userSearch = async (req, res) => {
       if (maxPrice) query.priceTag.$lte = Number(maxPrice);
     }
 
-    //populate to get full category document from the Category collection. is it necesary though?
+    //populate to get the full product data
     const products = await Product.find(query).populate("category");
 
     if (!products.length) {
@@ -62,7 +62,7 @@ export const userSearch = async (req, res) => {
       });
     }
 
-    res.status(200).json({ success: true, products });
+    res.status(200).json({ success: true, data: products });
   } catch (error) {
     console.error(`Error during product search: ${error.message}`);
     res.status(500).json({ success: false, message: "Server error" });

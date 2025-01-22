@@ -78,3 +78,25 @@ describe("User product request by id", () => {
     expect(res.body.message).toBe("Server error");
   });
 });
+describe("Product Search", ()=>{
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  it("should return 404 if no product with said criteria was found", async ()=>{
+    // Mock find and populate chain
+    Product.find.mockReturnValue({
+      populate: jest.fn().mockResolvedValue([]),
+    });
+
+    const res = await request(app).get("/home/search?categories=1,2&minPrice=100&maxPrice=300");
+
+    expect(res.status).toBe(404);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("No products found matching the search criteria.");
+    expect(Product.find).toHaveBeenCalledWith({
+      category: { $in: ["1", "2"] },
+      priceTag: { $gte: 100, $lte: 300 },
+    });
+    expect(Product.find().populate).toHaveBeenCalledWith("category");
+  })
+})
