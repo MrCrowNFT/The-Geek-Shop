@@ -138,4 +138,16 @@ describe("Product Search", () => {
     });
     expect(Product.find().populate).toHaveBeenCalledWith("category");
   });
+
+  it("should return 500 if there is a server error", async () => {
+    Product.find.mockReturnValue({
+      populate: jest.fn().mockRejectedValue(new Error("Database error")),
+    });
+
+    const res = await request(app).get("/home/search?categories=1,2&minPrice=100&maxPrice=300");
+
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Server error");
+  });
 });
