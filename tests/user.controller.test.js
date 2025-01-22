@@ -78,25 +78,64 @@ describe("User product request by id", () => {
     expect(res.body.message).toBe("Server error");
   });
 });
-describe("Product Search", ()=>{
+describe("Product Search", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  it("should return 404 if no product with said criteria was found", async ()=>{
+  it("should return 404 if no product with said criteria was found", async () => {
     // Mock find and populate chain
     Product.find.mockReturnValue({
       populate: jest.fn().mockResolvedValue([]),
     });
 
-    const res = await request(app).get("/home/search?categories=1,2&minPrice=100&maxPrice=300");
+    const res = await request(app).get(
+      "/home/search?categories=1,2&minPrice=100&maxPrice=300"
+    );
 
     expect(res.status).toBe(404);
     expect(res.body.success).toBe(false);
-    expect(res.body.message).toBe("No products found matching the search criteria.");
+    expect(res.body.message).toBe(
+      "No products found matching the search criteria."
+    );
     expect(Product.find).toHaveBeenCalledWith({
       category: { $in: ["1", "2"] },
       priceTag: { $gte: 100, $lte: 300 },
     });
     expect(Product.find().populate).toHaveBeenCalledWith("category");
-  })
-})
+  });
+
+  it("should return 200 and products if search criteria match", async () => {
+    const mockedProducts = [
+      {
+        id: 1,
+        name: "Product A",
+        price: 100,
+        category: { _id: "1", name: "Category A" },
+      },
+      {
+        id: 2,
+        name: "Product B",
+        price: 200,
+        category: { _id: "2", name: "Category B" },
+      },
+    ];
+
+    // Mock find and populate chain
+    Product.find.mockReturnValue({
+      populate: jest.fn().mockResolvedValue(mockedProducts),
+    });
+
+    const res = await request(app).get(
+      "/home/search?categories=1,2&minPrice=100&maxPrice=300"
+    );
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data).toEqual(mockedProducts);
+    expect(Product.find).toHaveBeenCalledWith({
+      category: { $in: ["1", "2"] },
+      priceTag: { $gte: 100, $lte: 300 },
+    });
+    expect(Product.find().populate).toHaveBeenCalledWith("category");
+  });
+});
