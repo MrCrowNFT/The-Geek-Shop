@@ -7,6 +7,7 @@ import user from "../assets/user.png"
 import plus from "../assets/plus.png"
 import heart from "../assets/heart.png"
 import cart from "../assets/shopping-cart.png"
+import "./Header.css"
 
 const Header = () => {
 

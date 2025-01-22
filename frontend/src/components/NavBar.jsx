@@ -2,6 +2,7 @@ import logo from "../assets/Logo(W).png"
 import search from "../assets/search.png"
 import cart from "../assets/shopping-cart.png"
 import { useEffect } from "react"
+import "./NavBar.css"
 
 const Navbar = ()=>{
 
