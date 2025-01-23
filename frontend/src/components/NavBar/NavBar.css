@@ -1,15 +1,15 @@
 /* Navbar*/
 
 .navbar{
-    position: fixed;
-    top: auto;
+    position: sticky;
+    top: 0;
     width: 100%;
     height: 12vh;
     background-color: midnightblue;
     color: white;
     display: flex;
     align-items: center;
-    z-index: 1000;
+    z-index: 10;
     font-family: Arial, Helvetica, sans-serif;
   }
   
