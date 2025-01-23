@@ -9,7 +9,6 @@
     color: white;
     display: flex;
     align-items: center;
-    box-sizing: border-box;
     z-index: 1000;
     font-family: Arial, Helvetica, sans-serif;
   }
@@ -94,7 +93,7 @@
   
   /* Cart Button */
   .cart-button{
-    background-color: midnightblue;
+    background-color: transparent;
     border: none;
     border-radius: 4px;
     padding: 10px;
@@ -110,9 +109,11 @@
   /* Show Cart Button on Scroll */
   body.scrolled .cart-button {
     display: block; /* Show cart button when scrolling */
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1001;
+    position: static;
+    z-index: auto;
     background-color: white;
+    
+  }
+  .navbar + * {
+    margin-top: 12vh; /* Push the next element down */
   }
