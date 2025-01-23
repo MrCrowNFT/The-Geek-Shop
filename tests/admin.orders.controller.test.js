@@ -41,4 +41,18 @@ describe("Admin get orders from Db", () => {
     expect(res.body.data).toEqual(mockedOrders); 
     expect(Order.find).toHaveBeenCalledTimes(1); 
   });
+
+  it("should return 500 upon server error", async () => {
+    const adminToken = "mocked-admin-token";
+
+    Order.find.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app)
+      .get("/admin/orders")
+      .set("Authorization", `Bearer ${adminToken}`);
+
+      expect(res.status).toBe(500);
+      expect(res.body.success).toBe(false);
+      expect(res.body.message).toBe("Server error");
+  });
 });
