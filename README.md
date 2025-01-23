@@ -5,9 +5,9 @@
 ## TO-DO
 
 - Checkout endpoints
-- Testing backend -> admin controllers 3/3; user controller 0/3, category controller 0/4
-- Solve issue with mock token 
+- Testing backend -> admin controllers 3/3; user controller 1/3, category controller 0/4
 - Frontend -> Homepage
+- Add user role
 
 ##
 

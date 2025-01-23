@@ -1,7 +1,6 @@
 import request from "supertest";
 import app from "../backend/app.js";
 import Product from "../backend/module/product.model.js";
-import mongoose from "mongoose";
 
 // Mocks
 jest.mock("../backend/module/product.model.js", () => ({
