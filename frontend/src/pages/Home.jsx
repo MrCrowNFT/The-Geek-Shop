@@ -1,5 +1,9 @@
 import Header from "../components/Header/Header.jsx";
 import Navbar from "../components/NavBar/NavBar.jsx";
+import BannerA from "../assets/images/Testing-Banner(A)(2000x500).png";
+import BannerB from "../assets/images/Testing-Banner(B).png";
+import BannerC from "../assets/images/Testing-Banner(C).jpg";
+import BannerD from "../assets/images/Testing-Banner(D)(2000x1000).png";
 import "./Home.css";
 
 const HomePage = () => {
@@ -11,7 +15,12 @@ const HomePage = () => {
         <div className="main-content">
           <div className="main-content-upper">
             <a href="">
-              <img className="upper-banner" loading="lazy" src="" alt="" />
+              <img
+                className="upper-banner"
+                loading="lazy"
+                src={BannerA}
+                alt="Banner A"
+              />
             </a>
           </div>
           <div className="main-content-lower">
@@ -20,7 +29,7 @@ const HomePage = () => {
                 <img
                   className="left-upper-lower-banner"
                   loading="lazy"
-                  src=""
+                  src={BannerC}
                   alt=""
                 />
               </a>
@@ -28,7 +37,7 @@ const HomePage = () => {
                 <img
                   className="left-lower-lower-banner"
                   loading="lazy"
-                  src=""
+                  src={BannerD}
                   alt=""
                 />
               </a>
@@ -38,7 +47,7 @@ const HomePage = () => {
                 <img
                   className="middle-lower-banner"
                   loading="lazy"
-                  src=""
+                  src={BannerB}
                   alt=""
                 />
               </a>
@@ -48,7 +57,7 @@ const HomePage = () => {
                 <img
                   className="right-upper-lower-banner"
                   loading="lazy"
-                  src=""
+                  src={BannerD}
                   alt=""
                 />
               </a>
@@ -56,7 +65,7 @@ const HomePage = () => {
                 <img
                   className="right-lower-lower-banner"
                   loading="lazy"
-                  src=""
+                  src={BannerC}
                   alt=""
                 />
               </a>

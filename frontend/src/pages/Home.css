@@ -1,0 +1,58 @@
+.main{
+    margin: 0 7%;
+    max-width: 100%;
+}
+.main-content{
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+/*Upper content half*/
+.main-content-upper{
+    width: 100%;
+    height: 50%;
+}
+.upper-banner{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /*so that the image cover the div without distortion */
+}
+
+/*Lower content half*/
+.main-content-lower{
+    display: flex;
+    flex-direction: row;
+    gap: 1vh;
+    height: 50%;
+    max-height: 50%;
+}
+
+.main-content-lower-left, 
+.main-content-lower-right{
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    width: 33%;
+}
+
+.left-upper-lower-banner,
+.left-lower-lower-banner,
+.right-upper-lower-banner,
+.right-lower-lower-banner {
+  width: 100%;
+  height: 50%; /* Each image takes half the height of the parent */
+  object-fit: cover;
+}
+
+.main-content-lower-center {
+  flex: 1;
+  display: flex;
+  
+  justify-content: center;
+}
+
+.middle-lower-banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure it scales properly */
+}
