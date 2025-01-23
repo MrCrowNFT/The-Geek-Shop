@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import Navbar from "../components/NavBar";
+import Header from "../components/Header/Header.jsx"
+import Navbar from "../components/NavBar/NavBar.jsx";
 
 const HomePage = () => {
   return (
