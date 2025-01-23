@@ -20,7 +20,12 @@
     max-height: 80px;
     width: 100%;
   }
-  
+  .navbar-content-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+  }
+
   .navbar-content-left{
     display: flex;
     align-items: center;
@@ -106,6 +111,12 @@
     height: 24px;
   }
   
+  .cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
   /* Show Cart Button on Scroll */
   body.scrolled .cart-button {
     display: block; /* Show cart button when scrolling */
@@ -114,6 +125,4 @@
     background-color: white;
     
   }
-  .navbar + * {
-    margin-top: 12vh; /* Push the next element down */
-  }
+  
