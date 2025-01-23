@@ -56,6 +56,8 @@ const productSchema = new mongoose.Schema(
         ref: "Category", // Reference the `Category` collection
       },
     ],
+    likesCount: { type: Number, default: 0 }, // Tracks likes
+    salesCount: { type: Number, default: 0 }, // Tracks sales
   },
   {
     timestamps: true, //createdAt, updatedAt
