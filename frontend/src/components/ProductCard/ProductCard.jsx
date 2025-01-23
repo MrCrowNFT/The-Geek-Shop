@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import "./ProductCard.css";
 
@@ -39,14 +39,14 @@ const ProductCard = ({ product }) => {
   );
 };
 
-  ProductCard.propTypes = {
-    product: PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      images: PropTypes.arrayOf(PropTypes.string).isRequired,
-    }).isRequired,
-  };
-  
-  export default ProductCard;
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
+};
+
+export default ProductCard;
