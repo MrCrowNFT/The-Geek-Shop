@@ -3,6 +3,7 @@ import Navbar from "../components/NavBar/NavBar.jsx";
 import BannerWrapper from "../components/BannerWrapper/BannerWrapper.jsx";
 
 import "./Home.css";
+import CardWrapper from "../components/CardWrapper/CardWrapper.jsx";
 
 const HomePage = () => {
   return (
@@ -10,6 +11,7 @@ const HomePage = () => {
       <Header />
       <Navbar></Navbar>
       <BannerWrapper></BannerWrapper>
+      
     </>
   );
 };

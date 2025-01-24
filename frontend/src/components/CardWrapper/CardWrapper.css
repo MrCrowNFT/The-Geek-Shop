@@ -1,0 +1,55 @@
+.card-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0 7%;
+    gap: 2vh;
+}
+
+.upper-card-wrapper, 
+.lower-card-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.lower-card-wrapper{
+    position: relative;
+}
+.more-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18%; /* Adjust as needed to fit the space */
+    background-color: #f0f0f0; /* Light background for "More" tab */
+    border-radius: 8px; /* Rounded corners for a cleaner look */
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333; /* Text color */
+    padding: 10px;
+    gap: 5px; /* Spacing between text and arrow */
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  
+  .more-tab:hover {
+    background-color: #ddd; /* Highlight on hover */
+    transform: scale(1.05); /* Slight scale effect */
+  }
+  
+  .more-tab img {
+    width: 12px; /* Arrow size */
+    height: auto;
+  }
+  
+  .more-tab a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between "More" and the arrow */
+  }
+  
+  .more-tab a:hover {
+    text-decoration: underline; /* Adds underline on hover */
+  }

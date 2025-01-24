@@ -1,5 +1,6 @@
 import ProductCard from "../ProductCard/ProductCard";
 import Arrow from "../../assets/icons/arrow.png"
+import "./CardWrapper.css"
 
 //the idea would be for it to recieve an array of products, deconstruct them and pass
 //them on to every Product Card
