@@ -68,7 +68,7 @@ export const newAdmin = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "New admin created successfully",
-      data: newAdmin,
+      data: { id: newAdmin._id, username: newAdmin.username, role: newAdmin.role },
     });
   } catch (error) {
     console.error(`Error creating Admin: ${error.message}`);
