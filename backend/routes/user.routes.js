@@ -5,6 +5,7 @@ import {
   userGetProducts,
   userSearch,
 } from "../controllers/user.controller.js";
+import { createUser, userLogin } from "../user.login.controller.js";
 
 const userRouter = express.Router();
 
@@ -15,9 +16,13 @@ userRouter.get("/products", userGetProducts);
 
 userRouter.get("/products/:id", userGetProductById);
 
+//*USER LOGIN ROUTES
+//the idea is that for buying the must be logged in
+userRouter.post("/login", userLogin)
+userRouter.post("/createAccount", createUser)
+
 //*This methods need some work, need to get payment method thingy as well as
 //*elavorate on the categories to make a search
-//*Probably make it it's own controller
 
 //get search result page
 userRouter.get("/search", userSearch);
