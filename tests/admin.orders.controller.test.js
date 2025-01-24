@@ -56,3 +56,23 @@ describe("Admin get orders from Db", () => {
       expect(res.body.message).toBe("Server error");
   });
 });
+describe("Admin get orders from Db by Id", () =>{
+  afterEach(()=>{
+    jest.clearAllMocks();
+  });
+  it("should return 200 upon valid order id", async ()=>{
+    const mockedOrder = { id: 123, costumer: "Product A", paid_amount: 100 };
+    const adminToken = "mocked-admin-token";
+
+    Order.findById.mockResolvedValue(mockedOrder);
+
+    const res = await request(app).
+      get("/admin/orders/123").
+      set("Authorization", `Bearer ${adminToken}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data).toEqual(mockedOrder);
+    expect(Order.findById).toHaveBeenCalledWith("123");
+  })
+})

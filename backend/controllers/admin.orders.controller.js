@@ -13,12 +13,12 @@ export const getAdminOrders = async (req, res) => {
 };
 
 export const getAdminOrderById = async (req, res) => {
+  try {
   const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  const order = await Order.findById(id)
+  if (!order) {
     return res.status(404).json({ success: false, message: "Order not found" });
   }
-  try {
-    const order = await Order.findById(id);
     return res.status(200).json({ success: true, data: order });
   } catch (error) {
     console.error(`Error fetching orders: ${error.message}`);

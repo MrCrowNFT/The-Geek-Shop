@@ -7,7 +7,7 @@
 - Checkout endpoints
 - Testing backend -> admin controllers 3/3; user controller 1/3, category controller 0/4
 - Frontend -> Homepage
-- Add user role
+- Fix images of banner wrapper
 
 ##
 
