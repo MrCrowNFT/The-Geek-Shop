@@ -1,7 +1,7 @@
 import BannerA from "../../assets/images/Testing-Banner(A)(2000x500).png";
 import BannerB from "../../assets/images/Testing-Banner(B).png";
 import BannerC from "../../assets/images/Testing-Banner(C).jpg";
-import BannerD from "../../assets/images/Testing-Banner(D)(2000x1000).png";
+import BannerD from "../../assets/images/Testing-Banner(D)(2000x700).png";
 import "./BannerWrapper.css";
 
 const BannerWrapper = () => {
@@ -13,7 +13,7 @@ const BannerWrapper = () => {
             <img
               className="upper-banner"
               loading="lazy"
-              src={BannerA}
+              src={BannerD}
               alt="Banner A"
             />
           </a>
@@ -23,7 +23,7 @@ const BannerWrapper = () => {
           <div className="main-content-lower-left">
             <div className="left-upper-lower-banner">
               <a href="">
-                <img loading="lazy" src={BannerC} alt="" />
+                <img loading="lazy" src={BannerA} alt="" />
               </a>
             </div>
             <div className="left-lower-lower-banner">
