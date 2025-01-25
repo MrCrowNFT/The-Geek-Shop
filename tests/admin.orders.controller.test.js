@@ -75,4 +75,18 @@ describe("Admin get orders from Db by Id", () =>{
     expect(res.body.data).toEqual(mockedOrder);
     expect(Order.findById).toHaveBeenCalledWith("123");
   })
+  
+  it("should return 404 for invalid order id", async() =>{
+    const adminToken = "mocked-admin-token";
+    Order.findById.mockResolvedValue(null);
+
+    const res = await request(app).
+      get("/admin/orders/invalidId").
+      set("Authorization", `Bearer ${adminToken}`);
+
+    expect(res.status).toBe(404);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Order not found");
+    expect(Order.findById).toHaveBeenCalledWith("invalidId");
+  })
 })
