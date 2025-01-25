@@ -89,4 +89,16 @@ describe("Admin get orders from Db by Id", () =>{
     expect(res.body.message).toBe("Order not found");
     expect(Order.findById).toHaveBeenCalledWith("invalidId");
   })
+  it("should return 500 for server error", async ()=>{
+    const adminToken = "mocked-admin-token";
+    Order.findById.mockRejectedValue(new Error("Database Error"));
+
+    const res = await request(app).
+      get("/admin/orders/123").
+      set("Authorization", `Bearer ${adminToken}`);
+
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(Order.findById).toHaveBeenCalledWith("123");
+  })
 })
