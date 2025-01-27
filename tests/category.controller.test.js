@@ -19,7 +19,7 @@ jest.mock("../backend/module/category.model.js", () => ({
 }));
 
 describe("Admin get categories from db", () => {
-  it("Should return all categories", async () => {
+  it("Should return 200 and all categories", async () => {
     const adminToken = "mocked-admin-token";
 
     const mockedCategories = [
@@ -37,5 +37,19 @@ describe("Admin get categories from db", () => {
     expect(res.body.success).toBe(true);
     expect(res.body.data).toEqual(mockedCategories);
     expect(Category.find).toHaveBeenCalledTimes(1);
+  });
+
+  it("should return 500 for server error", async () => {
+    const adminToken = "mocked-admin-token";
+
+    Category.find.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app)
+      .get("/categories/")
+      .set("Authorization", `Bearer ${adminToken}`);
+
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Server error");
   });
 });
