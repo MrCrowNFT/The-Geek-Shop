@@ -1,4 +1,32 @@
+.img-slider{
+    position: relative;
+}
+
 .img-slider-img{
     object-fit: cover;
     display:block;
+    flex-shrink: 0;
+    flex-grow: 0;
+    transition: translate 300ms ease-in-out;
+}
+
+.img-slider-button{
+    all: unset;
+    display:block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 1rem;
+    cursor: pointer;
+    transition: background-color 100mms ease-in-out;
+}
+
+.img-slider-button > *{
+    stroke: white;
+    fill: black;
+    width: 2rem;
+    height: 2rem;
+}
+.img-slider-button:hover{
+    background-color: rgb(0, 0, 0, .2);
 }

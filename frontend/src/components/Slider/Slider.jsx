@@ -7,14 +7,43 @@ import "./Slider.css";
 const Slider = ({ images }) => {
   const [sliderIndex, setSliderIndex] = useState(0);
 
+  const nextImg = () => {
+    setSliderIndex((index) => {
+      if (index === images.length - 1) return 0;
+      return index + 1;
+    });
+  };
+  const prevImg = () => {
+    setSliderIndex((index) => {
+      if (index === 0) return images.length - 1;
+      return index - 1;
+    });
+  };
+
   return (
     <div className="img-slider">
-      <img src={images[sliderIndex]} className="img-slider-img" />
-      <button>
-        <img src={arrowLeft} alt="arrow left" className="img-slider-button" style={{left: 0}} />
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+          display: "flex",
+        }}
+      >
+        {images.map((image) => (
+          <img
+            key={image}
+            src={image}
+            className="img-slider-img"
+            style={{ translate: `${-100 * sliderIndex}` }}
+          />
+        ))}
+      </div>
+      <button onClick={nextImg} className="img-slider-button">
+        <img src={arrowLeft} alt="arrow left" style={{ left: 0 }} />
       </button>
-      <button>
-        <img src={arrowRight} alt="arrow right" className="img-slider-button" style={{right: 0}} />
+      <button onClick={prevImg} className="img-slider-button">
+        <img src={arrowRight} alt="arrow right" style={{ right: 0 }} />
       </button>
     </div>
   );
