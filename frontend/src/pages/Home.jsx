@@ -15,7 +15,6 @@ const mockProducts = [
   { id: 7, name: "Product 7", price: 79.99, description: "Description 7", images: ["/image7.jpg", "/image7-hover.jpg"] },
   { id: 8, name: "Product 8", price: 89.99, description: "Description 8", images: ["/image8.jpg", "/image8-hover.jpg"] },
   { id: 9, name: "Product 9", price: 99.99, description: "Description 9", images: ["/image9.jpg", "/image9-hover.jpg"] },
-  // Add 7 more product objects for testing
 ];
 
 const HomePage = () => {

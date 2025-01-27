@@ -8,16 +8,10 @@ const Slider = ({ images }) => {
   const [sliderIndex, setSliderIndex] = useState(0);
 
   const nextImg = () => {
-    setSliderIndex((index) => {
-      if (index === images.length - 1) return 0;
-      return index + 1;
-    });
+    setSliderIndex((index) => (index === images.length - 1 ? 0 : index + 1));
   };
   const prevImg = () => {
-    setSliderIndex((index) => {
-      if (index === 0) return images.length - 1;
-      return index - 1;
-    });
+    setSliderIndex((index) => (index === 0 ? images.length - 1 : index - 1));
   };
 
   return (
@@ -35,7 +29,7 @@ const Slider = ({ images }) => {
             key={image}
             src={image}
             className="img-slider-img"
-            style={{ translate: `${-100 * sliderIndex}` }}
+            style={{ transform: `translateX(${-100 * sliderIndex}%)` }}
           />
         ))}
       </div>
@@ -55,7 +49,7 @@ const Slider = ({ images }) => {
           gap: "0.25rem",
         }}
       >
-        {images.map((_, index) => {
+        {/* {images.map((_, index) => {
           <button
             key={index}
             className="img-slider-dot-nav"
@@ -63,13 +57,13 @@ const Slider = ({ images }) => {
           >
             {index}
           </button>;
-        })}
+        })} */}
       </div>
     </div>
   );
 };
 Slider.propTypes = {
-  images: PropTypes.objectOf(PropTypes.string),
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Slider;

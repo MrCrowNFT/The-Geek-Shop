@@ -4,6 +4,7 @@ import BannerC from "../../assets/images/BannerC.jpg";
 import BannerD from "../../assets/images/BannerD.jpg";
 import BannerE from "../../assets/images/BannerE.jpg";
 import BannerF from "../../assets/images/BannerF.png";
+import Slider from "../Slider/Slider";
 import "./BannerWrapper.css";
 
 const BannerWrapper = () => {
