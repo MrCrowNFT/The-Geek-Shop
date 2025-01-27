@@ -2,6 +2,7 @@ import { useState } from "react";
 import arrowLeft from "../../assets/icons/arrow-left.png";
 import arrowRight from "../../assets/icons/arrow-right.png";
 import PropTypes from "prop-types";
+import { CircleDot, Circle } from "lucide-react";
 import "./Slider.css";
 
 const Slider = ({ images }) => {
@@ -33,10 +34,10 @@ const Slider = ({ images }) => {
           />
         ))}
       </div>
-      <button onClick={nextImg} className="img-slider-button">
+      <button onClick={prevImg} className="img-slider-button">
         <img src={arrowLeft} alt="arrow left" style={{ left: 0 }} />
       </button>
-      <button onClick={prevImg} className="img-slider-button">
+      <button onClick={nextImg} className="img-slider-button">
         <img src={arrowRight} alt="arrow right" style={{ right: 0 }} />
       </button>
       <div
@@ -49,15 +50,15 @@ const Slider = ({ images }) => {
           gap: "0.25rem",
         }}
       >
-        {/* {images.map((_, index) => {
+        {images.map((_, index) => (
           <button
             key={index}
             className="img-slider-dot-nav"
             onClick={() => setSliderIndex(index)}
           >
-            {index}
-          </button>;
-        })} */}
+            {index === sliderIndex ? <CircleDot /> : <Circle />}
+          </button>
+        ))}
       </div>
     </div>
   );
