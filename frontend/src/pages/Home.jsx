@@ -27,10 +27,11 @@ const HomePage = () => {
       <Header />
       <Navbar></Navbar>
       <BannerWrapper></BannerWrapper>
-      <br></br><br></br>
+      <br/><br/>
       <h2>New Prodcuts</h2>
-      <br></br>
+      <br/>
       <CardWrapper products={mockProducts}></CardWrapper>
+      <br/>
       <CardWrapperMore products={mockProducts2}></CardWrapperMore>
     </>
   );
