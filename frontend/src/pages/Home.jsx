@@ -5,6 +5,7 @@ import BannerWrapper from "../components/BannerWrapper/BannerWrapper.jsx";
 import "./Home.css";
 import CardWrapper from "../components/CardWrapper/CardWrapper.jsx";
 import CardWrapperMore from "../components/CardWrapper/CardWrapperMoreTab.jsx";
+import Footer from "../components/Footer/Footer.jsx";
 
 const mockProducts = [
   { id: 1, name: "Product 1", price: 19.99, description: "Description 1", images: ["/image1.jpg", "/image1-hover.jpg"] },
@@ -25,14 +26,16 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <Navbar></Navbar>
-      <BannerWrapper></BannerWrapper>
+      <Navbar/>
+      <BannerWrapper/>
       <br/><br/>
       <h2>New Prodcuts</h2>
       <br/>
       <CardWrapper products={mockProducts}></CardWrapper>
       <br/>
       <CardWrapperMore products={mockProducts2}></CardWrapperMore>
+      <br/>
+      <Footer/>
     </>
   );
 };
