@@ -16,6 +16,7 @@ jest.mock("../backend/module/category.model.js", () => ({
   //mock function to be configured to return specific values
   find: jest.fn(),
   findById: jest.fn(),
+  findOne: jest.fn()
 }));
 
 describe("Admin get categories from db", () => {
@@ -74,5 +75,21 @@ describe("admin add new category", () => {
     expect(res.status).toBe(400);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Category name is required");
+  });
+  it("should return 400 if category name already in use", async () => {
+    const adminToken = "mocked-admin-token";
+
+    Category.findOne.mockResolvedValue({name:"repeated-name" })
+
+    const res = await request(app)
+      .post("/categories/add")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "repeated-name",
+        description: "valid description",
+      });
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Category already exists");
   });
 });
