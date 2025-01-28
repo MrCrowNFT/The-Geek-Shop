@@ -12,14 +12,6 @@ const CardWrapper = ({ products }) => {
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-      <div className="lower-card-wrapper">
-        {products.slice(5, 9).map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-        <div className="more-tab">
-          <a href="">See More →</a>
-        </div>
-      </div>
     </div>
   );
 };
