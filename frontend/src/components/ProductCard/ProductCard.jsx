@@ -14,15 +14,17 @@ const ProductCard = ({ product }) => {
       {/* Product Image Section */}
       <div className="image-container">
         <img
-          className={`product-image ${hovering ? "hidden" : ""}`}
+          className="product-image"
           src={product.images[0]}
           alt={product.name}
+          style={{ opacity: hovering ? 0 : 1 }}
         />
         {product.images[1] && (
           <img
-            className={`product-image ${hovering ? "visible" : ""}`}
+            className="product-image"
             src={product.images[1]}
             alt={`${product.name} - hover`}
+            style={{ opacity: hovering ? 1 : 0 }}
           />
         )}
       </div>

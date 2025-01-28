@@ -34,9 +34,7 @@
 .img-slider-button:hover{
     background-color: rgb(0, 0, 0, 0.2);
 }
-.img-slider-button:hover > *{
-    animation: squish 200ms ease-in-out;
-}
+
 
 /* Positioning for the left and right buttons */
 .img-slider-button:first-of-type {
@@ -47,11 +45,6 @@
     right: 0; /
 }
 
-@keyframes squish {
-    50%{
-        transform: scale(1.4, 0.6);
-    }
-}
 .img-slider-dot-nav{
     all: unset;
     display:block;
