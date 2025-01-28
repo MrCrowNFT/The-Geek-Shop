@@ -1,72 +1,86 @@
 footer {
-    background-color: midnightblue; 
-    color: white;
-    padding: 2rem 0;
-  }
-  
-  footer > div {
-    margin: 0 7%; 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  
-  .logo-and-media {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-  
-  .logo {
-    max-width: 150px; /* Adjust as needed */
-    height: auto;
-  }
-  
-  .social-media {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-  }
-  
-  .social-media img {
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .social-media img:hover {
-    transform: scale(1.1); /* Slight zoom on hover */
-  }
-  
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
-    gap: 2rem; /* Adjust space between columns */
-  }
-  
-  .grid .colum h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    color: white; /* Keep the h3 white */
-  }
-  
-  .grid .colum ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .grid .colum ul li {
-    margin-bottom: 0.5rem;
-  }
-  
-  .grid .colum ul li a {
-    color: rgba(255, 255, 255, 0.7); /* White with opacity */
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-  }
-  
-  .grid .colum ul li a:hover {
-    color: white; /* Fully white on hover */
-  }
+  background-color: midnightblue;
+  color: white;
+  padding: 3rem 0;
+}
+
+footer > div {
+  margin: 0 7%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4rem;
+  justify-content: center;
+  text-align: left;
+}
+
+.grid .colum h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.grid .colum ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.grid .colum ul li {
+  margin-bottom: 1.5rem;
+}
+
+.grid .colum ul li a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+  font-size: 1.25rem;
+}
+
+.grid .colum ul li a:hover {
+  color: white;
+}
+
+.logo-and-media {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.logo {
+  max-width: 150px;
+  height: auto;
+}
+
+.social-media {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-media img {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.social-media img:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  width: 100%;
+}
