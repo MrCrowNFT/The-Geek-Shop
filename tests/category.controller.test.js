@@ -19,6 +19,9 @@ jest.mock("../backend/module/category.model.js", () => ({
 }));
 
 describe("Admin get categories from db", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   it("Should return 200 and all categories", async () => {
     const adminToken = "mocked-admin-token";
 
@@ -51,5 +54,25 @@ describe("Admin get categories from db", () => {
     expect(res.status).toBe(500);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Server error");
+  });
+});
+
+describe("admin add new category", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  it("should return 400 if no name on request body", async () => {
+    const adminToken = "mocked-admin-token";
+
+    const res = await request(app)
+      .post("/categories/add")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "",
+        description: "valid description",
+      });
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Category name is required");
   });
 });
