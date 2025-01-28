@@ -7,6 +7,7 @@ import ImageC from "../assets/images/ImageC.png";
 import ImageD from "../assets/images/ImageD.jpeg";
 import CardWrapper from "../components/CardWrapper/CardWrapper.jsx";
 import "./ProductPage.css";
+import Footer from "../components/Footer/Footer.jsx";
 
 const mockProducts = [
   {
@@ -73,6 +74,7 @@ const ProductPage = () => {
       <h2>Related Products</h2>
       <br/>
       <CardWrapper products={mockProducts}></CardWrapper>
+      <Footer></Footer>
     </>
   );
 };
