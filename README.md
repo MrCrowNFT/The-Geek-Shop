@@ -4,10 +4,12 @@
 
 ## TO-DO
 
-- Checkout endpoints
 - Testing backend -> admin controllers 3/3; user controller 3/3, category controller 0/4
-- Frontend -> Homepage
-- Fix images of banner wrapper
+- Frontend -> Search Page (options)
+- Dynamic shopping cart
+- Payment
+- Make it mobile-friendly
+
 
 ##
 
