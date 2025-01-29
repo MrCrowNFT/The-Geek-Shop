@@ -6,6 +6,7 @@ import Product from "../backend/module/product.model.js";
 jest.mock("../backend/module/product.model.js", () => ({
   find: jest.fn(),
   findById: jest.fn(),
+  countDocuments: jest.fn(),
 }));
 
 describe("User product request", () => {
@@ -84,8 +85,13 @@ describe("Product Search", () => {
   it("should return 404 if no product with said criteria was found", async () => {
     // Mock find and populate chain
     Product.find.mockReturnValue({
-      populate: jest.fn().mockResolvedValue([]),
+      populate: jest.fn().mockReturnThis(),
+      skip: jest.fn().mockReturnThis(),
+      limit: jest.fn().mockResolvedValue([]),
     });
+
+    // Mock countDocuments
+    Product.countDocuments.mockResolvedValue(0);
 
     const res = await request(app).get(
       "/home/search?categories=1,2&minPrice=100&maxPrice=300"
@@ -101,6 +107,12 @@ describe("Product Search", () => {
       priceTag: { $gte: 100, $lte: 300 },
     });
     expect(Product.find().populate).toHaveBeenCalledWith("category");
+    expect(Product.find().skip).toHaveBeenCalledWith(0); // Default page = 1
+    expect(Product.find().limit).toHaveBeenCalledWith(20); // Default limit = 20
+    expect(Product.countDocuments).toHaveBeenCalledWith({
+      category: { $in: ["1", "2"] },
+      priceTag: { $gte: 100, $lte: 300 },
+    });
   });
 
   it("should return 200 and products if search criteria match", async () => {
@@ -143,7 +155,9 @@ describe("Product Search", () => {
       populate: jest.fn().mockRejectedValue(new Error("Database error")),
     });
 
-    const res = await request(app).get("/home/search?categories=1,2&minPrice=100&maxPrice=300");
+    const res = await request(app).get(
+      "/home/search?categories=1,2&minPrice=100&maxPrice=300"
+    );
 
     expect(res.status).toBe(500);
     expect(res.body.success).toBe(false);

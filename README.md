@@ -4,12 +4,18 @@
 
 ## TO-DO
 
-- Testing backend -> admin controllers 3/3; user controller 3/3, category controller 0/4
-- Frontend -> Search Page (options)
+- Testing backend:
+    * admin login controllers 3/3
+    * admin order controller 3/3
+    * admin product controller 0/4
+    * user controller 3/3 (1 redo)
+    * user login controller 0/2
+    * category controller 2/4
+- Search Page (options and render)
+- Admin dashboard
 - Dynamic shopping cart
 - Payment
 - Make it mobile-friendly
-
 
 ##
 
