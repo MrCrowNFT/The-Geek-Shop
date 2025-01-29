@@ -51,7 +51,8 @@ const mockProduct = {
   id: 1,
   name: "Product 1",
   price: 19.99,
-  description: "Description 1",
+  description:
+    "pariatur ea consequat deserunt occaecat Lorem irure Lorem tempor - dolor elit velit dolor proident ipsum est anim velit voluptate aliqua exercitation - laboris quis elit magna ea amet excepteur amet minim cupidatat irure commodo nulla ",
   images: [ImageA, ImageB, ImageC, ImageD],
 };
 const ProductPage = () => {
@@ -64,16 +65,23 @@ const ProductPage = () => {
           <Slider images={mockProduct.images}></Slider>
         </div>
         <div className="product-page-info">
-          <h2>{mockProduct.name}</h2>
-          <h1>{mockProduct.price}</h1>
-          <p>{mockProduct.description}</p>
+          <h1>{mockProduct.name}</h1>
+          <h2>${mockProduct.price}</h2>
+          <ul className="product-description">
+            {mockProduct.description.split("-").map((word, index) => (
+              <li key={index}>{word}</li>
+            ))}
+          </ul>
+          <button></button>
         </div>
       </div>
-      <br/>
-      <br/>
+      <br />
+      <br />
       <h2>Related Products</h2>
-      <br/>
+      <br />
       <CardWrapper products={mockProducts}></CardWrapper>
+      <br />
+      <br />
       <Footer></Footer>
     </>
   );
