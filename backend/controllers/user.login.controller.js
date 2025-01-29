@@ -1,4 +1,4 @@
-import Role from "./module/role.model";
+import Role from "../module/role.model.js";
 
 export const userLogin = async (req, res) => {
   const { username, password } = req.body;
