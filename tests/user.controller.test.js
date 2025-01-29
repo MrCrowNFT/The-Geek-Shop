@@ -170,4 +170,41 @@ describe("Product Search", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Server error");
   });
+  it("should handle text search if searchTerm is provided", async () => {
+    const mockedProducts = [
+      {
+        id: 1,
+        name: "Product A",
+        price: 100,
+        category: { _id: "1", name: "Category A" },
+      },
+    ];
+
+    // Mock find and populate chain
+    Product.find.mockReturnValue({
+      populate: jest.fn().mockReturnThis(),
+      skip: jest.fn().mockReturnThis(),
+      limit: jest.fn().mockResolvedValue(mockedProducts),
+    });
+
+    // Mock countDocuments
+    Product.countDocuments.mockResolvedValue(1);
+
+    const res = await request(app).get(
+      "/home/search?searchTerm=laptop"
+    );
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data).toEqual(mockedProducts);
+    expect(Product.find).toHaveBeenCalledWith({
+      $text: { $search: "laptop" },
+    });
+    expect(Product.find().populate).toHaveBeenCalledWith("category");
+    expect(Product.find().skip).toHaveBeenCalledWith(0); // Default page = 1
+    expect(Product.find().limit).toHaveBeenCalledWith(20); // Default limit = 20
+    expect(Product.countDocuments).toHaveBeenCalledWith({
+      $text: { $search: "laptop" },
+    });
+  });
 });
