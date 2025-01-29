@@ -115,7 +115,8 @@ describe("Product Search", () => {
     });
   });
 
-  it("should return 200 and products if search criteria match", async () => {
+  
+  it("should handle text search if searchTerm is provided", async () => {
     const mockedProducts = [
       {
         id: 1,
@@ -123,36 +124,42 @@ describe("Product Search", () => {
         price: 100,
         category: { _id: "1", name: "Category A" },
       },
-      {
-        id: 2,
-        name: "Product B",
-        price: 200,
-        category: { _id: "2", name: "Category B" },
-      },
     ];
 
     // Mock find and populate chain
     Product.find.mockReturnValue({
-      populate: jest.fn().mockResolvedValue(mockedProducts),
+      populate: jest.fn().mockReturnThis(),
+      skip: jest.fn().mockReturnThis(),
+      limit: jest.fn().mockResolvedValue(mockedProducts),
     });
 
+    // Mock countDocuments
+    Product.countDocuments.mockResolvedValue(1);
+
     const res = await request(app).get(
-      "/home/search?categories=1,2&minPrice=100&maxPrice=300"
+      "/home/search?searchTerm=figure"
     );
 
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
     expect(res.body.data).toEqual(mockedProducts);
     expect(Product.find).toHaveBeenCalledWith({
-      category: { $in: ["1", "2"] },
-      priceTag: { $gte: 100, $lte: 300 },
+      $text: { $search: "figure" },
     });
     expect(Product.find().populate).toHaveBeenCalledWith("category");
+    expect(Product.find().skip).toHaveBeenCalledWith(0); // Default page = 1
+    expect(Product.find().limit).toHaveBeenCalledWith(20); // Default limit = 20
+    expect(Product.countDocuments).toHaveBeenCalledWith({
+      $text: { $search: "figure" },
+    });
   });
 
   it("should return 500 if there is a server error", async () => {
+    // Mock find to throw an error
     Product.find.mockReturnValue({
-      populate: jest.fn().mockRejectedValue(new Error("Database error")),
+      populate: jest.fn().mockReturnThis(),
+      skip: jest.fn().mockReturnThis(),
+      limit: jest.fn().mockRejectedValue(new Error("Database error")),
     });
 
     const res = await request(app).get(
