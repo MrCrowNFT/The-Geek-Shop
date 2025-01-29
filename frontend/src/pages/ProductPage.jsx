@@ -4,7 +4,7 @@ import Slider from "../components/Slider/Slider.jsx";
 import ImageA from "../assets/images/ImageA.png";
 import ImageB from "../assets/images/ImageB.png";
 import ImageC from "../assets/images/ImageC.png";
-import ImageD from "../assets/images/ImageD.jpeg";
+import ImageD from "../assets/images/ImageD.png";
 import CardWrapper from "../components/CardWrapper/CardWrapper.jsx";
 import "./ProductPage.css";
 import Footer from "../components/Footer/Footer.jsx";
