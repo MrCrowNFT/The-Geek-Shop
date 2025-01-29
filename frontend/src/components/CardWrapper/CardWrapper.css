@@ -13,8 +13,7 @@
   flex-wrap: wrap;
   
   gap: 1rem;
-  /* flex-direction: row;
-    align-items: center; */
+
 }
 .lower-card-wrapper {
   position: relative;
@@ -23,21 +22,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16.5%; /* Adjust as needed to fit the space */
-  background-color: #f0f0f0; /* Light background for "More" tab */
+  width: 16.5%; 
+  background-color: #f0f0f0; 
   border-radius: 8px;
   text-align: center;
   cursor: pointer;
   font-weight: bold;
-  color: #333; /* Text color */
+  color: #333;
   padding: 10px;
-  gap: 5px; /* Spacing between text and arrow */
+  gap: 5px; 
   transition: transform 0.3s, background-color 0.3s;
 }
 
 .more-tab:hover {
   background-color: #ddd;
-  transform: scale(1.05); /* Slight scale effect */
+  transform: scale(1.05); 
 }
 
 .more-tab a {
@@ -45,9 +44,9 @@
   color: inherit;
   display: flex;
   align-items: center;
-  gap: 5px; /* Space between "More" and the arrow */
+  gap: 5px; 
 }
 
 .more-tab a:hover {
-  text-decoration: underline; /* Adds underline on hover */
+  text-decoration: underline; 
 }
