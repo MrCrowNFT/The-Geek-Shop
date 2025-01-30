@@ -18,6 +18,7 @@ jest.mock("../backend/module/category.model.js", () => ({
   findById: jest.fn(),
   findOne: jest.fn(),
   findByIdAndUpdate: jest.fn(),
+  findByIdAndDelete: jest.fn(),
 }));
 
 describe("Admin get categories from db", () => {
@@ -141,7 +142,11 @@ describe("admin update category", () => {
   it("should update category and return 200", async () => {
     const adminToken = "mocked-admin-token";
 
-    const updatedCategory = { id: 10, name: "Updated Name", description: "Updated Description" };
+    const updatedCategory = {
+      id: 10,
+      name: "Updated Name",
+      description: "Updated Description",
+    };
     Category.findByIdAndUpdate.mockResolvedValue(updatedCategory);
 
     const res = await request(app)
@@ -163,7 +168,7 @@ describe("admin update category", () => {
     Category.findByIdAndUpdate.mockRejectedValue(new Error("Database error"));
 
     const res = await request(app)
-      .put("/categories/10") // PUT request
+      .put("/categories/10")
       .set("Authorization", `Bearer ${adminToken}`)
       .send({
         name: "some-name",
@@ -174,5 +179,22 @@ describe("admin update category", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Server error");
   });
-  
+});
+describe("admin delete category", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  it("should return 404 if category id not found", async () => {
+    const adminToken = "mocked-admin-token";
+
+    Category.findByIdAndDelete.mockResolvedValue(null);
+
+    const res = await request(app)
+      .delete("/categories/invalidId")
+      .set("Authorization", `Bearer ${adminToken}`);
+
+    expect(res.status).toBe(404);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Category not found");
+  });
 });
