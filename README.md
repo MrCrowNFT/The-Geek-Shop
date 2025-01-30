@@ -5,14 +5,18 @@
 ## TO-DO
 
 - Testing backend:
-    * admin login controllers 3/3
-    * admin order controller 3/3
+    * admin login controllers 3/3 ✅
+    * admin order controller 3/3 ✅
     * admin product controller 0/4
-    * user controller 3/3 (1 redo)
+    * user controller 3/3 ✅
     * user login controller 0/2
     * category controller 2/4
 - Search Page (options and render)
-- Admin dashboard
+- Admin dashboard:
+    * Tabs ✅
+    * Implement Authentication popup
+    * Overview component
+    * Orders, Customers and Products getter tabs
 - Dynamic shopping cart
 - Payment
 - Make it mobile-friendly
@@ -28,3 +32,7 @@ npm run seed
 ## Jest and Babel config
 
 Added `jest.config.js` and `babel.config.json` as Jest doesn't support ES Modules (import/export). babel-jest transpiles modern JavaScript to a format Jest can understand.
+
+## Admin Dashboard
+
+Admin dashboard uses Material UI tab component.

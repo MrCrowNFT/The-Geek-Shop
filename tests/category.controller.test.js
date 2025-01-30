@@ -197,4 +197,17 @@ describe("admin delete category", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Category not found");
   });
+  it("should return 500 if for server error", async()=>{
+    const adminToken = "mocked-admin-token";
+
+    Category.findByIdAndDelete.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app)
+      .delete("/categories/invalidId")
+      .set("Authorization", `Bearer ${adminToken}`);
+
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Server error");
+  })
 });
