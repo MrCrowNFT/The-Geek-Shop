@@ -138,4 +138,24 @@ describe("admin update category", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Category not found");
   });
+  it("should update category and return 200", async () => {
+    const adminToken = "mocked-admin-token";
+
+    const updatedCategory = { id: 10, name: "Updated Name", description: "Updated Description" };
+    Category.findByIdAndUpdate.mockResolvedValue(updatedCategory);
+
+    const res = await request(app)
+      .put("/categories/10") // Correct method and route
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "Updated Name",
+        description: "Updated Description",
+      });
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data).toEqual(updatedCategory);
+  });
+
+  
 });
