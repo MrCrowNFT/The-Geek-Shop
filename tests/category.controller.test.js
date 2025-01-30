@@ -157,5 +157,22 @@ describe("admin update category", () => {
     expect(res.body.data).toEqual(updatedCategory);
   });
 
+  it("should return 500 for server error", async () => {
+    const adminToken = "mocked-admin-token";
+
+    Category.findByIdAndUpdate.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app)
+      .put("/categories/10") // PUT request
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "some-name",
+        description: "some-description",
+      });
+
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Server error");
+  });
   
 });
