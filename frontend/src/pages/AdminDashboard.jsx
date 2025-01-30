@@ -1,7 +1,10 @@
 
+import BasicTabs from "../components/Tabs/Tabs.jsx"
+
 const AdminDashboard = ()=>{
     return (
         <>
+        <BasicTabs/>
         </>
     )
 }
