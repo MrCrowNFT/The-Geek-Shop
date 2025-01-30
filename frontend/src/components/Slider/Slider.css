@@ -22,7 +22,7 @@
     bottom: 0;
     padding: 1rem;
     cursor: pointer;
-    transition: background-color 100ms ease-in-out;
+    transition: background-color 500ms ease-in-out;
 }
 
 .img-slider-button > *{
