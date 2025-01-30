@@ -47,10 +47,71 @@
   line-height: 1.6;
   list-style-type: disc; /* Add bullet points */
   padding-left: 1.5rem; /* Indent bullet points */
-  margin: 0; /* Remove default margin */
+  margin: 0;
 }
 
 .product-description li {
   margin-bottom: 0.5rem; /* Space between bullet points */
 }
-  
+
+/* Product Counter Section */
+.product-counter-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Counter Buttons */
+.count-setter {
+  background-color: silver;
+  color: white; 
+  border: none;
+  border-radius: 5%; 
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.count-setter:hover {
+  background-color: hsl(0, 0%, 50%); /* Darker blue on hover */
+}
+
+.count-setter:active {
+  transform: scale(0.95); /* Slight scale effect on click */
+}
+
+/* Counter Display */
+.count-display {
+  font-size: 1.5rem;
+  font-weight: 600;
+  min-width: 40px; 
+  text-align: center;
+}
+
+/* Add to Cart Button */
+.product-counter-section > button:last-child {
+  background-color: hsl(240, 64%, 50%); 
+  color: white; 
+  border: none;
+  border-radius: 5%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  height: 40px;
+  width: 50%;
+}
+
+.product-counter-section > button:last-child:hover {
+  background-color: midnightblue
+}
+
+.product-counter-section > button:last-child:active {
+  transform: scale(0.95); /* Slight scale effect on click */
+}

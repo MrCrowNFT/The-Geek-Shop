@@ -88,12 +88,12 @@ const ProductPage = () => {
             ))}
           </ul>
           <div className="product-counter-section">
-            <button className="count-setter" onClick={addProduct}>
-              +
-            </button>
-            <p className="count-display">{productCounter}</p>
             <button className="count-setter" onClick={removeProduct}>
               -
+            </button>
+            <p className="count-display">{productCounter}</p>
+            <button className="count-setter" onClick={addProduct}>
+              +
             </button>
             <button onClick="">Add to cart</button>
           </div>
