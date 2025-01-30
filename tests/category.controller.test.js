@@ -13,16 +13,18 @@ jest.mock("jsonwebtoken", () => ({
 }));
 
 jest.mock("../backend/module/category.model.js", () => ({
-  //mock function to be configured to return specific values
+  // Mock functions to be configured to return specific values
   find: jest.fn(),
   findById: jest.fn(),
   findOne: jest.fn(),
+  findByIdAndUpdate: jest.fn(),
 }));
 
 describe("Admin get categories from db", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   it("Should return 200 and all categories", async () => {
     const adminToken = "mocked-admin-token";
 
@@ -62,6 +64,7 @@ describe("admin add new category", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   it("should return 400 if no name on request body", async () => {
     const adminToken = "mocked-admin-token";
 
@@ -72,10 +75,12 @@ describe("admin add new category", () => {
         name: "",
         description: "valid description",
       });
+
     expect(res.status).toBe(400);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Category name is required");
   });
+
   it("should return 400 if category name already in use", async () => {
     const adminToken = "mocked-admin-token";
 
@@ -88,6 +93,7 @@ describe("admin add new category", () => {
         name: "repeated-name",
         description: "valid description",
       });
+
     expect(res.status).toBe(400);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Category already exists");
@@ -105,8 +111,31 @@ describe("admin add new category", () => {
         name: "valid-name",
         description: "valid-description",
       });
+
     expect(res.status).toBe(500);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Server error");
+  });
+});
+
+describe("admin update category", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  it("should return 404 for categoty not found", async () => {
+    const adminToken = "mocked-admin-token";
+
+    Category.findByIdAndUpdate.mockResolvedValue(null);
+
+    const res = await request(app)
+      .put("/categories/:10")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "not-found-name",
+        description: "not-found-description",
+      });
+    expect(res.status).toBe(404);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Category not found");
   });
 });
