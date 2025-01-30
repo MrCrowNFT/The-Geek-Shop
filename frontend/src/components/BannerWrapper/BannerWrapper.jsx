@@ -1,10 +1,6 @@
-import BannerA from "../../assets/images/BannerA.jpg";
-import BannerB from "../../assets/images/BannerB.jpg";
-import BannerC from "../../assets/images/BannerC.jpg";
-import BannerD from "../../assets/images/BannerD.jpg";
-import BannerE from "../../assets/images/BannerE.jpg";
-import BannerF from "../../assets/images/BannerF.png";
-import Slider from "../Slider/Slider";
+import BannerA from "../../assets/images/BannerA.png";
+import BannerB from "../../assets/images/BannerB.png";
+import BannerC from "../../assets/images/BannerC.png";
 import "./BannerWrapper.css";
 
 const BannerWrapper = () => {
@@ -31,7 +27,7 @@ const BannerWrapper = () => {
             </div>
             <div className="left-lower-lower-banner">
               <a href="">
-                <img loading="lazy" src={BannerC} alt="" />
+                <img loading="lazy" src={BannerB} alt="" />
               </a>
             </div>
           </div>
@@ -41,7 +37,7 @@ const BannerWrapper = () => {
               <img
                 className="middle-lower-banner"
                 loading="lazy"
-                src={BannerF}
+                src={BannerC}
                 alt=""
               />
             </a>
@@ -50,12 +46,12 @@ const BannerWrapper = () => {
           <div className="main-content-lower-right">
             <div className="right-upper-lower-banner">
               <a href="">
-                <img loading="lazy" src={BannerD} alt="" />
+                <img loading="lazy" src={BannerB} alt="" />
               </a>
             </div>
             <div className="right-lower-lower-banner">
               <a href="">
-                <img loading="lazy" src={BannerE} alt="" />
+                <img loading="lazy" src={BannerB} alt="" />
               </a>
             </div>
           </div>

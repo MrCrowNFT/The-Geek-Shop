@@ -8,6 +8,7 @@ import ImageD from "../assets/images/ImageD.png";
 import CardWrapper from "../components/CardWrapper/CardWrapper.jsx";
 import "./ProductPage.css";
 import Footer from "../components/Footer/Footer.jsx";
+import { useState } from "react";
 
 const mockProducts = [
   {
@@ -56,6 +57,20 @@ const mockProduct = {
   images: [ImageA, ImageB, ImageC, ImageD],
 };
 const ProductPage = () => {
+  const [productCounter, setProductCounter] = useState(1);
+
+  const addProduct = () => {
+    setProductCounter(productCounter + 1);
+  };
+
+  const removeProduct = () => {
+    if (productCounter < 1) {
+      setProductCounter(0);
+    } else {
+      setProductCounter(productCounter - 1);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -72,7 +87,16 @@ const ProductPage = () => {
               <li key={index}>{word}</li>
             ))}
           </ul>
-          <button></button>
+          <div className="product-counter-section">
+            <button className="count-setter" onClick={addProduct}>
+              +
+            </button>
+            <p className="count-display">{productCounter}</p>
+            <button className="count-setter" onClick={removeProduct}>
+              -
+            </button>
+            <button onClick="">Add to cart</button>
+          </div>
         </div>
       </div>
       <br />
