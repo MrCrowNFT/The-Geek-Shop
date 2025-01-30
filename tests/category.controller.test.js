@@ -210,4 +210,23 @@ describe("admin delete category", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Server error");
   })
+  it("should return 200 for deleted category", async()=>{
+    const adminToken = "mocked-admin-token";
+
+    const updatedCategory = {
+      id: 200,
+      name: "Updated Name",
+      description: "Updated Description",
+    };
+
+    Category.findByIdAndDelete.mockResolvedValue(updatedCategory);
+
+    const res = await request(app)
+      .delete("/categories/200")
+      .set("Authorization", `Bearer ${adminToken}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.message).toBe("Category deleted successfully");
+  })
 });
