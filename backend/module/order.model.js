@@ -6,7 +6,7 @@ const orderScehma = new mongoose.Schema(
       name: {
         type: String,
         required: true,
-        trim:true,
+        trim: true,
       },
       email: {
         type: String,
@@ -77,6 +77,9 @@ const orderScehma = new mongoose.Schema(
     timestamps: true, //createdAt, updatedAt
   }
 );
+
+orderSchema.index({ "customer.name": "text", "customer.email": "text" });
+
 const Order = mongoose.model("Order", orderScehma);
 
 export default Order;

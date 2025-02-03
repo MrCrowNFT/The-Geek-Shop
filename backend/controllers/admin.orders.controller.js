@@ -61,7 +61,7 @@ export const adminOrderSearch = async (req, res) => {
 
     const orders = await Order.find(query).skip(skip).limit(limitNumber);
 
-    const totalOrders = Order.countDocuments(query);
+    const totalOrders = await Order.countDocuments(query);
 
     if (!orders.length) {
       return res.status(404).json({
@@ -73,10 +73,12 @@ export const adminOrderSearch = async (req, res) => {
     res.status(200).json({
       success: true,
       data: orders,
-      pagination: totalOrders,
-      totalPages: Math.ceil(totalOrders / limitNumber),
-      currentPage: pageNumber,
-      productPerPage: limitNumber,
+      pagination: {
+        totalOrders,
+        totalPages: Math.ceil(totalOrders / limitNumber),
+        currentPage: pageNumber,
+        productPerPage: limitNumber,
+      },
     });
   } catch (error) {
     console.error(`Error during order search: ${error.message}`);

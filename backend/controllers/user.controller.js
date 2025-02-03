@@ -78,7 +78,7 @@ export const userSearch = async (req, res) => {
       .limit(limitNumber);
 
     //get total num of products returns for pagination
-    const totalProducts = Product.countDocuments(query);
+    const totalProducts = await Product.countDocuments(query);
 
     if (!products.length) {
       return res.status(404).json({
