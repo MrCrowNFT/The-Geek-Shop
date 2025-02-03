@@ -5,7 +5,7 @@ const ProducListItem = (product) => {
   return (
     <div className="product">
       <a href="">
-        <div className="product-name">
+        <div className="product-info">
           <img src={product.images[0]} alt={product.name} />
           <p>{product.name}</p>
           <p>${product.price}</p>
