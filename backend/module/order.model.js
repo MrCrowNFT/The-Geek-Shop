@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const orderScehma = new mongoose.Schema(
+const orderSchema = new mongoose.Schema(
   {
     costumer: {
       name: {
@@ -80,6 +80,6 @@ const orderScehma = new mongoose.Schema(
 
 orderSchema.index({ "customer.name": "text", "customer.email": "text" });
 
-const Order = mongoose.model("Order", orderScehma);
+const Order = mongoose.model("Order", orderSchema);
 
 export default Order;

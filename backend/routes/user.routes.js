@@ -2,7 +2,7 @@ import express from "express";
 import {
   getHomePage,
   userGetProductById,
-  userGetProducts,
+  GetProducts,
   userSearch,
 } from "../controllers/user.controller.js";
 import { createUser, userLogin } from "../controllers/user.login.controller.js";
@@ -12,7 +12,7 @@ const userRouter = express.Router();
 //*USERS ROUTES
 userRouter.get("/", getHomePage);
 
-userRouter.get("/products", userGetProducts);
+userRouter.get("/products", GetProducts);
 
 userRouter.get("/products/:id", userGetProductById);
 

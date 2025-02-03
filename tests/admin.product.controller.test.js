@@ -17,3 +17,4 @@ jest.mock("../backend/module/product.model.js", () => ({
   findById: jest.fn(),
 }));
 
+describe("admin")

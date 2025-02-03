@@ -18,10 +18,11 @@ import {
   getAdminOrders,
   updateAdminOrder,
 } from "../controllers/admin.orders.controller.js";
+import { GetProducts } from "../controllers/user.controller.js";
 
 const adminRouter = express.Router();
 
-//PRODUCTS ADMIN ROUTES
+
 adminRouter.post("/login", adminLogin);
 
 adminRouter.post("/newAdmin", verifyAdmin, verifySuperAdmin, newAdmin);
@@ -30,7 +31,8 @@ adminRouter.put("/newPassword", verifyAdmin, changeAdminPassword);
 
 adminRouter.get("/dashboard", verifyAdmin, getAdminPage);
 
-adminRouter.get("/products", verifyAdmin, getAdminPage);
+//PRODUCTS ADMIN ROUTES
+adminRouter.get("/products", verifyAdmin, GetProducts);
 
 adminRouter.post("/products/newproduct", verifyAdmin, postAdminNewProduct);
 

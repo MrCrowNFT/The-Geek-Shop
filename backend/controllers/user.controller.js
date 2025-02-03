@@ -6,7 +6,7 @@ export const getHomePage = (req, res) => {
   return res.status(200).send("Home page");
 };
 
-export const userGetProducts = async (req, res) => {
+export const GetProducts = async (req, res) => {
   try {
     const products = await Product.find({});
     return res.status(200).json({ success: true, data: products });

@@ -7,16 +7,6 @@ export const getAdminPage = (req, res) => {
   return res.status(200).send("Admin Dashboard");
 };
 
-export const getAdminProducts = async (req, res) => {
-  try {
-    const products = await Product.find({});
-    return res.status(200).json({ success: true, data: products });
-  } catch (error) {
-    console.error(`Error fetching products: ${error.message}`);
-    return res.status(500).json({ success: false, message: "Server error" });
-  }
-};
-
 export const postAdminNewProduct = async (req, res) => {
   const product = req.body;
   const newProduct = new Product(product);
