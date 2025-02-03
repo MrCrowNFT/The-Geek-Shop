@@ -13,6 +13,7 @@ import {
   updateAdminProduct,
 } from "../controllers/admin.products.controller.js";
 import {
+  adminOrderSearch,
   getAdminOrderById,
   getAdminOrders,
   updateAdminOrder,
@@ -42,6 +43,8 @@ adminRouter.put("/products/:id", verifyAdmin, updateAdminProduct);
 adminRouter.get("/orders", verifyAdmin, getAdminOrders);
 
 adminRouter.get("/orders/:id", verifyAdmin, getAdminOrderById);
+
+adminRouter.get("/orders/search", verifyAdmin, adminOrderSearch);
 
 //For updating the order status manually untill aliScrapper is ready
 adminRouter.put("/orders/:id", verifyAdmin, updateAdminOrder);
