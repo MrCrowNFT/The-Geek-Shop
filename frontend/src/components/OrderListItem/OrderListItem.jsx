@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 const OrderListItem = ({ order }) => {
   return (
-    <div>
-      <a>
-        <div className="">
+    <div className="order">
+      <a href="">
+        <div className="order-info">
         <p>{order.id}</p>
         <p><b>{order.costumer.name}</b></p>
         <p>{order.details.paid_amount}</p>
