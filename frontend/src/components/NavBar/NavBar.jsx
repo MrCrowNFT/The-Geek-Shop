@@ -1,6 +1,7 @@
 import logo from "../../assets/images/Logo(W).png";
 import search from "../../assets/icons/search.png";
 import cart from "../../assets/icons/shopping-cart.png";
+import SearchBar from "../SearchBar/SearchBar.jsx";
 import { useEffect } from "react";
 import "./NavBar.css";
 
@@ -74,17 +75,7 @@ const Navbar = () => {
             <span className="search-icon-wrap">
               <img className="search-icon" src={search}></img>
             </span>
-            <div className="search-bar">
-              <form>
-                <input
-                  className="search-query"
-                  type="text"
-                  placeholder="Search products"
-                  autoComplete="off"
-                  autoCapitalize="off"
-                ></input>
-              </form>
-            </div>
+            <SearchBar/>
           </div>
           <div className="cart">
             <button type="button" className="cart-button">
