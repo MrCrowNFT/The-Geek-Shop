@@ -15,8 +15,9 @@
 - Admin dashboard:
     * Tabs ✅
     * Implement Authentication popup
-    * Overview component
-    * Orders, Customers and Products getter tabs
+    * Overview tab
+    * Orders tab
+    * Products tabs
 - Dynamic shopping cart
 - Payment
 - Make it mobile-friendly
