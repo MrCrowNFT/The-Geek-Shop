@@ -8,10 +8,53 @@ export const getAdminPage = (req, res) => {
 };
 
 export const postAdminNewProduct = async (req, res) => {
-  const product = req.body;
-  const newProduct = new Product(product);
-
   try {
+    const {
+      name,
+      priceTag,
+      total_cost,
+      discount,
+      sku,
+      urls,
+      isAvailable,
+      images,
+      description,
+      category,
+    } = req.body;
+    if (
+      !name ||
+      !total_cost?.cost ||
+      !total_cost?.shipping ||
+      !isAvailable ||
+      !images?.length
+    ) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Missing required fields" });
+    }
+
+    if (sku) {
+      const existingProduct = await Product.findOne({ sku });
+      if (existingProduct) {
+        return res
+          .status(400)
+          .json({ success: false, message: "SKU already exists" });
+      }
+    }
+
+    const newProduct = new Product({
+      name,
+      priceTag,
+      total_cost,
+      discount,
+      sku,
+      urls,
+      isAvailable,
+      images,
+      description,
+      category,
+    });
+
     await newProduct.save();
     //201 means smth created
     return res.status(201).json({ success: true, data: newProduct });
