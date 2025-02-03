@@ -5,9 +5,12 @@ const OrderListItem = ({ order }) => {
   return (
     <div>
       <a>
+        <div className="">
         <p>{order.id}</p>
-        <p>{order.costumer.name}</p>
+        <p><b>{order.costumer.name}</b></p>
         <p>{order.details.paid_amount}</p>
+        <p>{order.status.state}</p>
+        </div>
       </a>
     </div>
   );
@@ -21,6 +24,9 @@ OrderListItem.propTypes = {
       email: PropTypes.string.isRequired,
       phone: PropTypes.string.isRequired,
       run: PropTypes.string.isRequired,
+    }).isRequired,
+    status: PropTypes.shape({
+      state: PropTypes.string.isRequired,
     }).isRequired,
     details: PropTypes.shape({
       paid_amount: PropTypes.number.isRequired,
