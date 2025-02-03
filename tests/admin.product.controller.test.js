@@ -17,4 +17,8 @@ jest.mock("../backend/module/product.model.js", () => ({
   findById: jest.fn(),
 }));
 
-describe("admin")
+describe("admin adds new product", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+});

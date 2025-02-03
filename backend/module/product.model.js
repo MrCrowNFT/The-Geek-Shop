@@ -24,13 +24,13 @@ const productSchema = new mongoose.Schema(
     sku: {
       type: Number,
       unique: true,
-      required: true,
+      required: false,
     },
     //this might change since it is for fetching the info of the products
     urls: [
       {
-        url: { type: String, required: true },
-        priority: { type: Number, required: true, min: 1 },
+        url: { type: String, required: false },
+        priority: { type: Number, required: false, min: 1 },
       },
     ],
     isAvailable: {
@@ -46,7 +46,7 @@ const productSchema = new mongoose.Schema(
     ],
     description: {
       type: String,
-      required: true,
+      required: false,
       maxlength: 500,
     },
     //the validator still in progress
