@@ -40,4 +40,24 @@ describe("admin adds new product", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Missing required fields");
   });
+  it("should return 400 if SKU already exists", async () => {
+    const adminToken = "mocked-admin-token";
+    Product.findOne.mockResolvedValue({ sku: 123456 }); // Simulate an existing SKU
+
+    const res = await request(app)
+      .post("/admin/products/newproduct")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "Test Product",
+        priceTag: 100,
+        total_cost: { cost: 50, shipping: 10 },
+        isAvailable: true,
+        images: ["https://example.com/image.jpg"],
+        sku: 123456,
+      });
+
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("SKU already exists");
+  });
 });
