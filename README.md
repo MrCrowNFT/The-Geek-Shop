@@ -7,7 +7,7 @@
 - Testing backend:
     * admin login controllers 3/3 ✅
     * admin order controller 3/3 ✅
-    * admin product controller 0/4
+    * admin product controller 0/3
     * user controller 3/3 ✅
     * user login controller 0/2
     * category controller 2/4

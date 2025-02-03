@@ -15,10 +15,29 @@ jest.mock("jsonwebtoken", () => ({
 jest.mock("../backend/module/product.model.js", () => ({
   find: jest.fn(),
   findById: jest.fn(),
+  findOne: jest.fn(),
+  create: jest.fn(),
 }));
 
 describe("admin adds new product", () => {
   afterEach(() => {
     jest.clearAllMocks();
+  });
+  it("should return 400 if no name in the new product", async () => {
+    const adminToken = "mocked-admin-token";
+
+    const res = await request(app)
+      .post("/admin/products/newproduct")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        priceTag: 100,
+        total_cost: { cost: 50, shipping: 10 },
+        isAvailable: true,
+        images: ["https://example.com/image.jpg"],
+      });
+
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Missing required fields");
   });
 });

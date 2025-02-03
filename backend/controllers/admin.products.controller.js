@@ -21,6 +21,7 @@ export const postAdminNewProduct = async (req, res) => {
       description,
       category,
     } = req.body;
+    
     if (
       !name ||
       !total_cost?.cost ||
