@@ -78,5 +78,8 @@ export const adminOrderSearch = async (req, res) => {
       currentPage: pageNumber,
       productPerPage: limitNumber,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.error(`Error during order search: ${error.message}`);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
 };
