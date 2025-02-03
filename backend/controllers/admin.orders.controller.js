@@ -14,11 +14,13 @@ export const getAdminOrders = async (req, res) => {
 
 export const getAdminOrderById = async (req, res) => {
   try {
-  const { id } = req.params;
-  const order = await Order.findById(id)
-  if (!order) {
-    return res.status(404).json({ success: false, message: "Order not found" });
-  }
+    const { id } = req.params;
+    const order = await Order.findById(id);
+    if (!order) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Order not found" });
+    }
     return res.status(200).json({ success: true, data: order });
   } catch (error) {
     console.error(`Error fetching orders: ${error.message}`);
@@ -42,4 +44,39 @@ export const updateAdminOrder = async (req, res) => {
     console.error(`Error updating orders: ${error.message}`);
     return res.status(500).json({ success: false, message: "Server error" });
   }
+};
+
+export const adminOrderSearch = async (req, res) => {
+  try {
+    const { searchTerm, page = 1, limit = 20 } = req.query;
+
+    const query = {};
+
+    query.$text = { $search: searchTerm }; // MongoDB text search
+
+    // Convert page and limit to numbers, base 10
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+    const skip = (pageNumber - 1) * limitNumber; // Calculate the number of documents to skip
+
+    const orders = await Order.find(query).skip(skip).limit(limitNumber);
+
+    const totalOrders = Order.countDocuments(query);
+
+    if (!orders.length) {
+      return res.status(404).json({
+        success: false,
+        message: "No orders found matching the search criteria.",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: orders,
+      pagination: totalOrders,
+      totalPages: Math.ceil(totalOrders / limitNumber),
+      currentPage: pageNumber,
+      productPerPage: limitNumber,
+    });
+  } catch (error) {}
 };
