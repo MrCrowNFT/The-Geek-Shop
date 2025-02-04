@@ -16,6 +16,7 @@ jest.mock("../backend/module/product.model.js", () => ({
   find: jest.fn(),
   findById: jest.fn(),
   findOne: jest.fn(),
+  findByIdAndDelete: jest.fn(),
 }));
 
 describe("admin adds new product", () => {
@@ -58,5 +59,25 @@ describe("admin adds new product", () => {
     expect(res.status).toBe(400);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("SKU already exists");
+  });
+});
+
+describe("admin deletes product from db", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  it("should return 404 if product not found", async () => {
+    const adminToken = "mocked-admin-token";
+
+    Product.findByIdAndDelete.mockResolvedValue(null);
+
+    const res = await request(app)
+      .delete("/admin/products/:10")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({ id: 10 });
+
+    expect(res.status).toBe(404);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Product not found");
   });
 });

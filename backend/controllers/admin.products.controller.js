@@ -21,7 +21,7 @@ export const postAdminNewProduct = async (req, res) => {
       description,
       category,
     } = req.body;
-    
+
     if (
       !name ||
       !total_cost?.cost ||
@@ -68,14 +68,14 @@ export const postAdminNewProduct = async (req, res) => {
 export const deleteAdminProduct = async (req, res) => {
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res
-      .status(404)
-      .json({ success: false, message: "Product not found" });
-  }
-
   try {
-    await Product.findByIdAndDelete(id);
+    const deletedProduct = await Product.findByIdAndDelete(id);
+    if (!deletedProduct) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
     return res.status(200).json({ success: true, message: "Product deleted" });
   } catch (error) {
     console.error(`Error deleting product: ${error.message}`);
