@@ -7,7 +7,7 @@
 - Testing backend:
     * admin login controllers 3/3 ✅
     * admin order controller 3/3 ✅
-    * admin product controller 0/3
+    * admin product controller 1/3
     * user controller 3/3 ✅
     * user login controller 0/2
     * category controller 2/4
@@ -17,7 +17,7 @@
     * Implement Authentication popup
     * Overview tab
     * Orders tab
-    * Products tabs
+    * Products tabs✅
 - Dynamic shopping cart
 - Payment
 - Make it mobile-friendly
