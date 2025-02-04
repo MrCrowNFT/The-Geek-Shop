@@ -80,7 +80,7 @@ describe("admin deletes product from db", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Product not found");
   });
-  it("should return 500 for server error", async()=>{
+  it("should return 500 for server error", async () => {
     const adminToken = "mocked-admin-token";
 
     Product.findByIdAndDelete.mockRejectedValue(new Error("Database error"));
@@ -93,5 +93,28 @@ describe("admin deletes product from db", () => {
     expect(res.status).toBe(500);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Server error");
-  })
+  });
+  it("should return 200 for deleted product", async () => {
+    const adminToken = "mocked-admin-token";
+
+    const deletedProduct = {
+      id: 100,
+      name: "Test Product",
+      priceTag: 100,
+      total_cost: { cost: 50, shipping: 10 },
+      isAvailable: true,
+      images: ["https://example.com/image.jpg"],
+      sku: 123456,
+    };
+
+    Product.findByIdAndDelete.mockResolvedValue(deletedProduct);
+
+    const res = await request(app)
+      .delete("/admin/products/100")
+      .set("Authorization", `Bearer ${adminToken}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.message).toBe("Product deleted");
+  });
 });
