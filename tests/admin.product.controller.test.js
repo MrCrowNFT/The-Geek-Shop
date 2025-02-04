@@ -80,4 +80,18 @@ describe("admin deletes product from db", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Product not found");
   });
+  it("should return 500 for server error", async()=>{
+    const adminToken = "mocked-admin-token";
+
+    Product.findByIdAndDelete.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app)
+      .delete("/admin/products/10")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({ id: 10 });
+
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Server error");
+  })
 });
