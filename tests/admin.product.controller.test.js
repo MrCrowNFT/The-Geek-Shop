@@ -172,4 +172,25 @@ describe("admin updates product from db", () => {
     expect(res.body.data).toEqual(updatedProduct);
   });
 
+  it("should return 500 if there is a server error", async () => {
+    const adminToken = "mocked-admin-token";
+
+    // Mock findByIdAndUpdate to throw a generic error
+    Product.findByIdAndUpdate.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app)
+      .put("/admin/products/123") // Use PUT request
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "Updated Product",
+        priceTag: 100,
+        total_cost: { cost: 50, shipping: 10 },
+        isAvailable: true,
+        images: ["https://example.com/image.jpg"],
+      });
+
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Server error");
+  });
 });
