@@ -19,7 +19,7 @@ const BarGraph = () => {
     ToolTip,
     Legend
   );
-  //this is for cutomization i think, I'll leave it empry for now
+  //this is for cutomization i think, I'll leave it empty for now
   const options = {};
 
   //for data it should be in the following format, need to include this later

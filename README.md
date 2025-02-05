@@ -15,7 +15,7 @@
 - Admin dashboard:
     * Tabs ✅
     * Implement Authentication popup
-    * Overview tab
+    * Overview tab -> using react chart.js for graphs
     * Orders tab
     * Products tabs✅
 - Dynamic shopping cart

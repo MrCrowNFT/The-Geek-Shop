@@ -88,18 +88,18 @@ export const updateAdminProduct = async (req, res) => {
   //to get whatever admin wants to update
   const product = req.body;
 
-  //to catch 404 case
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res
-      .status(404)
-      .json({ success: false, message: "Product not found" });
-  }
-
   try {
     //new: true so that it returns the updated product
     const updatedProduct = await Product.findByIdAndUpdate(id, product, {
       new: true,
     });
+    //to catch 404 case
+    if (!updatedProductp) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
+    }
+
     return res.status(200).json({ success: true, data: updatedProduct });
   } catch (error) {
     console.error(`Error updating product: ${error.message}`);
