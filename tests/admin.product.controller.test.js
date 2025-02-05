@@ -192,5 +192,25 @@ describe("admin updates product from db", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Server error");
   });
+  it("should return 400 if the product ID is invalid", async () => {
+    const adminToken = "mocked-admin-token";
 
+    // Mock findByIdAndUpdate to throw a CastError (invalid ID)
+    Product.findByIdAndUpdate.mockRejectedValue({ name: "CastError" });
+
+    const res = await request(app)
+      .put("/admin/products/invalid-id") // Use PUT request
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "Updated Product",
+        priceTag: 100,
+        total_cost: { cost: 50, shipping: 10 },
+        isAvailable: true,
+        images: ["https://example.com/image.jpg"],
+      });
+
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Invalid product ID");
+  });
 });
