@@ -119,4 +119,29 @@ describe("admin deletes product from db", () => {
     expect(res.body.message).toBe("Product deleted");
   });
 });
+describe("admin updates product from db", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  it("should return 404 if product not found", async () => {
+    const adminToken = "mocked-admin-token";
 
+    // Mock findByIdAndUpdate to return null (product not found)
+    Product.findByIdAndUpdate.mockResolvedValue(null);
+
+    const res = await request(app)
+      .put("/admin/products/123") // Use PUT request
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "Updated Product",
+        priceTag: 100,
+        total_cost: { cost: 50, shipping: 10 },
+        isAvailable: true,
+        images: ["https://example.com/image.jpg"],
+      });
+
+    expect(res.status).toBe(404);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Product not found");
+  });
+});
