@@ -126,11 +126,10 @@ describe("admin updates product from db", () => {
   it("should return 404 if product not found", async () => {
     const adminToken = "mocked-admin-token";
 
-    // Mock findByIdAndUpdate to return null (product not found)
     Product.findByIdAndUpdate.mockResolvedValue(null);
 
     const res = await request(app)
-      .put("/admin/products/123") // Use PUT request
+      .put("/admin/products/123") 
       .set("Authorization", `Bearer ${adminToken}`)
       .send({
         name: "Updated Product",
@@ -144,4 +143,33 @@ describe("admin updates product from db", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Product not found");
   });
+  it("should return 200 and the updated product if the update is successful", async () => {
+    const adminToken = "mocked-admin-token";
+
+    const updatedProduct = {
+      _id: "123",
+      name: "Updated Product",
+      priceTag: 100,
+      total_cost: { cost: 50, shipping: 10 },
+      isAvailable: true,
+      images: ["https://example.com/image.jpg"],
+    };
+    Product.findByIdAndUpdate.mockResolvedValue(updatedProduct);
+
+    const res = await request(app)
+      .put("/admin/products/123") 
+      .set("Authorization", `Bearer ${adminToken}`)
+      .send({
+        name: "Updated Product",
+        priceTag: 100,
+        total_cost: { cost: 50, shipping: 10 },
+        isAvailable: true,
+        images: ["https://example.com/image.jpg"],
+      });
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data).toEqual(updatedProduct);
+  });
+
 });
