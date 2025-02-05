@@ -17,6 +17,7 @@ jest.mock("../backend/module/product.model.js", () => ({
   findById: jest.fn(),
   findOne: jest.fn(),
   findByIdAndDelete: jest.fn(),
+  findByIdAndUpdate: jest.fn(),
 }));
 
 describe("admin adds new product", () => {
@@ -118,3 +119,4 @@ describe("admin deletes product from db", () => {
     expect(res.body.message).toBe("Product deleted");
   });
 });
+

@@ -89,12 +89,18 @@ export const updateAdminProduct = async (req, res) => {
   const product = req.body;
 
   try {
+    if (!id || !product) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid input" });
+    }
+
     //new: true so that it returns the updated product
     const updatedProduct = await Product.findByIdAndUpdate(id, product, {
       new: true,
     });
     //to catch 404 case
-    if (!updatedProductp) {
+    if (!updatedProduct) {
       return res
         .status(404)
         .json({ success: false, message: "Product not found" });
