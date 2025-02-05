@@ -22,6 +22,7 @@
 - Payment
 - Make it mobile-friendly
 - Indicator amount calculation backend
+- Better test coverage
 
 ##
 

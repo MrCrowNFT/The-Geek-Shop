@@ -90,9 +90,7 @@ export const updateAdminProduct = async (req, res) => {
 
   try {
     if (!id || !product) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid input" });
+      return res.status(400).json({ success: false, message: "Invalid input" });
     }
 
     //new: true so that it returns the updated product
@@ -109,6 +107,11 @@ export const updateAdminProduct = async (req, res) => {
     return res.status(200).json({ success: true, data: updatedProduct });
   } catch (error) {
     console.error(`Error updating product: ${error.message}`);
+    if (error.name === "CastError") {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid product ID" });
+    }
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
