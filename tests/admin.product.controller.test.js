@@ -175,11 +175,10 @@ describe("admin updates product from db", () => {
   it("should return 500 if there is a server error", async () => {
     const adminToken = "mocked-admin-token";
 
-    // Mock findByIdAndUpdate to throw a generic error
     Product.findByIdAndUpdate.mockRejectedValue(new Error("Database error"));
 
     const res = await request(app)
-      .put("/admin/products/123") // Use PUT request
+      .put("/admin/products/123") 
       .set("Authorization", `Bearer ${adminToken}`)
       .send({
         name: "Updated Product",
@@ -193,4 +192,5 @@ describe("admin updates product from db", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Server error");
   });
+
 });
