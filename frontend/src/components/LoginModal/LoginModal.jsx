@@ -1,4 +1,5 @@
 import "./LoginModal.css";
+import PropTypes from "prop-types";
 import { useState } from "react";
 
 const LoginModal = ({onLoginSuccess}) => {
@@ -51,5 +52,8 @@ const LoginModal = ({onLoginSuccess}) => {
   );
 };
 
+LoginModal.propTypes = {
+  onLoginSuccess: PropTypes.func.isRequired, // Ensures it's a function and required
+};
 
 export default LoginModal;
