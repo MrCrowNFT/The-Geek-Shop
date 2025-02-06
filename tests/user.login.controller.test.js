@@ -52,4 +52,15 @@ describe("user login endpoint", () => {
     expect(res.body).toHaveProperty("success", true);
     expect(res.body).toHaveProperty("token", "mocked-token");
   });
+  it("should return 500 for server error", async () => {
+    Role.findOne.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app)
+      .post("/home/login")
+      .send({ username: "admin", password: "password123" });
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toHaveProperty("success", false);
+    expect(res.body).toHaveProperty("message", "Server error");
+  });
 });
