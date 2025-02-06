@@ -56,11 +56,14 @@ const OverViewTab = () => {
         <Indicator amount={mockAmount[2]} />
       </div>
       <br />
+      <br />
       <div className="lower-info">
         <div className="performance-graph">
           <BarGraph />
         </div>
         <div className="recent-orders">
+            <h1>Recent Orders</h1>
+            <hr/>
           {loading ? (
             <p>Loading...</p>
           ) : (
