@@ -5,19 +5,19 @@
 ## TO-DO
 
 - Testing backend:
-    * admin login controllers 3/3 ✅
-    * admin order controller 3/3 ✅
-    * admin product controller 2/3
-    * user controller 3/3 ✅
-    * user login controller 0/2
-    * category controller 2/4
+  - admin login controllers 3/3 ✅
+  - admin order controller 3/3 ✅
+  - admin product controller 3/3✅
+  - user controller 3/3 ✅
+  - user login controller 0/2
+  - category controller 4/4✅
 - Search Page (options and render)
 - Admin dashboard:
-    * Tabs ✅
-    * Implement Authentication popup
-    * Overview tab -> using react chart.js for graphs
-    * Orders tab
-    * Products tabs✅
+  - Tabs ✅
+  - Implement Authentication popup
+  - Overview tab -> using react chart.js for graphs✅
+  - Orders tab✅
+  - Products tabs✅
 - Dynamic shopping cart
 - Payment
 - Make it mobile-friendly
