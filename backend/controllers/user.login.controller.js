@@ -1,4 +1,5 @@
 import Role from "../module/role.model.js";
+import jwt from "jsonwebtoken";
 
 export const userLogin = async (req, res) => {
   const { username, password } = req.body;
@@ -28,7 +29,7 @@ export const userLogin = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.error(`Error during admin login: ${error.message}`);
+    console.error(`Error during user login: ${error.message}`);
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
