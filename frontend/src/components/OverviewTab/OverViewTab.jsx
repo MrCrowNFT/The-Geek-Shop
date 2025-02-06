@@ -16,7 +16,7 @@ const mockAmount = [
   {
     index: "Yearly earnings",
     num: 299.99,
-    trend: "down",
+    trend: "",
   }
 ];
 const OverViewTab = () => {
@@ -25,7 +25,7 @@ const OverViewTab = () => {
       <div className="indicators">
         <Indicator amount={mockAmount[0]} />
         <Indicator amount={mockAmount[1]} />
-        <Indicator amount={mockAmount} />
+        <Indicator amount={mockAmount[2]} />
       </div>
       <div className="lower-info">
         <div className="performance-graph"></div>

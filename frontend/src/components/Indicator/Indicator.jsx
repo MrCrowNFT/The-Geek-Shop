@@ -20,8 +20,10 @@ const Indicator = ({ amount }) => {
   return (
     <div className="indicator">
       <p>{amount.index}</p>
-      <h1>${amount.num}</h1>
-      <img src={trendIcon} alt="trend" />
+      <div className="trend">
+        <h1>${amount.num}</h1>
+        <img src={trendIcon} alt="trend" />
+      </div>
     </div>
   );
 };

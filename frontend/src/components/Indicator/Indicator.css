@@ -1,19 +1,32 @@
 .indicator {
-    height: 100%;
     width: 30%;
     display: flex;
-    gap: 3px;
-    justify-content: center;
-    align-items: center;
-    border-color: gray;
-    border-style: solid;
+    flex-direction: column;
+    align-items: flex-start; 
+    border: 1px solid gray;
     border-radius: 25px;
-    border-width: 1px;
+    padding: 10px;
 }
-.indicator > h1 {
-    
-   
+
+.indicator > p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: gray;
 }
-.indicator > img {
-    height: 20%;
+
+.trend {
+    display: flex;
+    align-items: center; 
+    gap: 5px; 
+}
+
+.trend > h1 {
+    margin: 0;
+    font-size: 50px;
+}
+
+.trend > img {
+    height: 2em; 
+    width: auto;
 }
