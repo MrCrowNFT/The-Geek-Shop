@@ -27,6 +27,7 @@ const OverViewTab = () => {
         <Indicator amount={mockAmount[1]} />
         <Indicator amount={mockAmount[2]} />
       </div>
+      <br/>
       <div className="lower-info">
         <div className="performance-graph"></div>
         <div>
