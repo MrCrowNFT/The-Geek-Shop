@@ -1,10 +1,10 @@
 import "./LoginModal.css";
 import { useState } from "react";
 
-const LoginModal = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+const LoginModal = ({onLoginSuccess}) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = async () => {
     setError(""); // clear previous errors
@@ -18,7 +18,7 @@ const LoginModal = () => {
       const data = await response.json();
       if (data.success && data.token) {
         localStorage.setItem("jwt", data.token); // store the JWT
-        //onLoginSuccess(); // Hide modal and show dashboard
+        onLoginSuccess(); // Hide modal and show dashboard 
       } else {
         setError(data.message || "Login failed");
       }
@@ -30,25 +30,26 @@ const LoginModal = () => {
 
   return (
     <div className="modal">
-    <div className="modal-content">
-      <h2>Admin Login</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <input
-        type="text"
-        placeholder="Username" 
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
+      <div className="modal-content">
+        <h2>Admin Login</h2>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleLogin}>Login</button>
+      </div>
     </div>
-  </div>
   );
 };
+
 
 export default LoginModal;
