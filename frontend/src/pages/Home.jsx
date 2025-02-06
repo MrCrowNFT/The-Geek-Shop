@@ -40,6 +40,13 @@ const HomePage = () => {
       <br/>
       <CardWrapperMore products={mockProducts2}></CardWrapperMore>
       <br/>
+      <br/><br/>
+      <h2>Best Sellers</h2>
+      <br/>
+      <CardWrapper products={mockProducts}></CardWrapper>
+      <br/>
+      <CardWrapperMore products={mockProducts2}></CardWrapperMore>
+      <br/>
       <Footer/>
     </>
   );
