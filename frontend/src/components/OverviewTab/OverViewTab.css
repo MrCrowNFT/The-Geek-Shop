@@ -1,0 +1,17 @@
+.overview-tab{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+.indicators{
+    display: flex;
+    gap: 1%;
+    height: 20%;
+
+}
+.lower-info{
+
+}
+.performance-graph{
+
+}

@@ -1,12 +1,19 @@
 .indicator {
-    height: 20%;
+    height: 100%;
     width: 30%;
     display: flex;
     gap: 3px;
     justify-content: center;
+    align-items: center;
+    border-color: gray;
+    border-style: solid;
+    border-radius: 25px;
+    border-width: 1px;
 }
 .indicator > h1 {
-    font-size: large;
+    
+   
 }
 .indicator > img {
+    height: 20%;
 }

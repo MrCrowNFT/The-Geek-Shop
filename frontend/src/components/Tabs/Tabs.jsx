@@ -5,6 +5,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import OrderAdminTab from '../OrderAdminTab/OrderAdminTab.jsx';
 import ProductAdminTab from "../ProductAdminTab/ProductAdminTab.jsx"
+import OverViewTab from '../OverviewTab/OverViewTab.jsx';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,7 +53,7 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        
+        <OverViewTab/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <OrderAdminTab/>

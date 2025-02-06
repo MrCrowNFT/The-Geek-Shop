@@ -1,7 +1,7 @@
 import "./Indicator.css";
 import greenArrowUp from "../../assets/icons/green-arrow-up.svg";
 import redArrowDown from "../../assets/icons/red-arrow-down.svg";
-import minus from "../../assets/icons/minus";
+import minus from "../../assets/icons/minus.svg";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 

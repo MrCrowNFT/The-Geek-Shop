@@ -3,20 +3,20 @@ import { Bar } from "react-chartjs-2";
 import {
   Chart,
   CategoryScale,
-  LinealScale,
+  LinearScale,
   BarElement,
   Title,
-  ToolTip,
+  Tooltip,
   Legend,
 } from "chart.js";
 
 const BarGraph = () => {
   Chart.register(
     CategoryScale,
-    LinealScale,
+    LinearScale,
     BarElement,
     Title,
-    ToolTip,
+    Tooltip,
     Legend
   );
   //this is for cutomization i think, I'll leave it empty for now
@@ -38,7 +38,7 @@ const BarGraph = () => {
       {
         label: "Earnings",
         data: [79.99, 69.99, 129.99, 229.99, 39.99, 59.99, 29.99],
-        backgroundColot: ["rgba(255, 99, 132, 0.2)"],
+        backgroundColor: ["rgba(255, 99, 132, 0.2)"],
         borderColor: ["rgba(54, 162, 235, 1)"],
         borderWidth: 1,
       },
