@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import OrderAdminTab from '../OrderAdminTab/OrderAdminTab.jsx';
+import ProductAdminTab from "../ProductAdminTab/ProductAdminTab.jsx"
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,17 +49,16 @@ export default function BasicTabs() {
           <Tab label="Overview" {...a11yProps(0)} />
           <Tab label="Orders" {...a11yProps(1)} />
           <Tab label="Products" {...a11yProps(2)} />
-          <Tab label="Costumers" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
         
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        
+        <OrderAdminTab/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        
+        <ProductAdminTab/>
       </CustomTabPanel>
     </Box>
   );

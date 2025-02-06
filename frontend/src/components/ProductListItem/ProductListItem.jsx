@@ -1,4 +1,4 @@
-import "./ProducListItem.css";
+import "./ProductListItem.css";
 import PropTypes from "prop-types";
 
 const ProducListItem = (product) => {
