@@ -78,4 +78,15 @@ describe("user create new account", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Username and password are required.");
   });
+  it("should return 400 if username already used", async () =>{
+    Role.findOne.mockResolvedValue({ username: "repeatedName" });
+
+    const res = await request(app).post("/home/createAccount").send({
+      username: "repeatedName",
+      password: "password123",
+    });
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Username already in use");
+  })
 });
