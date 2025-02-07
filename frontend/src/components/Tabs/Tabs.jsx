@@ -1,11 +1,12 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import OrderAdminTab from '../OrderAdminTab/OrderAdminTab.jsx';
-import ProductAdminTab from "../ProductAdminTab/ProductAdminTab.jsx"
-import OverViewTab from '../OverviewTab/OverViewTab.jsx';
+import * as React from "react";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import OrderAdminTab from "../OrderAdminTab/OrderAdminTab.jsx";
+import ProductAdminTab from "../ProductAdminTab/ProductAdminTab.jsx";
+import OverViewTab from "../OverviewTab/OverViewTab.jsx";
+import "./Tabs.css";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -32,7 +33,7 @@ CustomTabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -44,23 +45,27 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Overview" {...a11yProps(0)} />
-          <Tab label="Orders" {...a11yProps(1)} />
-          <Tab label="Products" {...a11yProps(2)} />
+    <div className="tab-labels">
+      <Box sx={{ borderBottom: 1, borderColor: "divider", width:"50%" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+        >
+          <Tab label="OVERVIEW" {...a11yProps(0)} />
+          <Tab label="ORDERS" {...a11yProps(1)} />
+          <Tab label="PRODUCTS" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <OverViewTab/>
+        <OverViewTab />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <OrderAdminTab/>
+        <OrderAdminTab />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <ProductAdminTab/>
+        <ProductAdminTab />
       </CustomTabPanel>
-    </Box>
+    </div>
   );
 }
