@@ -64,3 +64,18 @@ describe("user login endpoint", () => {
     expect(res.body).toHaveProperty("message", "Server error");
   });
 });
+
+describe("user create new account", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  it("should return 400 if username or password missing", async () => {
+    const res = await request(app).post("/home/createAccount").send({
+      username: "",
+      password: "password123",
+    });
+    expect(res.status).toBe(400);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Username and password are required.");
+  });
+});
