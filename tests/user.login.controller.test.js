@@ -7,6 +7,7 @@ jest.mock("../backend/module/role.model.js", () => ({
   //mock function to be configured to return specific values
   findOne: jest.fn(),
   findById: jest.fn(),
+ 
 }));
 
 // Mock JWT verification
@@ -78,7 +79,7 @@ describe("user create new account", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Username and password are required.");
   });
-  it("should return 400 if username already used", async () =>{
+  it("should return 400 if username already used", async () => {
     Role.findOne.mockResolvedValue({ username: "repeatedName" });
 
     const res = await request(app).post("/home/createAccount").send({
@@ -88,8 +89,8 @@ describe("user create new account", () => {
     expect(res.status).toBe(400);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Username already in use");
-  })
-  it("should return 500 for server error", async()=>{
+  });
+  it("should return 500 for server error", async () => {
     Role.findOne.mockRejectedValue(new Error("Database error"));
 
     const res = await request(app).post("/home/createAccount").send({
@@ -99,5 +100,7 @@ describe("user create new account", () => {
     expect(res.status).toBe(500);
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Server error");
-  })
+  });
+  
+
 });

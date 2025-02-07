@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1738856699228" clover="3.2.0">
-  <project timestamp="1738856699228" name="All files">
-    <metrics statements="304" coveredstatements="234" conditionals="105" coveredconditionals="76" methods="28" coveredmethods="18" elements="437" coveredelements="328" complexity="0" loc="304" ncloc="304" packages="5" files="15" classes="15"/>
+<coverage generated="1738938983579" clover="3.2.0">
+  <project timestamp="1738938983579" name="All files">
+    <metrics statements="304" coveredstatements="243" conditionals="105" coveredconditionals="81" methods="28" coveredmethods="19" elements="437" coveredelements="343" complexity="0" loc="304" ncloc="304" packages="5" files="15" classes="15"/>
     <package name="backend">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.js" path="/home/lucian/Software_dev/Projects/The-Geek-Shop/backend/app.js">
@@ -14,7 +14,7 @@
       </file>
     </package>
     <package name="backend.controllers">
-      <metrics statements="226" coveredstatements="174" conditionals="87" coveredconditionals="67" methods="21" coveredmethods="16"/>
+      <metrics statements="226" coveredstatements="183" conditionals="87" coveredconditionals="72" methods="21" coveredmethods="17"/>
       <file name="admin.login.controller.js" path="/home/lucian/Software_dev/Projects/The-Geek-Shop/backend/controllers/admin.login.controller.js">
         <metrics statements="43" coveredstatements="38" conditionals="22" coveredconditionals="21" methods="3" coveredmethods="3"/>
         <line num="6" count="6" type="stmt"/>
@@ -231,7 +231,7 @@
         <line num="102" count="1" type="stmt"/>
       </file>
       <file name="user.login.controller.js" path="/home/lucian/Software_dev/Projects/The-Geek-Shop/backend/controllers/user.login.controller.js">
-        <metrics statements="26" coveredstatements="13" conditionals="10" coveredconditionals="3" methods="2" coveredmethods="1"/>
+        <metrics statements="26" coveredstatements="22" conditionals="10" coveredconditionals="8" methods="2" coveredmethods="2"/>
         <line num="4" count="6" type="stmt"/>
         <line num="5" count="3" type="stmt"/>
         <line num="6" count="3" type="stmt"/>
@@ -246,18 +246,18 @@
         <line num="32" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
         <line num="37" count="6" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="48" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="49" count="0" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="40" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="48" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="49" count="1" type="stmt"/>
         <line num="56" count="0" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
         <line num="58" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
       </file>
     </package>
     <package name="backend.middleware">
