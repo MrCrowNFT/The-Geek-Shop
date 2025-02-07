@@ -89,4 +89,15 @@ describe("user create new account", () => {
     expect(res.body.success).toBe(false);
     expect(res.body.message).toBe("Username already in use");
   })
+  it("should return 500 for server error", async()=>{
+    Role.findOne.mockRejectedValue(new Error("Database error"));
+
+    const res = await request(app).post("/home/createAccount").send({
+      username: "Name",
+      password: "password123",
+    });
+    expect(res.status).toBe(500);
+    expect(res.body.success).toBe(false);
+    expect(res.body.message).toBe("Server error");
+  })
 });
