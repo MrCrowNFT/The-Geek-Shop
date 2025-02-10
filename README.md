@@ -4,31 +4,19 @@
 
 ## TO-DO
 
-- Testing backend:
-  - admin login controllers 3/3 ✅
-  - admin order controller 3/3 ✅
-  - admin product controller 3/3✅
-  - user controller 3/3 ✅
-  - user login controller 1/2
-  - category controller 4/4✅
 - Search Page (options and render)
-- Admin dashboard:
-  - Tabs ✅
-  - Implement Authentication popup✅
-  - Overview tab -> using react chart.js for graphs✅
-  - Orders tab✅
-  - Products tabs✅
 - Dynamic shopping cart
 - Payment
 - Make it mobile-friendly
 - Indicator amount calculation backend
-- Better test coverage
+- Improve test coverage
+- Axios and React query implementation for API requests on frontend
 
 ##
 
 Use the following command to add the initial super admin role:
 
-```json
+```bash
 npm run seed
 ```
 

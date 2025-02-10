@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import bycrypt from "bcrypt";
-
+import bcrypt from "bcrypt";
 
 const roleSchema = new mongoose.Schema(
   {
@@ -34,7 +33,7 @@ roleSchema.pre("save", async function (next) {
     // and only hash the password if is new/modified
     if (!this.isModified("password")) return next();
     // salt 10 is provides good security while still being fast
-    this.password = await bycrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10);
   } catch (error) {
     next(error);
   }
@@ -42,7 +41,7 @@ roleSchema.pre("save", async function (next) {
 
 //compare entered password with the hashed password
 roleSchema.methods.comparePassword = async function (enteredPassword) {
-  return bycrypt.compare(enteredPassword, this.password);
+  return bcrypt.compare(enteredPassword, this.password);
 };
 
 const Role = mongoose.model("Role", roleSchema);

@@ -1,5 +1,6 @@
+import mongoose from "mongoose";
 import Role from "../module/role.model.js";
-import connectDb from "../config/db";
+import connectDb from "../config/db.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -23,7 +24,11 @@ const seedSuperAdmin = async () => {
     process.exit(0);
   } catch (error) {
     console.error("Error seeding data:", error.message);
+    console.error(error.stack);
     process.exit(1);
+  } finally {
+    await mongoose.disconnect();
+    console.log("Database connection closed.");
   }
 };
 
