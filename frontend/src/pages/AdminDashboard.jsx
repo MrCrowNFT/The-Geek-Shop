@@ -18,7 +18,7 @@ const AdminDashboard = ()=>{
         <>
         {
             isAuthenticated ? (
-            <div className="admin-dashboard">
+            <div >
                 <BasicTabs />
                 {/* bascially a callback function to be executed once the login happens */}
                 </div>):(<LoginModal onLoginSuccess={() => setIsAuthenticated(true)} />)

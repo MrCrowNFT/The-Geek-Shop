@@ -9,13 +9,28 @@ const LoginModal = ({ onLoginSuccess }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  //NEW WAY
   const loginRequest = async ({ username, password }) => {
-    const res = await axios.post("http://localhost:5500/admin/login", {
-      username,
-      password,
-    });
-    return res;
+    console.log("Attempting login with:", { username, password }); // debugging
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5500/admin/login",
+        {
+          username,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Login response:", res.data);
+      return res;
+    } catch (err) {
+      console.log("Full error:", err); // Log the full error object
+      throw err; // Re-throw to be handled by the mutation
+    }
   };
 
   const loginMutation = useMutation({
@@ -64,7 +79,7 @@ const LoginModal = ({ onLoginSuccess }) => {
 };
 
 LoginModal.propTypes = {
-  onLoginSuccess: PropTypes.func.isRequired, // Ensures it's a function and required
+  onLoginSuccess: PropTypes.func.isRequired, 
 };
 
 export default LoginModal;
