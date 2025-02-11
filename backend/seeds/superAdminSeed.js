@@ -2,31 +2,23 @@ import mongoose from "mongoose";
 import Role from "../module/role.model.js";
 import connectDb from "../config/db.js";
 import dotenv from "dotenv";
-import bcrypt from "bcrypt";
 
 dotenv.config();
 
 const seedSuperAdmin = async () => {
   try {
-    //Check if super admin has already been created
     const existingSuperAdmin = await Role.findOne({ role: "super_admin" });
+
     if (existingSuperAdmin) {
-      console.log("Super Admin already exist");
+      console.log("Super Admin already exists");
       process.exit(0);
     }
-
-    //need to hash it beforehand because the .save pre hashing method only works on
-    //new or modified password when interacting with the API
-    const hashedPassword = await bcrypt.hash(
-      process.env.SUPER_ADMIN_PASSWORD,
-      10
-    );
-
     const superAdmin = new Role({
       username: process.env.SUPER_ADMIN_USERNAME,
-      password: hashedPassword,
+      password: process.env.SUPER_ADMIN_PASSWORD,
       role: "super_admin",
     });
+
     await superAdmin.save();
     console.log("Super admin created successfully");
     process.exit(0);

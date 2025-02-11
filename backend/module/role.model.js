@@ -41,7 +41,7 @@ roleSchema.pre("save", async function (next) {
 
 //compare entered password with the hashed password
 roleSchema.methods.comparePassword = async function (enteredPassword) {
-  return bcrypt.compare(enteredPassword, this.password);
+  return await bcrypt.compare(enteredPassword, this.password);
 };
 
 const Role = mongoose.model("Role", roleSchema);

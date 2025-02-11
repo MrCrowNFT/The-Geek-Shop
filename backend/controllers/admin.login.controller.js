@@ -12,8 +12,6 @@ export const adminLogin = async (req, res) => {
     if (!admin || (admin.role !== "admin" && admin.role !== "super_admin")) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
-    console.log(username);
-    console.log(password);
 
     //validate the password
     const isMatch = await admin.comparePassword(password);
