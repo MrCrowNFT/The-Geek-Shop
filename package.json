@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "dev": "nodemon backend/server",
-    "seed": "node backend/seeds/superAdminSeeder.js"
+    "seed": "node backend/seeds/superAdminSeed.js"
   },
   "type": "module",
   "keywords": [],
@@ -17,6 +17,8 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.2",
     "@mui/material": "^6.4.2",
+    "@tanstack/react-query": "^5.66.0",
+    "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

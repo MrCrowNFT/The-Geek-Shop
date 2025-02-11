@@ -1,11 +1,11 @@
-import Header from "../components/Header/Header.jsx";
-import Navbar from "../components/NavBar/NavBar.jsx";
-import BannerWrapper from "../components/BannerWrapper/BannerWrapper.jsx";
+import Header from "../common/components/Header/Header.jsx";
+import Navbar from "../common/components/NavBar/NavBar.jsx";
+import BannerWrapper from "../common/components/BannerWrapper/BannerWrapper.jsx";
 
 import "./Home.css";
-import CardWrapper from "../components/CardWrapper/CardWrapper.jsx";
-import CardWrapperMore from "../components/CardWrapper/CardWrapperMoreTab.jsx";
-import Footer from "../components/Footer/Footer.jsx";
+import CardWrapper from "../common/components/CardWrapper/CardWrapper.jsx";
+import CardWrapperMore from "../common/components/CardWrapper/CardWrapperMoreTab.jsx";
+import Footer from "../common/components/Footer/Footer.jsx";
 
 import ImageA from "../assets/images/ImageA.png";
 import ImageB from "../assets/images/ImageB.png";

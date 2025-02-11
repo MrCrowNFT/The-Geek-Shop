@@ -1,7 +1,7 @@
 import "./AdminDashboard.css"
 import { useState, useEffect } from "react";
-import LoginModal from "../components/LoginModal/LoginModal.jsx";
-import BasicTabs from "../components/Tabs/Tabs.jsx"
+import LoginModal from "../admin/components/LoginModal/LoginModal.jsx";
+import BasicTabs from "../admin/components/Tabs/Tabs.jsx"
 
 const AdminDashboard = ()=>{
     const [isAuthenticated, setIsAuthenticated] = useState(false);
