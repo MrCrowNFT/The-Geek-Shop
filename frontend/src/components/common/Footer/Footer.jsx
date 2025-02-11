@@ -1,8 +1,8 @@
-import logo from "../../assets/images/Logo(W).png";
-import Ig from "../../assets/icons/instagram.png";
-import facebook from "../../assets/icons/facebook.png";
-import tiktok from "../../assets/icons/tik-tok.png";
-import twitter from "../../assets/icons/twitter.png";
+import logo from "../../../assets/images/Logo(W).png";
+import Ig from "../../../assets/icons/instagram.png";
+import facebook from "../../../assets/icons/facebook.png";
+import tiktok from "../../../assets/icons/tik-tok.png";
+import twitter from "../../../assets/icons/twitter.png";
 import "./Footer.css";
 
 const Footer = () => {

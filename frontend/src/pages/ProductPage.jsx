@@ -1,13 +1,13 @@
-import Header from "../common/components/Header/Header.jsx";
-import Navbar from "../common/components/NavBar/NavBar.jsx";
-import Slider from "../common/components/Slider/Slider.jsx";
+import Header from "../components/common/Header/Header.jsx";
+import Navbar from "../components/common/NavBar/NavBar.jsx";
+import Slider from "../components/common/Slider/Slider.jsx";
 import ImageA from "../assets/images/ImageA.png";
 import ImageB from "../assets/images/ImageB.png";
 import ImageC from "../assets/images/ImageC.png";
 import ImageD from "../assets/images/ImageD.png";
-import CardWrapper from "../common/components/CardWrapper/CardWrapper.jsx";
+import CardWrapper from "../components/common/CardWrapper/CardWrapper.jsx";
 import "./ProductPage.css";
-import Footer from "../common/components/Footer/Footer.jsx";
+import Footer from "../components/common/Footer/Footer.jsx";
 import { useState } from "react";
 
 const mockProducts = [

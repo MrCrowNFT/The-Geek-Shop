@@ -1,7 +1,7 @@
-import Footer from "../common/components/Footer/Footer";
-import Header from "../common/components/Header/Header";
-import Navbar from "../common/components/NavBar/NavBar";
-import ProductCard from "../common/components/ProductCard/ProductCard";
+import Footer from "../components/common/Footer/Footer";
+import Header from "../components/common/Header/Header";
+import Navbar from "../components/common/NavBar/NavBar";
+import ProductCard from "../components/common/ProductCard/ProductCard";
 import "./SearchPage.css";
 
 import { useEffect, useState } from "react";

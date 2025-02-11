@@ -1,12 +1,12 @@
-import Ig from "../../assets/icons/instagram.png";
-import facebook from "../../assets/icons/facebook.png";
-import tiktok from "../../assets/icons/tik-tok.png";
-import twitter from "../../assets/icons/twitter.png";
-import gmail from "../../assets/icons/gmail.png";
-import user from "../../assets/icons/user.png";
-import plus from "../../assets/icons/plus.png";
-import heart from "../../assets/icons/heart.png";
-import cart from "../../assets/icons/shopping-cart.png";
+import Ig from "../../../assets/icons/instagram.png";
+import facebook from "../../../assets/icons/facebook.png";
+import tiktok from "../../../assets/icons/tik-tok.png";
+import twitter from "../../../assets/icons/twitter.png";
+import gmail from "../../../assets/icons/gmail.png";
+import user from "../../../assets/icons/user.png";
+import plus from "../../../assets/icons/plus.png";
+import heart from "../../../assets/icons/heart.png";
+import cart from "../../../assets/icons/shopping-cart.png";
 import "./Header.css";
 
 const Header = () => {

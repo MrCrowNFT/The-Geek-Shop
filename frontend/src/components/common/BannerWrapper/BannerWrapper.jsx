@@ -1,6 +1,6 @@
-import BannerA from "../../assets/images/BannerA.png";
-import BannerB from "../../assets/images/BannerB.png";
-import BannerC from "../../assets/images/BannerC.png";
+import BannerA from "../../../assets/images/BannerA.png";
+import BannerB from "../../../assets/images/BannerB.png";
+import BannerC from "../../../assets/images/BannerC.png";
 import "./BannerWrapper.css";
 
 const BannerWrapper = () => {
