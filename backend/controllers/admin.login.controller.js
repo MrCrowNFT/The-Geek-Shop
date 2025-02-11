@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 
 export const adminLogin = async (req, res) => {
   const { username, password } = req.body;
-  console.log(username)
 
   try {
     //find the username in the database
@@ -13,11 +12,13 @@ export const adminLogin = async (req, res) => {
     if (!admin || (admin.role !== "admin" && admin.role !== "super_admin")) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
-    console.log(username)
+    console.log(username);
+    console.log(password);
 
     //validate the password
     const isMatch = await admin.comparePassword(password);
     if (!isMatch) {
+      console.log("Error comparing passwords");
       return res
         .status(401)
         .json({ success: false, message: "Invalid Username or password" });
@@ -70,7 +71,11 @@ export const newAdmin = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "New admin created successfully",
-      data: { id: newAdmin._id, username: newAdmin.username, role: newAdmin.role },
+      data: {
+        id: newAdmin._id,
+        username: newAdmin.username,
+        role: newAdmin.role,
+      },
     });
   } catch (error) {
     console.error(`Error creating Admin: ${error.message}`);
