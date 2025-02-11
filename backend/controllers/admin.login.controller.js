@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 
 export const adminLogin = async (req, res) => {
   const { username, password } = req.body;
+  console.log(username)
 
   try {
     //find the username in the database
@@ -12,6 +13,7 @@ export const adminLogin = async (req, res) => {
     if (!admin || (admin.role !== "admin" && admin.role !== "super_admin")) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
+    console.log(username)
 
     //validate the password
     const isMatch = await admin.comparePassword(password);
