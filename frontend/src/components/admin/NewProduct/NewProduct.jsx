@@ -8,26 +8,20 @@ const NewProduct = () => {
   const [newProduct, setNewProduct] = useState({
     name: "",
     priceTag: 0,
-    total_cost: 0,
-    discount: 0,
+    total_cost: {
+      cost: 0,
+      shipping: 0,
+    },
+    discount: {
+      amount: 0,
+      status: false,
+    },
     sku: null,
-    urls: [
-      {
-        url: "",
-      },
-    ],
+    urls: [{ url: "", priority: 1 }],
     isAvailable: false,
-    images: [
-      {
-        img: "",
-      },
-    ],
+    images: [""],
     description: "",
-    category: [
-      {
-        category: "",
-      },
-    ],
+    category: [""],
   });
 
   const createProductRequest = async (newProduct) => {
@@ -62,8 +56,7 @@ const NewProduct = () => {
 
   const createProductHandler = (e) => {
     e.preventDefault();
-    setNewProduct; //MISIGN SETTING THE PRODUCT AS THE INPUT VALUES
-    createProductMutation.mutate(newProduct)
+    createProductMutation.mutate(newProduct);
   };
 
   return (
