@@ -7,7 +7,7 @@ import cors from "cors";
 const app = express();
 
 app.use(express.json()); //accept JSON files
-app.use(cors()); // Allow all origins
+app.use(cors()); // Allow all origins: probably should change it just specific one
 
 
 app.use("/home", userRouter);
