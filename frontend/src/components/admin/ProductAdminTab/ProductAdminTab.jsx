@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ProducListItem from "../ProductListItem/ProductListItem.jsx";
 import "./ProductAdminTab.css";
+import AddButtom from "../AddButton/AddButton.jsx";
 
 const ProductAdminTab = () => {
   const [products, setProducts] = useState([]);
@@ -46,6 +47,7 @@ const ProductAdminTab = () => {
 
   return (
     <div className="product-tab">
+      <AddButtom/>
       <div className="product-list">
         {loading ? (
                     <p>Loading...</p>

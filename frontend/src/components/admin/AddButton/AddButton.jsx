@@ -17,7 +17,7 @@ const AddButtom = () => {
         <div className="modal-overlay">
           <div className="modal-content">
             <button className="close-modal-button" onClick={toggleNewProduct}>
-              Close
+              X
             </button>
             <NewProduct />
           </div>
