@@ -10,8 +10,6 @@ const LoginModal = ({ onLoginSuccess }) => {
   const [error, setError] = useState(null);
 
   const loginRequest = async ({ username, password }) => {
-    console.log("Attempting login with:", { username, password }); // debugging
-
     try {
       const res = await axios.post(
         "http://localhost:5500/admin/login",
@@ -28,7 +26,7 @@ const LoginModal = ({ onLoginSuccess }) => {
       console.log("Login response:", res.data);
       return res;
     } catch (err) {
-      console.log("Full error:", err); // Log the full error object
+      console.log("Full error:", err); // log full error object
       throw err; // Re-throw to be handled by the mutation
     }
   };
@@ -38,7 +36,7 @@ const LoginModal = ({ onLoginSuccess }) => {
     onSuccess: (data) => {
       localStorage.setItem("jwt", data.data.token); // store the JWT
       setError(null);
-      onLoginSuccess(); // Hide modal and show dashboard
+      onLoginSuccess(); // hide modal and show dashboard
     },
     onError: (error) => {
       console.error("Login error:", error);
