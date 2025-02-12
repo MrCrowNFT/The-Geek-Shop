@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 
 const NewProduct = () => {
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [newProduct, setNewProduct] = useState({
     name: "",
     priceTag: 0,
@@ -35,11 +36,11 @@ const NewProduct = () => {
           },
         }
       );
-      console.log("Login response:", res.data);
-      return res;
+      return res.data;
     } catch (error) {
-      console.log("Full error:", error);
-      throw error;
+      throw new Error(
+        error.response?.data?.message || "Failed to create product"
+      );
     }
   };
 
@@ -47,10 +48,26 @@ const NewProduct = () => {
     mutationFn: createProductRequest,
     onSuccess: () => {
       setError(null);
+      setSuccess(true);
+      // reset form after success
+      setNewProduct({
+        name: "",
+        priceTag: 0,
+        total_cost: { cost: 0, shipping: 0 },
+        discount: { amount: 0, status: false },
+        sku: null,
+        urls: [{ url: "", priority: 1 }],
+        isAvailable: false,
+        images: [""],
+        description: "",
+        category: [""],
+      });
+      // clear success message after 3 seconds
+      setTimeout(() => setSuccess(false), 3000);
     },
     onError: (error) => {
-      console.error("Create product error:", error);
-      setError(error.response?.data?.message);
+      setError(error?.message);
+      setSuccess(false);
     },
   });
 
@@ -58,149 +75,191 @@ const NewProduct = () => {
     const { name, value, type, checked } = e.target;
     setNewProduct((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked : parseFloat(value) || value, //if input is a checkbox, sets the state to checked (t/f).
     }));
+  };
+
+  const handleNestedChange = (e, parent, field) => {
+    const { value, type, checked } = e.target;
+    setNewProduct((prev) => ({
+      ...prev,
+      [parent]: {
+        ...prev[parent],
+        [field]: type === "checkbox" ? checked : parseFloat(value) || value,
+      },
+    }));
+  };
+
+  const handleArrayChange = (index, field, value) => {
+    setNewProduct((prev) => {
+      const updatedArray = [...prev[field]];
+      if (typeof updatedArray[index] === "object") {
+        updatedArray[index] = { ...updatedArray[index], ...value };
+      } else {
+        updatedArray[index] = value;
+      }
+      return { ...prev, [field]: updatedArray };
+    });
   };
 
   const createProductHandler = (e) => {
     e.preventDefault();
     createProductMutation.mutate(newProduct);
   };
-
   return (
-    <div>
+    <div className="new-product-container">
+      <h2>Add New Product</h2>
       <form onSubmit={createProductHandler}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Product Name"
-          value={newProduct.name}
-          onChange={handleChange}
-        />
+        <div className="form-group">
+          <label>Product Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={newProduct.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <input
-          type="number"
-          name="priceTag"
-          placeholder="Price"
-          value={newProduct.priceTag}
-          onChange={handleChange}
-        />
+        <div className="form-row">
+          <div className="form-group">
+            <label>Price:</label>
+            <input
+              type="number"
+              name="priceTag"
+              value={newProduct.priceTag}
+              onChange={handleChange}
+              min="0"
+              required
+            />
+          </div>
 
-        <input
-          type="number"
-          name="total_cost.cost"
-          placeholder="Cost"
-          value={newProduct.total_cost.cost}
-          onChange={(e) =>
-            setNewProduct((prev) => ({
-              ...prev,
-              total_cost: { ...prev.total_cost, cost: e.target.value },
-            }))
-          }
-        />
+          <div className="form-group">
+            <label>SKU:</label>
+            <input
+              type="number"
+              name="sku"
+              value={newProduct.sku || ""}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
 
-        <input
-          type="number"
-          name="total_cost.shipping"
-          placeholder="Shipping Cost"
-          value={newProduct.total_cost.shipping}
-          onChange={(e) =>
-            setNewProduct((prev) => ({
-              ...prev,
-              total_cost: { ...prev.total_cost, shipping: e.target.value },
-            }))
-          }
-        />
+        <div className="form-row">
+          <div className="form-group">
+            <label>Cost:</label>
+            <input
+              type="number"
+              value={newProduct.total_cost.cost}
+              onChange={(e) => handleNestedChange(e, "total_cost", "cost")}
+              min="0"
+              required
+            />
+          </div>
 
-        <input
-          type="number"
-          name="discount.amount"
-          placeholder="Discount Amount"
-          value={newProduct.discount.amount}
-          onChange={(e) =>
-            setNewProduct((prev) => ({
-              ...prev,
-              discount: { ...prev.discount, amount: e.target.value },
-            }))
-          }
-        />
+          <div className="form-group">
+            <label>Shipping Cost:</label>
+            <input
+              type="number"
+              value={newProduct.total_cost.shipping}
+              onChange={(e) => handleNestedChange(e, "total_cost", "shipping")}
+              min="0"
+              required
+            />
+          </div>
+        </div>
 
-        <input
-          type="checkbox"
-          name="discount.status"
-          checked={newProduct.discount.status}
-          onChange={(e) =>
-            setNewProduct((prev) => ({
-              ...prev,
-              discount: { ...prev.discount, status: e.target.checked },
-            }))
-          }
-        />
-        <label>Discount Active</label>
+        <div className="form-row">
+          <div className="form-group">
+            <label>Discount Amount:</label>
+            <input
+              type="number"
+              value={newProduct.discount.amount}
+              onChange={(e) => handleNestedChange(e, "discount", "amount")}
+              min="0"
+            />
+          </div>
 
-        <input
-          type="number"
-          name="sku"
-          placeholder="SKU"
-          value={newProduct.sku}
-          onChange={handleChange}
-        />
+          <div className="form-group checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                checked={newProduct.discount.status}
+                onChange={(e) => handleNestedChange(e, "discount", "status")}
+              />
+              Apply Discount
+            </label>
+          </div>
+        </div>
 
-        <input
-          type="text"
-          name="urls[0].url"
-          placeholder="URL"
-          value={newProduct.urls[0].url}
-          onChange={(e) => {
-            const updatedUrls = [...newProduct.urls];
-            updatedUrls[0].url = e.target.value;
-            setNewProduct({ ...newProduct, urls: updatedUrls });
-          }}
-        />
+        <div className="form-group">
+          <label>Product URL:</label>
+          <input
+            type="text"
+            value={newProduct.urls[0].url}
+            onChange={(e) =>
+              handleArrayChange(0, "urls", { url: e.target.value })
+            }
+          />
+        </div>
 
-        <input
-          type="checkbox"
-          name="isAvailable"
-          checked={newProduct.isAvailable}
-          onChange={handleChange}
-        />
-        <label>Available</label>
+        <div className="form-group checkbox-group">
+          <label>
+            <input
+              type="checkbox"
+              checked={newProduct.isAvailable}
+              onChange={(e) => handleChange(e)}
+              name="isAvailable"
+            />
+            Available
+          </label>
+        </div>
 
-        <input
-          type="text"
-          name="images[0]"
-          placeholder="Image URL"
-          value={newProduct.images[0]}
-          onChange={(e) => {
-            const updatedImages = [...newProduct.images];
-            updatedImages[0] = e.target.value;
-            setNewProduct({ ...newProduct, images: updatedImages });
-          }}
-        />
+        <div className="form-group">
+          <label>Image URL:</label>
+          <input
+            type="text"
+            value={newProduct.images[0]}
+            onChange={(e) => handleArrayChange(0, "images", e.target.value)}
+            required
+          />
+        </div>
 
-        <textarea
-          name="description"
-          placeholder="Description"
-          value={newProduct.description}
-          onChange={handleChange}
-        />
+        <div className="form-group">
+          <label>Description:</label>
+          <textarea
+            name="description"
+            value={newProduct.description}
+            onChange={handleChange}
+          />
+        </div>
 
-        <input
-          type="text"
-          name="category[0]"
-          placeholder="Category ID"
-          value={newProduct.category[0]}
-          onChange={(e) => {
-            const updatedCategories = [...newProduct.category];
-            updatedCategories[0] = e.target.value;
-            setNewProduct({ ...newProduct, category: updatedCategories });
-          }}
-        />
+        <div className="form-group">
+          <label>Category ID:</label>
+          <input
+            type="text"
+            value={newProduct.category[0]}
+            onChange={(e) => handleArrayChange(0, "category", e.target.value)}
+          />
+        </div>
 
-        <button type="submit">Add Product</button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        <div className="form-actions">
+          <button
+            type="submit"
+            disabled={createProductMutation.isPending}
+            className={createProductMutation.isPending ? "loading" : ""}
+          >
+            {createProductMutation.isPending ? "Adding..." : "Add Product"}
+          </button>
+        </div>
+
+        {error && <div className="error-message">{error}</div>}
+        {success && (
+          <div className="success-message">Product added successfully!</div>
+        )}
       </form>
     </div>
   );
 };
+
 export default NewProduct;
