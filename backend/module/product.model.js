@@ -49,7 +49,6 @@ const productSchema = new mongoose.Schema(
       required: false,
       maxlength: 500,
     },
-    //the validator still in progress
     category: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -74,6 +73,36 @@ productSchema.pre("save", function (next) {
   //ensure priceTag is not less than total cost or greater than base price
   this.priceTag = Math.max(totalCost, basePrice - discount);
   next();
+});
+
+productSchema.pre("save", async function (next) {
+  try {
+    if (this.category && this.category.length > 0) {
+      this.category = [...new Set(this.category.map((c) => c.toString()))].map(
+        (c) => mongoose.Types.ObjectId(c)
+      );
+
+      // find all categories in one query
+      const categories = await mongoose.model("Category").find({
+        _id: { $in: this.category },
+      });
+
+      // check if they exists
+      if (categories.length !== this.category.length) {
+        const foundIds = categories.map((c) => c._id.toString());
+        const invalidIds = this.category
+          .map((c) => c.toString())
+          .filter((id) => !foundIds.includes(id));
+
+        throw new Error(`Invalid category IDs: ${invalidIds.join(", ")}`);
+      }
+    } else {
+      throw new Error("At least one category is required");
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 productSchema.index({ name: "text", description: "text" });
