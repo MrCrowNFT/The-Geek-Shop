@@ -54,6 +54,14 @@ const NewProduct = () => {
     },
   });
 
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setNewProduct((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
   const createProductHandler = (e) => {
     e.preventDefault();
     createProductMutation.mutate(newProduct);
@@ -62,14 +70,133 @@ const NewProduct = () => {
   return (
     <div>
       <form onSubmit={createProductHandler}>
-        {/*MISSING THE INPUTS FOR THE NEW PRODUCT OBJECT */}
-        <input />
-        <input />
-        <input />
-        <input />
-        <input />
-        <input />
-        <input />
+        <input
+          type="text"
+          name="name"
+          placeholder="Product Name"
+          value={newProduct.name}
+          onChange={handleChange}
+        />
+
+        <input
+          type="number"
+          name="priceTag"
+          placeholder="Price"
+          value={newProduct.priceTag}
+          onChange={handleChange}
+        />
+
+        <input
+          type="number"
+          name="total_cost.cost"
+          placeholder="Cost"
+          value={newProduct.total_cost.cost}
+          onChange={(e) =>
+            setNewProduct((prev) => ({
+              ...prev,
+              total_cost: { ...prev.total_cost, cost: e.target.value },
+            }))
+          }
+        />
+
+        <input
+          type="number"
+          name="total_cost.shipping"
+          placeholder="Shipping Cost"
+          value={newProduct.total_cost.shipping}
+          onChange={(e) =>
+            setNewProduct((prev) => ({
+              ...prev,
+              total_cost: { ...prev.total_cost, shipping: e.target.value },
+            }))
+          }
+        />
+
+        <input
+          type="number"
+          name="discount.amount"
+          placeholder="Discount Amount"
+          value={newProduct.discount.amount}
+          onChange={(e) =>
+            setNewProduct((prev) => ({
+              ...prev,
+              discount: { ...prev.discount, amount: e.target.value },
+            }))
+          }
+        />
+
+        <input
+          type="checkbox"
+          name="discount.status"
+          checked={newProduct.discount.status}
+          onChange={(e) =>
+            setNewProduct((prev) => ({
+              ...prev,
+              discount: { ...prev.discount, status: e.target.checked },
+            }))
+          }
+        />
+        <label>Discount Active</label>
+
+        <input
+          type="number"
+          name="sku"
+          placeholder="SKU"
+          value={newProduct.sku}
+          onChange={handleChange}
+        />
+
+        <input
+          type="text"
+          name="urls[0].url"
+          placeholder="URL"
+          value={newProduct.urls[0].url}
+          onChange={(e) => {
+            const updatedUrls = [...newProduct.urls];
+            updatedUrls[0].url = e.target.value;
+            setNewProduct({ ...newProduct, urls: updatedUrls });
+          }}
+        />
+
+        <input
+          type="checkbox"
+          name="isAvailable"
+          checked={newProduct.isAvailable}
+          onChange={handleChange}
+        />
+        <label>Available</label>
+
+        <input
+          type="text"
+          name="images[0]"
+          placeholder="Image URL"
+          value={newProduct.images[0]}
+          onChange={(e) => {
+            const updatedImages = [...newProduct.images];
+            updatedImages[0] = e.target.value;
+            setNewProduct({ ...newProduct, images: updatedImages });
+          }}
+        />
+
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={newProduct.description}
+          onChange={handleChange}
+        />
+
+        <input
+          type="text"
+          name="category[0]"
+          placeholder="Category ID"
+          value={newProduct.category[0]}
+          onChange={(e) => {
+            const updatedCategories = [...newProduct.category];
+            updatedCategories[0] = e.target.value;
+            setNewProduct({ ...newProduct, category: updatedCategories });
+          }}
+        />
+
         <button type="submit">Add Product</button>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
