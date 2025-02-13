@@ -1,8 +1,8 @@
 import logo from "../../../assets/images/Logo(W).png";
-import Ig from "../../../assets/icons/instagram.png";
-import facebook from "../../../assets/icons/facebook.png";
-import tiktok from "../../../assets/icons/tik-tok.png";
-import twitter from "../../../assets/icons/twitter.png";
+import Ig from "../../../assets/icons/instagram.svg";
+import facebook from "../../../assets/icons/facebook.svg";
+import tiktok from "../../../assets/icons/tiktok.svg";
+import twitter from "../../../assets/icons/twitter.svg";
 import "./Footer.css";
 
 const Footer = () => {
@@ -79,8 +79,8 @@ const Footer = () => {
               <a href="" target="_blank" rel="noreferrer">
                 <img
                   loading="lazy"
-                  height={20}
-                  width={20}
+                  height={25}
+                  width={25}
                   src={Ig}
                   alt="Istagram link"
                 />
@@ -88,8 +88,8 @@ const Footer = () => {
               <a href="" target="_blank" rel="noreferrer">
                 <img
                   loading="lazy"
-                  height={20}
-                  width={20}
+                  height={25}
+                  width={25}
                   src={facebook}
                   alt="facebook link"
                 />
@@ -97,8 +97,8 @@ const Footer = () => {
               <a href="" target="_blank" rel="noreferrer">
                 <img
                   loading="lazy"
-                  height={20}
-                  width={20}
+                  height={25}
+                  width={25}
                   src={twitter}
                   alt="twitter link"
                 />
@@ -106,8 +106,8 @@ const Footer = () => {
               <a href="" target="_blank" rel="noreferrer">
                 <img
                   loading="lazy"
-                  height={20}
-                  width={20}
+                  height={25}
+                  width={25}
                   src={tiktok}
                   alt="tiktok link"
                 />

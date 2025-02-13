@@ -1,6 +1,6 @@
 import { useState } from "react";
-import arrowLeft from "../../../assets/icons/arrow-left.png";
-import arrowRight from "../../../assets/icons/arrow-right.png";
+import arrowLeft from "../../../assets/icons/arrow-left.svg";
+import arrowRight from "../../../assets/icons/arrow-right.svg";
 import PropTypes from "prop-types";
 import { CircleDot, Circle } from "lucide-react";
 import "./Slider.css";

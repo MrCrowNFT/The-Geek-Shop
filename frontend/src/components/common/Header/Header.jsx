@@ -1,12 +1,12 @@
-import Ig from "../../../assets/icons/instagram.png";
-import facebook from "../../../assets/icons/facebook.png";
-import tiktok from "../../../assets/icons/tik-tok.png";
-import twitter from "../../../assets/icons/twitter.png";
-import gmail from "../../../assets/icons/gmail.png";
-import user from "../../../assets/icons/user.png";
-import plus from "../../../assets/icons/plus.png";
-import heart from "../../../assets/icons/heart.png";
-import cart from "../../../assets/icons/shopping-cart.png";
+import Ig from "../../../assets/icons/instagram.svg";
+import facebook from "../../../assets/icons/facebook.svg";
+import tiktok from "../../../assets/icons/tiktok.svg";
+import twitter from "../../../assets/icons/twitter.svg";
+import gmail from "../../../assets/icons/gmail.svg";
+import user from "../../../assets/icons/user.svg";
+import plus from "../../../assets/icons/plus.svg";
+import heart from "../../../assets/icons/heart.svg";
+import cart from "../../../assets/icons/shopping-cart.svg";
 import "./Header.css";
 
 const Header = () => {
@@ -16,8 +16,8 @@ const Header = () => {
         <a href="" target="_blank" rel="noreferrer">
           <img
             loading="lazy"
-            height={20}
-            width={20}
+            height={25}
+            width={25}
             src={Ig}
             alt="Istagram link"
           />
@@ -25,8 +25,8 @@ const Header = () => {
         <a href="" target="_blank" rel="noreferrer">
           <img
             loading="lazy"
-            height={20}
-            width={20}
+            height={25}
+            width={25}
             src={facebook}
             alt="facebook link"
           />
@@ -34,8 +34,8 @@ const Header = () => {
         <a href="" target="_blank" rel="noreferrer">
           <img
             loading="lazy"
-            height={20}
-            width={20}
+            height={25}
+            width={25}
             src={twitter}
             alt="twitter link"
           />
@@ -43,8 +43,8 @@ const Header = () => {
         <a href="" target="_blank" rel="noreferrer">
           <img
             loading="lazy"
-            height={20}
-            width={20}
+            height={25}
+            width={25}
             src={tiktok}
             alt="tiktok link"
           />
@@ -53,8 +53,8 @@ const Header = () => {
         <a href="mailto:marketplace@gmail.com">
           <img
             loading="lazy"
-            height={20}
-            width={20}
+            height={25}
+            width={25}
             src={gmail}
             alt="gmail link"
           />
@@ -65,8 +65,8 @@ const Header = () => {
         <a href="">
           <img
             loading="lazy"
-            height={20}
-            width={20}
+            height={25}
+            width={25}
             src={user}
             alt="user login"
           />
@@ -76,8 +76,8 @@ const Header = () => {
         <a href="">
           <img
             loading="lazy"
-            height={20}
-            width={20}
+            height={25}
+            width={25}
             src={plus}
             alt="Create User"
           />
@@ -87,8 +87,8 @@ const Header = () => {
         <a href="">
           <img
             loading="lazy"
-            height={20}
-            width={20}
+            height={25}
+            width={25}
             src={heart}
             alt="Liked products"
           />
@@ -97,8 +97,8 @@ const Header = () => {
         <a href="">
           <img
             loading="lazy"
-            height={20}
-            width={20}
+            height={25}
+            width={25}
             src={cart}
             alt="Shopping cart"
           />
