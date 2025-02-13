@@ -1,28 +1,44 @@
 import "./Cart.css";
-import { useCart } from "../../../hooks/useCart.js";
+import cart from "../../../assets/icons/shopping-cart.svg";
+import { useCart } from "../../../hooks/useCart.jsx";
+import { useState } from "react";
 
 const Cart = () => {
   //get the methods from the useCart Hook
   //the addToCart will be on the product button
-  const { cartItems, removeFromCart, clearCart } = useCart;
+  const { cartItems, removeFromCart, clearCart } = useCart();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleCart = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <div className="cart-container">
-      <h2>Your Cart</h2>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty</p>
-      ) : (
-        <ul>
-          {cartItems.map((item) => (
-            <li key={item.id}>
-              {item.name} - ${item.price}
-              <button onClick={() => removeFromCart(item.id)}>Remove</button>
-            </li>
-          ))}
-        </ul>
-      )}
-      <button onClick={clearCart}>Clear Cart</button>
-    </div>
+    <>
+      <div className="cart">
+        <button type="button" className="cart-button" onClick={toggleCart}>
+          <img className="cart-icon" src={cart} alt="Shopping Cart"></img>
+          <div className="product-amount">{cartItems.length}</div>
+        </button>
+      </div>
+      <div className={`cart-sidebar ${isOpen ? "open" : ""}`}>
+        <h2>Your Cart</h2>
+        <button className="close-btn" onClick={toggleCart}>X</button>
+        {cartItems.length === 0 ? (
+          <p>Your cart is empty</p>
+        ) : (
+          <ul>
+            {cartItems.map((item) => (
+              <li key={item.id}>
+                {item.name} - ${item.price}
+                <button onClick={() => removeFromCart(item.id)}>Remove</button>
+              </li>
+            ))}
+          </ul>
+        )}
+        <button onClick={clearCart}>Empty Cart</button>
+      </div>
+    </>
   );
 };
 

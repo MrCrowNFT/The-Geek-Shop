@@ -1,11 +1,11 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import {useCart} from "../../../hooks/useCart.js"
+import { useCart } from "../../../hooks/useCart.jsx";
 import "./ProductCard.css";
 
 const ProductCard = ({ product }) => {
   const [hovering, setHovering] = useState(false);
-  const {addToCart} = useCart();
+  const { addToCart } = useCart();
 
   return (
     <div
@@ -35,9 +35,12 @@ const ProductCard = ({ product }) => {
       <div className="product-info">
         <h2 className="product-name">{product.name}</h2>
         <p className="product-price">${product.price}</p>
-        <button onClick={() => addToCart(product)}  className={`add-to-cart ${hovering ? "visible" : ""}`}>
+        <button
+          onClick={() => addToCart(product)}
+          className={`add-to-cart ${hovering ? "visible" : ""}`}
+        >
           Add to cart →
-        </button >
+        </button>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import logo from "../../../assets/images/Logo(W).png";
 import search from "../../../assets/icons/search.png";
 import SearchBar from "../SearchBar/SearchBar.jsx";
-import CartButton from "../CartButton/CartButton.jsx";
+import Cart from "../Cart/Cart.jsx";
 import "./NavBar.css";
 
 const Navbar = () => {
@@ -58,7 +58,7 @@ const Navbar = () => {
             </span>
             <SearchBar />
           </div>
-          <CartButton />
+          <Cart />
         </div>
       </div>
     </div>
