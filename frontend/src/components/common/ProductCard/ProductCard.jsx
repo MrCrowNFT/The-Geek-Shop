@@ -22,19 +22,23 @@ const ProductCard = ({ product }) => {
           style={{ opacity: hovering ? 0 : 1 }}
         />
         {product.images[1] && (
+          <a href="">
           <img
             className="product-image"
             src={product.images[1]}
             alt={`${product.name} - hover`}
             style={{ opacity: hovering ? 1 : 0 }}
           />
+          </a>
         )}
       </div>
 
       {/* Product Info Section */}
       <div className="product-info">
+        <a href="" >
         <h2 className="product-name">{product.name}</h2>
         <p className="product-price">${product.price}</p>
+        </a>
         <button
           onClick={() => addToCart(product)}
           className={`add-to-cart ${hovering ? "visible" : ""}`}

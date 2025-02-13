@@ -58,7 +58,7 @@
   display: block;
   font-size: 14px;
   font-weight: bold;
-  color: #007bff;
+  color:white;
   text-decoration: none;
   opacity: 0;
   transform: translateY(10px);
@@ -70,6 +70,3 @@
   transform: translateY(0);
 }
 
-.add-to-cart:hover {
-  text-decoration: underline;
-}

@@ -9,6 +9,20 @@ const Cart = () => {
   const { cartItems, removeFromCart, clearCart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
 
+  const [productCounter, setProductCounter] = useState(1);
+
+  const addCount = () => {
+    setProductCounter(productCounter + 1);
+  };
+
+  const reduceCount = (id) => {
+    if (productCounter < 1) {
+      removeFromCart(id); //remove the item if count is 0
+    } else {
+      setProductCounter(productCounter - 1);
+    }
+  };
+
   const toggleCart = () => {
     setIsOpen(!isOpen);
   };
@@ -23,7 +37,9 @@ const Cart = () => {
       </div>
       <div className={`cart-sidebar ${isOpen ? "open" : ""}`}>
         <h2>Your Cart</h2>
-        <button className="close-btn" onClick={toggleCart}>X</button>
+        <button className="close-btn" onClick={toggleCart}>
+          X
+        </button>
         {cartItems.length === 0 ? (
           <p>Your cart is empty</p>
         ) : (
@@ -31,6 +47,13 @@ const Cart = () => {
             {cartItems.map((item) => (
               <li key={item.id}>
                 {item.name} - ${item.price}
+                <button className="count-setter" onClick={reduceCount}>
+                  -
+                </button>
+                <p className="count-display">{productCounter}</p>
+                <button className="count-setter" onClick={addCount}>
+                  +
+                </button>
                 <button onClick={() => removeFromCart(item.id)}>Remove</button>
               </li>
             ))}
