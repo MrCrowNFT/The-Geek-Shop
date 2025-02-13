@@ -93,16 +93,6 @@ const Header = () => {
             alt="Liked products"
           />
         </a>
-        <span className="header_separator"></span>
-        <a href="">
-          <img
-            loading="lazy"
-            height={25}
-            width={25}
-            src={cart}
-            alt="Shopping cart"
-          />
-        </a>
       </div>
     </header>
   );

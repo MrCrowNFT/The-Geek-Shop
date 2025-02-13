@@ -1,28 +1,10 @@
 import logo from "../../../assets/images/Logo(W).png";
 import search from "../../../assets/icons/search.png";
-import cart from "../../../assets/icons/shopping-cart.svg";
 import SearchBar from "../SearchBar/SearchBar.jsx";
-import { useEffect } from "react";
+import Cart from "../cart/Cart.jsx"
 import "./NavBar.css";
 
 const Navbar = () => {
-  useEffect(() => {
-    const handleScroll = () => {
-      //after 50 pixels, might need to adjust**
-      if (window.scrollY > 50) {
-        document.body.classList.add("scrolled");
-      } else {
-        document.body.classList.remove("scrolled");
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    //cleanup
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <div className="navbar">
@@ -77,11 +59,7 @@ const Navbar = () => {
             </span>
             <SearchBar/>
           </div>
-          <div className="cart">
-            <button type="button" className="cart-button">
-              <img className="cart-icon" src={cart}></img>
-            </button>
-          </div>
+          <Cart />
         </div>
       </div>
     </div>

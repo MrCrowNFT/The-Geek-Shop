@@ -69,38 +69,3 @@
     color: lightgray; 
   }
   
-  /* Cart Button */
-  .cart-button{
-    background-color: transparent;
-    border: none;
-    border-radius: 4px;
-    padding: 10px;
-    display: none; /* hidden by default */
-    cursor: pointer;
-  }
-
-  
-  .cart-icon {
-    width: 24px; 
-    height: 24px;
-  }
-  
-  .cart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Show Cart Button on Scroll */
-  body.scrolled .cart-button {
-    display: block; /* Show cart button when scrolling */
-    position: static;
-    z-index: auto;
-    background-color: white;
-    transition: transform 0.2s ease-in-out;
-  }
-  body.scrolled .cart-button:hover{
-    transform: scale(1.1);
-    transition: background-color 0.2s linear;
-    background-color: blue; /* need to change this color though */
-  }

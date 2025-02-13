@@ -1,0 +1,43 @@
+.cart-button {
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    position: relative; 
+    opacity: 1; /* Always visible */
+    transition: transform 0.2s ease-in-out, background-color 0.2s linear; /* smooth hover */
+  }
+  
+  .cart-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .product-amount {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    bottom: -5px; 
+    right: -5px; 
+    font-size: 0.75rem;
+    z-index: 10;
+    pointer-events: none;
+  }
+  
+  .cart-button:hover {
+    transform: scale(1.1); 
+    background-color: blue; 
+  }
