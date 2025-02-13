@@ -6,7 +6,8 @@ import { useState } from "react";
 const Cart = () => {
   //get the methods from the useCart Hook
   //the addToCart will be on the product button
-  const { cartItems, addToCart, removeFromCart, reduceQuantity, clearCart  } = useCart();
+  const { cartItems, addToCart, removeFromCart, reduceQuantity, clearCart } =
+    useCart();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleCart = () => {
@@ -29,24 +30,33 @@ const Cart = () => {
         {cartItems.length === 0 ? (
           <p>Your cart is empty</p>
         ) : (
-          <ul>
+          <ul className="cart-item-ulist">
             {cartItems.map((item) => (
-             <li key={item.id}>
-             {item.name} - ${item.price} (Quantity: {item.quantity})
-             <button
-               className="count-setter"
-               onClick={() => reduceQuantity(item.id)} // Decrease quantity
-             >
-               -
-             </button>
-             <button
-               className="count-setter"
-               onClick={() => addToCart(item)} // Increase quantity
-             >
-               +
-             </button>
-             <button onClick={() => removeFromCart(item.id)}>Remove</button>
-           </li>
+              <li className="cart-item-list" key={item.id}>
+                <img
+                  className="product-item-image"
+                  src={item.images[1]}
+                  alt={item.name}
+                />
+                <p>{item.name}</p>
+                <p>${item.price}</p>
+                <div className="quantity-controllers"> 
+                <button
+                  className="count-setter"
+                  onClick={() => reduceQuantity(item.id)} // Decrease quantity
+                >
+                  -
+                </button>
+                {item.quantity}
+                <button
+                  className="count-setter"
+                  onClick={() => addToCart(item)} // Increase quantity
+                >
+                  +
+                </button>
+                </div>
+                <button onClick={() => removeFromCart(item.id)}>Remove</button>
+              </li>
             ))}
           </ul>
         )}
