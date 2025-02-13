@@ -6,7 +6,6 @@ import gmail from "../../../assets/icons/gmail.svg";
 import user from "../../../assets/icons/user.svg";
 import plus from "../../../assets/icons/plus.svg";
 import heart from "../../../assets/icons/heart.svg";
-import cart from "../../../assets/icons/shopping-cart.svg";
 import "./Header.css";
 
 const Header = () => {

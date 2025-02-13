@@ -1,4 +1,4 @@
-import "./Cart.css";
+import "./CartButton.css";
 import cart from "../../../assets/icons/shopping-cart.svg";
 
 const Cart = () => {

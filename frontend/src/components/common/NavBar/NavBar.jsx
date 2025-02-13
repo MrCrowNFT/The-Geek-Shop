@@ -1,11 +1,10 @@
 import logo from "../../../assets/images/Logo(W).png";
 import search from "../../../assets/icons/search.png";
 import SearchBar from "../SearchBar/SearchBar.jsx";
-import Cart from "../cart/Cart.jsx"
+import CartButton from "../CartButton/CartButton.jsx";
 import "./NavBar.css";
 
 const Navbar = () => {
-
   return (
     <div className="navbar">
       <div className="navbar-content">
@@ -57,9 +56,9 @@ const Navbar = () => {
             <span className="search-icon-wrap">
               <img className="search-icon" src={search}></img>
             </span>
-            <SearchBar/>
+            <SearchBar />
           </div>
-          <Cart />
+          <CartButton />
         </div>
       </div>
     </div>
