@@ -5,7 +5,7 @@
 ## TO-DO
 
 - Search Page (options and render)
-- Dynamic shopping cart
+- Dynamic shopping cart => Improve Items on cart (add img)
 - Payment
 - Make it mobile-friendly
 - Indicator amount calculation backend
