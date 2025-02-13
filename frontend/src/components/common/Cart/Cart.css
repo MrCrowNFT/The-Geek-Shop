@@ -1,0 +1,17 @@
+.cart-container {
+  position: fixed;
+  right: 20px;
+  top: 60px;
+  width: 300px;
+  background: midnightblue;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  border-radius: 8px;
+}
+.cart-container li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
