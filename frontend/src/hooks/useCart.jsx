@@ -1,10 +1,18 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  //will load state from local storage or start with empty cart
+  const [cartItems, setCartItems] = useState(
+    JSON.parse(localStorage.getItem("cartItems")) || []
+  );
+
+  //make cartItems persist on local storage every time they change 
+  useEffect(()=>{
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems])
 
   //adding product object into the cart Items
   const addToCart = (product) => {
