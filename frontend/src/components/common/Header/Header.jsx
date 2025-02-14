@@ -6,6 +6,7 @@ import gmail from "../../../assets/icons/gmail.svg";
 import user from "../../../assets/icons/user.svg";
 import plus from "../../../assets/icons/plus.svg";
 import heart from "../../../assets/icons/heart.svg";
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
@@ -61,7 +62,7 @@ const Header = () => {
         </a>
       </div>
       <div className="user-interactions">
-        <a href="">
+        <a href="/loginsingup">
           <img
             loading="lazy"
             height={25}
@@ -83,7 +84,7 @@ const Header = () => {
           <p>Create Account</p>
         </a>
         <span className="header_separator"></span>
-        <a href="">
+        <Link to="/loginsingup">
           <img
             loading="lazy"
             height={25}
@@ -91,7 +92,7 @@ const Header = () => {
             src={heart}
             alt="Liked products"
           />
-        </a>
+        </Link>
       </div>
     </header>
   );

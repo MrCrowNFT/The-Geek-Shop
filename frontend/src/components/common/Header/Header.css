@@ -39,6 +39,13 @@ header{
       text-decoration: none;
       color: inherit;
     }
+    .user-interactions Link {
+      display: flex;
+      align-items: center; 
+      gap: 10px; 
+      text-decoration: none;
+      color: inherit;
+    }
     .user-interactions a:hover {
       color: red;
     }
