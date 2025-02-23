@@ -1,58 +1,58 @@
-.new-product-container {
+.newProductContainer {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
 
-.new-product-container h2 {
+.newProductContainer h2 {
   margin-bottom: 20px;
   color: #333;
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.form-row {
+.formRow {
   display: flex;
   gap: 20px;
 }
 
-.form-group {
+.formGroup {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.form-group label {
+.formGroup label {
   margin-bottom: 5px;
   font-weight: 500;
   color: #555;
 }
 
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group textarea {
+.formGroup input[type="text"],
+.formGroup input[type="number"],
+.formGroup textarea {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 14px;
 }
 
-.form-group textarea {
+.formGroup textarea {
   min-height: 100px;
   resize: vertical;
 }
 
-.checkbox-group {
+.checkboxGroup {
   flex-direction: row;
   align-items: center;
   gap: 8px;
 }
 
-.checkbox-group label {
+.checkboxGroup label {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -60,11 +60,11 @@ form {
   cursor: pointer;
 }
 
-.form-actions {
+.formActions {
   margin-top: 20px;
 }
 
-button {
+.button {
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
@@ -75,20 +75,20 @@ button {
   transition: background-color 0.2s;
 }
 
-button:hover {
+.button:hover {
   background-color: #0056b3;
 }
 
-button:disabled {
+.button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
 
-button.loading {
+.button.loading {
   opacity: 0.7;
 }
 
-.error-message {
+.errorMessage {
   padding: 10px;
   background-color: #ffebee;
   color: #c62828;
@@ -96,7 +96,7 @@ button.loading {
   margin-top: 10px;
 }
 
-.success-message {
+.successMessage {
   padding: 10px;
   background-color: #e8f5e9;
   color: #2e7d32;
@@ -106,7 +106,7 @@ button.loading {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-  .form-row {
+  .formRow {
     flex-direction: column;
     gap: 15px;
   }
