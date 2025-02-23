@@ -1,60 +1,31 @@
-import "./LoginModal.css";
-import PropTypes from "prop-types";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import PropTypes from "prop-types";
+import { useLogin } from "../../hooks/useLogin.tsx";
+import styles from "./LoginModal.module.css";
 
 const LoginModal = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const loginRequest = async ({ username, password }) => {
+  const loginMutation = useLogin(onLoginSuccess);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:5500/admin/login",
-        {
-          username,
-          password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("Login response:", res.data);
-      return res;
+      await loginMutation.mutateAsync({ username, password });
+      setError(null); // Clear any previous errors
     } catch (err) {
-      console.log("Full error:", err); // log full error object
-      throw err; // Re-throw to be handled by the mutation
+      setError(err.response?.data?.message || "Login failed");
     }
   };
 
-  const loginMutation = useMutation({
-    mutationFn: loginRequest,
-    onSuccess: (data) => {
-      localStorage.setItem("jwt", data.data.token); // store the JWT
-      setError(null);
-      onLoginSuccess(); // hide modal and show dashboard
-    },
-    onError: (error) => {
-      console.error("Login error:", error);
-      setError(error.response?.data?.message || "Login failed");
-    },
-  });
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    loginMutation.mutate({ username, password });
-  };
-
   return (
-    <div className="modal">
-      <div className="modal-content">
+    <div className={styles.modal}>
+      <div className={styles.modalContent}>
         <h2>Admin Login</h2>
         <form onSubmit={handleLogin}>
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {error && <p className={styles.error}>{error}</p>}
           <input
             type="text"
             placeholder="Username"
@@ -68,7 +39,7 @@ const LoginModal = ({ onLoginSuccess }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <button type="submit" disabled={loginMutation.isPending}>
-            Login
+            {loginMutation.isPending ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>
@@ -77,7 +48,7 @@ const LoginModal = ({ onLoginSuccess }) => {
 };
 
 LoginModal.propTypes = {
-  onLoginSuccess: PropTypes.func.isRequired, 
+  onLoginSuccess: PropTypes.func.isRequired,
 };
 
 export default LoginModal;
