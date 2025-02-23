@@ -1,7 +1,6 @@
-import "./NewProduct.css";
 import { useState } from "react";
-import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useCreateProduct } from "../hooks/useCreateProduct";
+import styles from "./NewProduct.module.css";
 
 const NewProduct = () => {
   const [error, setError] = useState(null);
@@ -9,14 +8,8 @@ const NewProduct = () => {
   const [newProduct, setNewProduct] = useState({
     name: "",
     priceTag: 0,
-    total_cost: {
-      cost: 0,
-      shipping: 0,
-    },
-    discount: {
-      amount: 0,
-      status: false,
-    },
+    total_cost: { cost: 0, shipping: 0 },
+    discount: { amount: 0, status: false },
     sku: null,
     urls: [{ url: "", priority: 1 }],
     isAvailable: false,
@@ -25,57 +18,31 @@ const NewProduct = () => {
     category: [""],
   });
 
-  const createProductRequest = async (newProduct) => {
-    try {
-      const res = await axios.post(
-        "http://localhost:5500/admin/products/newproduct",
-        newProduct,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return res.data;
-    } catch (error) {
-      throw new Error(
-        error.response?.data?.message || "Failed to create product"
-      );
-    }
-  };
-
-  const createProductMutation = useMutation({
-    mutationFn: createProductRequest,
-    onSuccess: () => {
-      setError(null);
-      setSuccess(true);
-      // reset form after success
-      setNewProduct({
-        name: "",
-        priceTag: 0,
-        total_cost: { cost: 0, shipping: 0 },
-        discount: { amount: 0, status: false },
-        sku: null,
-        urls: [{ url: "", priority: 1 }],
-        isAvailable: false,
-        images: [""],
-        description: "",
-        category: [""],
-      });
-      // clear success message after 3 seconds
-      setTimeout(() => setSuccess(false), 3000);
-    },
-    onError: (error) => {
-      setError(error?.message);
-      setSuccess(false);
-    },
+  const createProductMutation = useCreateProduct(() => {
+    setError(null);
+    setSuccess(true);
+    // Reset form after success
+    setNewProduct({
+      name: "",
+      priceTag: 0,
+      total_cost: { cost: 0, shipping: 0 },
+      discount: { amount: 0, status: false },
+      sku: null,
+      urls: [{ url: "", priority: 1 }],
+      isAvailable: false,
+      images: [""],
+      description: "",
+      category: [""],
+    });
+    // Clear success message after 3 seconds
+    setTimeout(() => setSuccess(false), 3000);
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setNewProduct((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : parseFloat(value) || value, //if input is a checkbox, sets the state to checked (t/f).
+      [name]: type === "checkbox" ? checked : parseFloat(value) || value,
     }));
   };
 
@@ -104,10 +71,16 @@ const NewProduct = () => {
 
   const createProductHandler = (e) => {
     e.preventDefault();
-    createProductMutation.mutate(newProduct);
+    createProductMutation.mutate(newProduct, {
+      onError: (error) => {
+        setError(error.message);
+        setSuccess(false);
+      },
+    });
   };
+
   return (
-    <div className="new-product-container">
+    <div className={styles.newProductContainer}>
       <h2>Add New Product</h2>
       <form onSubmit={createProductHandler}>
         <div className="form-group">
@@ -243,19 +216,21 @@ const NewProduct = () => {
           />
         </div>
 
-        <div className="form-actions">
+        <div className={styles.formActions}>
           <button
             type="submit"
             disabled={createProductMutation.isPending}
-            className={createProductMutation.isPending ? "loading" : ""}
+            className={createProductMutation.isPending ? styles.loading : ""}
           >
             {createProductMutation.isPending ? "Adding..." : "Add Product"}
           </button>
         </div>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className={styles.errorMessage}>{error}</div>}
         {success && (
-          <div className="success-message">Product added successfully!</div>
+          <div className={styles.successMessage}>
+            Product added successfully!
+          </div>
         )}
       </form>
     </div>

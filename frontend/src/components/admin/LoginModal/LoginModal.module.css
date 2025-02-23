@@ -13,9 +13,10 @@
 .modalContent {
   background: white;
   padding: 20px;
-  border-radius: 8px;
-  width: 300px;
+  border-radius: 10px;
+  width: 300px; /* Adjust width as needed */
   text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .error {
@@ -29,6 +30,7 @@ input {
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 14px;
 }
 
 button {
@@ -39,6 +41,7 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
 }
 
 button:disabled {
