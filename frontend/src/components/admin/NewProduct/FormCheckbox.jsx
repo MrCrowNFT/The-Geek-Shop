@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const FormCheckbox = ({ label, checked, onChange, name }) => (
   <div className="form-group checkbox-group">
     <label>
@@ -11,5 +13,12 @@ const FormCheckbox = ({ label, checked, onChange, name }) => (
     </label>
   </div>
 );
+
+FormCheckbox.propTypes = {
+  label: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+};
 
 export default FormCheckbox;

@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { useCreateProduct } from "../hooks/useCreateProduct";
+import { useCreateProduct } from "../../../hooks/useCreateProduct";
+import { useProductForm } from "../../../hooks/useProductForm";
+import FormInput from "./FormInput";
+import FormCheckbox from "./FormCheckbox";
+import FormTextarea from "./FormTextarea";
 import styles from "./NewProduct.module.css";
+import { useState } from "react";
 
 const NewProduct = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [newProduct, setNewProduct] = useState({
-    name: "",
-    priceTag: 0,
-    total_cost: { cost: 0, shipping: 0 },
-    discount: { amount: 0, status: false },
-    sku: null,
-    urls: [{ url: "", priority: 1 }],
-    isAvailable: false,
-    images: [""],
-    description: "",
-    category: [""],
-  });
+
+  const {
+    newProduct,
+    handleChange,
+    handleNestedChange,
+    handleArrayChange,
+    setNewProduct,
+  } = useProductForm();
 
   const createProductMutation = useCreateProduct(() => {
     setError(null);
@@ -38,37 +38,6 @@ const NewProduct = () => {
     setTimeout(() => setSuccess(false), 3000);
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setNewProduct((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : parseFloat(value) || value,
-    }));
-  };
-
-  const handleNestedChange = (e, parent, field) => {
-    const { value, type, checked } = e.target;
-    setNewProduct((prev) => ({
-      ...prev,
-      [parent]: {
-        ...prev[parent],
-        [field]: type === "checkbox" ? checked : parseFloat(value) || value,
-      },
-    }));
-  };
-
-  const handleArrayChange = (index, field, value) => {
-    setNewProduct((prev) => {
-      const updatedArray = [...prev[field]];
-      if (typeof updatedArray[index] === "object") {
-        updatedArray[index] = { ...updatedArray[index], ...value };
-      } else {
-        updatedArray[index] = value;
-      }
-      return { ...prev, [field]: updatedArray };
-    });
-  };
-
   const createProductHandler = (e) => {
     e.preventDefault();
     createProductMutation.mutate(newProduct, {
@@ -83,138 +52,105 @@ const NewProduct = () => {
     <div className={styles.newProductContainer}>
       <h2>Add New Product</h2>
       <form onSubmit={createProductHandler}>
-        <div className="form-group">
-          <label>Product Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={newProduct.name}
+        <FormInput
+          label="Product Name"
+          type="text"
+          name="name"
+          value={newProduct.name}
+          onChange={handleChange}
+          required
+        />
+
+        <div className="form-row">
+          <FormInput
+            label="Price"
+            type="number"
+            name="priceTag"
+            value={newProduct.priceTag}
             onChange={handleChange}
+            min="0"
+            required
+          />
+          <FormInput
+            label="SKU"
+            type="number"
+            name="sku"
+            value={newProduct.sku || ""}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-row">
+          <FormInput
+            label="Cost"
+            type="number"
+            value={newProduct.total_cost.cost}
+            onChange={(e) => handleNestedChange(e, "total_cost", "cost")}
+            min="0"
+            required
+          />
+          <FormInput
+            label="Shipping Cost"
+            type="number"
+            value={newProduct.total_cost.shipping}
+            onChange={(e) => handleNestedChange(e, "total_cost", "shipping")}
+            min="0"
             required
           />
         </div>
 
         <div className="form-row">
-          <div className="form-group">
-            <label>Price:</label>
-            <input
-              type="number"
-              name="priceTag"
-              value={newProduct.priceTag}
-              onChange={handleChange}
-              min="0"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>SKU:</label>
-            <input
-              type="number"
-              name="sku"
-              value={newProduct.sku || ""}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-
-        <div className="form-row">
-          <div className="form-group">
-            <label>Cost:</label>
-            <input
-              type="number"
-              value={newProduct.total_cost.cost}
-              onChange={(e) => handleNestedChange(e, "total_cost", "cost")}
-              min="0"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Shipping Cost:</label>
-            <input
-              type="number"
-              value={newProduct.total_cost.shipping}
-              onChange={(e) => handleNestedChange(e, "total_cost", "shipping")}
-              min="0"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="form-row">
-          <div className="form-group">
-            <label>Discount Amount:</label>
-            <input
-              type="number"
-              value={newProduct.discount.amount}
-              onChange={(e) => handleNestedChange(e, "discount", "amount")}
-              min="0"
-            />
-          </div>
-
-          <div className="form-group checkbox-group">
-            <label>
-              <input
-                type="checkbox"
-                checked={newProduct.discount.status}
-                onChange={(e) => handleNestedChange(e, "discount", "status")}
-              />
-              Apply Discount
-            </label>
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label>Product URL:</label>
-          <input
-            type="text"
-            value={newProduct.urls[0].url}
-            onChange={(e) =>
-              handleArrayChange(0, "urls", { url: e.target.value })
-            }
+          <FormInput
+            label="Discount Amount"
+            type="number"
+            value={newProduct.discount.amount}
+            onChange={(e) => handleNestedChange(e, "discount", "amount")}
+            min="0"
+          />
+          <FormCheckbox
+            label="Apply Discount"
+            checked={newProduct.discount.status}
+            onChange={(e) => handleNestedChange(e, "discount", "status")}
           />
         </div>
 
-        <div className="form-group checkbox-group">
-          <label>
-            <input
-              type="checkbox"
-              checked={newProduct.isAvailable}
-              onChange={(e) => handleChange(e)}
-              name="isAvailable"
-            />
-            Available
-          </label>
-        </div>
+        <FormInput
+          label="Product URL"
+          type="text"
+          value={newProduct.urls[0].url}
+          onChange={(e) =>
+            handleArrayChange(0, "urls", { url: e.target.value })
+          }
+        />
 
-        <div className="form-group">
-          <label>Image URL:</label>
-          <input
-            type="text"
-            value={newProduct.images[0]}
-            onChange={(e) => handleArrayChange(0, "images", e.target.value)}
-            required
-          />
-        </div>
+        <FormCheckbox
+          label="Available"
+          checked={newProduct.isAvailable}
+          onChange={handleChange}
+          name="isAvailable"
+        />
 
-        <div className="form-group">
-          <label>Description:</label>
-          <textarea
-            name="description"
-            value={newProduct.description}
-            onChange={handleChange}
-          />
-        </div>
+        <FormInput
+          label="Image URL"
+          type="text"
+          value={newProduct.images[0]}
+          onChange={(e) => handleArrayChange(0, "images", e.target.value)}
+          required
+        />
 
-        <div className="form-group">
-          <label>Category ID:</label>
-          <input
-            type="text"
-            value={newProduct.category[0]}
-            onChange={(e) => handleArrayChange(0, "category", e.target.value)}
-          />
-        </div>
+        <FormTextarea
+          label="Description"
+          name="description"
+          value={newProduct.description}
+          onChange={handleChange}
+        />
+
+        <FormInput
+          label="Category ID"
+          type="text"
+          value={newProduct.category[0]}
+          onChange={(e) => handleArrayChange(0, "category", e.target.value)}
+        />
 
         <div className={styles.formActions}>
           <button
