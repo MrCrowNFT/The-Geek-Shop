@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 export const useOrders = () => {
   const [orders, setOrders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const fetchOrders = async (page = 1, limit = 20) => {
@@ -13,6 +15,7 @@ export const useOrders = () => {
       const data = await response.json();
       if (data.success) {
         setOrders(data.data);
+        setTotalPages(data.pagination.totalPages); 
       }
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -22,8 +25,27 @@ export const useOrders = () => {
   };
 
   useEffect(() => {
-    fetchOrders();
-  }, []);
+    fetchOrders(currentPage); 
+  }, [currentPage]);
 
-  return { orders, loading };
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  return {
+    orders,
+    loading,
+    currentPage,
+    totalPages,
+    handleNextPage,
+    handlePreviousPage,
+  };
 };
