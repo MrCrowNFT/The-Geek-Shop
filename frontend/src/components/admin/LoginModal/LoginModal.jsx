@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { useLogin } from "../../../hooks/useLogin.tsx";
+import { useLogin } from "../../../hooks/useLogin.jsx";
 import styles from "./LoginModal.module.css";
 
 const LoginModal = ({ onLoginSuccess }) => {
