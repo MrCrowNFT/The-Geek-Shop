@@ -1,7 +1,6 @@
-import "./SignupModal.css";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import { useSignup } from "../../../hooks/useSignup.js";
+import "./SignupModal.css"; 
 
 const SignupModal = () => {
   const [username, setUsername] = useState("");
@@ -9,37 +8,8 @@ const SignupModal = () => {
   const [repeatPassword, setRepeatPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const signupRequest = async ({ username, password }) => {
-    try {
-      const res = await axios.post(
-        "http://localhost:5500/home/createAccount",
-        {
-          username,
-          password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("Login response:", res.data);
-      return res;
-    } catch (err) {
-      console.log("Full error:", err); // log full error object
-      throw err;
-    }
-  };
-
-  const signupMutation = useMutation({
-    mutationFn: signupRequest,
-    onSuccess: () => {
-      setError(null);
-    },
-    onError: (error) => {
-      console.error("Signup error:", error);
-      setError(error.response?.data?.message || "Signup failed");
-    },
+  const signupMutation = useSignup(() => {
+    setError(null); // clear any previous errors
   });
 
   const handleSignup = (e) => {
@@ -49,14 +19,16 @@ const SignupModal = () => {
       setError("Passwords do not match");
       return;
     }
-    setError(null);
+
+    setError(null); // clear any previous errors
     signupMutation.mutate({ username, password });
   };
+
   return (
-    <div className="user-signup-modal">
+    <div className={styles.userSignupModal}>
       <h1>Sign up</h1>
       <form onSubmit={handleSignup}>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
         <input
           type="text"
           placeholder="Username"
@@ -75,8 +47,12 @@ const SignupModal = () => {
           value={repeatPassword}
           onChange={(e) => setRepeatPassword(e.target.value)}
         />
-        <button type="submit" disabled={signupMutation.isPending}>
-          Sign Up
+        <button
+          type="submit"
+          disabled={signupMutation.isPending}
+          className={signupMutation.isPending ? styles.loading : ""}
+        >
+          {signupMutation.isPending ? "Signing up..." : "Sign Up"}
         </button>
       </form>
     </div>
