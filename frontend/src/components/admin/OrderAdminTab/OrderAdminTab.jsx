@@ -1,4 +1,4 @@
-import { useOrders } from "../../../hooks/useOrders";
+import { useOrders } from "../../../hooks/useOrders.jsx";
 import OrderListItem from "../OrderListItem/OrderListItem.jsx";
 import "./OrderAdminTab.css";
 

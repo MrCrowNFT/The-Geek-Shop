@@ -1,5 +1,5 @@
 import { mockAmount } from "../../../mocks/overviewMock.js";
-import { useOrders } from "../../../hooks/useOrders";
+import { useOrders } from "../../../hooks/useOrders.jsx";
 import Indicator from "../Indicator/Indicator.jsx";
 import BarGraph from "../BarGraph/BarGraph.jsx";
 import OrderListItem from "../OrderListItem/OrderListItem.jsx";

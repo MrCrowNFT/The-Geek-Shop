@@ -1,5 +1,5 @@
-import { useCreateProduct } from "../../../hooks/useCreateProduct";
-import { useProductForm } from "../../../hooks/useProductForm";
+import { useCreateProduct } from "../../../hooks/useCreateProduct.jsx";
+import { useProductForm } from "../../../hooks/useProductForm.jsx";
 import FormInput from "./FormInput";
 import FormCheckbox from "./FormCheckbox";
 import FormTextarea from "./FormTextarea";

@@ -1,4 +1,4 @@
-import { useProducts } from "../../../hooks/useProducts.js";
+import { useProducts } from "../../../hooks/useProducts.jsx";
 import ProducListItem from "../ProductListItem/ProductListItem.jsx";
 import AddButtom from "../AddButton/AddButton.jsx";
 import "./ProductAdminTab.css";

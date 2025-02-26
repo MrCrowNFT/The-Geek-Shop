@@ -1,5 +1,5 @@
 import "./Checkout.css";
-import { useCart } from "../../../hooks/useCart";
+import { useCart } from "../../../hooks/useCart.jsx";
 
 const SummaryTab = () => {
   const { cartItems, addToCart, removeFromCart, reduceQuantity } = useCart();
