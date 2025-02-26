@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSignup } from "../../../hooks/useSignup.js";
-import "./SignupModal.css"; 
+import styles from "./SignupModal.css";
 
 const SignupModal = () => {
   const [username, setUsername] = useState("");

@@ -1,0 +1,52 @@
+.userSignupModal {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.userSignupModal h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.userSignupModal form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.userSignupModal input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.userSignupModal button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.userSignupModal button:hover {
+  background-color: #0056b3;
+}
+
+.userSignupModal button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
+}
